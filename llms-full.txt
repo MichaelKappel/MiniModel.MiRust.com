@@ -1,0 +1,203 @@
+# MiniModel.MiRust.com Full Agent Context
+
+MiniModel.MiRust.com is the developer documentation site for MiniModel.com.
+
+MiniModel.com is planned as a Rust-first metadata and verification layer for tiny local AI model packages. It is not a model host and not an inference service.
+
+## Non-Negotiable Boundary
+
+Project servers never run user model bytes.
+
+Project servers never serve user model bytes.
+
+Project servers never proxy external model-byte downloads.
+
+MiniModel.com may serve:
+
+- static docs
+- schemas
+- example manifests
+- metadata-only catalog entries
+- public-key routes
+- signed catalog snapshots
+- model-card and license metadata
+- takedown/contact routes
+
+MiniModel.com must not serve:
+
+- third-party `.slm` artifacts
+- safetensors, GGUF, ONNX, adapter packages, or other model bytes
+- user tokenizer/model artifacts
+- server-side inference for user models
+- proxy routes for Hugging Face, P2P, or other model-byte downloads
+- automatic browser model-fetch instructions
+
+TinyRustLM.com remains browser-local. Users import local `.slm` files through the browser file picker. Rust/WASM validates before execution.
+
+## `.slm` Summary
+
+`.slm` v1 is TinyRustLM's local model format.
+
+Core facts:
+
+- little-endian
+- magic `SLM1`
+- version `1`
+- 108-byte minimum header
+- checksum field at bytes 100..108
+- file checksum treats bytes 100..108 as zero
+- tensor directory entries are 64 bytes
+- tensor directory and tensor data offsets are 64-byte aligned
+- tensor payload offsets are 64-byte aligned
+- supported dtypes are f32, q8_0, and q4_0
+- tokenizer sections are `BTOK` or `BPE1`
+- tied output is `flags & 1 != 0`
+
+Required tensors:
+
+- `tok_embeddings.weight`
+- `norm.weight`
+- `output.weight` unless tied output is enabled
+- per layer: attention norm, FFN norm, wq, wk, wv, wo, w1, w2, w3
+
+The `.slm` runtime parser rejects bad magic, short files, unsupported versions, zero checksums, checksum drift, zero dimensions, invalid attention shapes, offset escapes, malformed tokenizers, unsupported dtypes, payload length drift, malformed quantization scales, duplicate tensor hashes, missing tensors, and output-head contract drift.
+
+The MiniModel verifier must not treat manifest metadata as enough. It must verify a local `.slm` artifact.
+
+## Manifest v0 Summary
+
+The manifest is line-oriented `key=value` text.
+
+It binds:
+
+- manifest schema
+- model id
+- publisher identity
+- model-card route
+- license route
+- artifact kind
+- artifact byte count
+- artifact SHA256
+- source identity
+- `.slm` format version
+- model shape
+- quantization
+- tokenizer checksum
+- tensor-layout checksum
+- runtime compatibility
+- evidence routes/checksums
+- source discovery lane
+- chunk and Merkle fields
+- signature fields
+
+`artifact.project_server_url` must be `none`.
+
+The manifest is not a fetch instruction. The user must provide the local artifact.
+
+## Verifier MVP
+
+Implement the verifier before networking.
+
+Commands:
+
+```text
+minimodel verify-manifest <manifest>
+minimodel verify-artifact <manifest> <artifact.slm>
+minimodel write-import-receipt <manifest> <artifact.slm> <receipt.minimodel-receipt>
+```
+
+Verification order:
+
+1. Parse lines and reject duplicate keys.
+2. Verify schema and boundary fields.
+3. Verify license and model-card routes.
+4. Verify source-lane fields.
+5. Verify signature fields when enabled.
+6. Verify chunk metadata when enabled.
+7. Verify local artifact byte count and SHA256.
+8. Verify `.slm` structure, custom checksum, tokenizer checksum, tensor-layout checksum, shape, and quantization.
+9. Verify supplied evidence sidecars.
+10. Write local import receipt.
+
+Receipts must contain checksums and identity fields, not model bytes or private secrets.
+
+## Source Lanes
+
+User local files:
+
+- simplest path
+- user supplies local `.slm`
+- verifier checks local file
+- TinyRustLM opens local file through file picker
+
+Hugging Face:
+
+- external metadata and user-side acquisition context
+- model cards, license routes, source revisions, file hints, and endpoint awareness
+- not a MiniModel server run path
+- no project-owned tokens
+- no project proxying of `/resolve/`
+- no project hosting of converted bytes
+
+Future P2P:
+
+- later consent-based transfer
+- chunk/Merkle verification
+- local receipt before import
+- MiniModel.com still does not serve model bytes
+
+## Legal and Consent
+
+MiniModel listings are publisher assertions, not endorsements.
+
+MiniModel does not certify:
+
+- safety
+- legality
+- training cleanliness
+- license validity
+- fitness for purpose
+- output correctness
+
+Required consent gates:
+
+1. Transfer consent.
+2. Execution/import consent.
+
+Publish takedown/contact routes before public submissions or peer exchange.
+
+## P2P Direction
+
+Keep core verifier and transfer logic Rust-first.
+
+Research lanes:
+
+- Rust-native QUIC/blob transfer
+- Iroh
+- Rust-libp2p
+- BitTorrent-style chunking
+- Pear/Bare/Hypercore as design references
+
+Do not choose a JavaScript runtime as a core dependency unless explicitly justified later.
+
+## Agent Rules
+
+When editing:
+
+- keep docs current before deploy
+- do not expose credentials
+- do not add model-byte hosting
+- do not add automatic model fetches
+- keep long-term memory pointer-based and checksum-bearing
+- run relevant pointer audits and `git diff --check`
+
+Read order:
+
+1. `/docs/overview.md`
+2. `/docs/slm-format.md`
+3. `/docs/manifest-v0.md`
+4. `/docs/verifier-mvp.md`
+5. `/docs/source-lanes.md`
+6. `/docs/legal-boundary.md`
+7. `/docs/p2p-roadmap.md`
+8. `/docs/agent-readme.md`

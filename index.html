@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MiniModel.MiRust.com Developer Documentation</title>
+  <meta name="description" content="Developer documentation for MiniModel.com, the .slm format, local Rust verification, and metadata-only tiny model exchange architecture.">
+  <link rel="canonical" href="https://minimodel.mirust.com/">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <strong>MiniModel.MiRust.com</strong>
+      <span>Developer docs for MiniModel.com</span>
+    </div>
+    <nav class="nav" aria-label="Primary">
+      <a href="#boundary">Boundary</a>
+      <a href="#slm">.slm</a>
+      <a href="#manifest">Manifest</a>
+      <a href="#verifier">Verifier</a>
+      <a href="#sources">Sources</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#agent">Agents</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Rust-first tiny model exchange</p>
+        <h1>MiniModel.com developer documentation</h1>
+        <p class="lead">MiniModel is a metadata and verification layer for tiny local AI models. The first implementation target is deliberately simple: publish schemas and documentation, verify local `.slm` files with Rust, write checksum-bearing receipts, and let TinyRustLM.com load only user-selected local files in the browser.</p>
+        <div class="callouts" aria-label="Core boundaries">
+          <div class="callout">
+            <strong>No server model bytes</strong>
+            <p>Project servers do not host, proxy, serve, or cache user model artifacts.</p>
+          </div>
+          <div class="callout">
+            <strong>No server execution</strong>
+            <p>Project servers do not run user models or provide inference for user models.</p>
+          </div>
+          <div class="callout">
+            <strong>Local Rust proof</strong>
+            <p>Manifests, checksums, `.slm` structure, and receipts are verified locally.</p>
+          </div>
+        </div>
+      </div>
+      <figure class="map">
+        <img src="/assets/exchange-map.svg" alt="Local files, Hugging Face discovery, and future P2P chunks converge into Rust verification, import receipts, and TinyRustLM local import.">
+      </figure>
+    </section>
+
+    <section id="boundary" class="band">
+      <div class="content">
+        <h2>Server Boundary</h2>
+        <ul class="rule-list">
+          <li>MiniModel.com may publish static documentation, manifest schemas, example manifests, metadata-only catalog entries, public-key routes, signed catalog snapshots, and takedown/contact routes.</li>
+          <li class="warning">MiniModel.com must not serve third-party `.slm`, safetensors, GGUF, ONNX, adapter packages, tokenizer binaries, or any other user model bytes.</li>
+          <li class="warning">MiniModel.com must not proxy Hugging Face downloads, peer transfers, or browser model fetches in a way that turns project infrastructure into a model-byte relay.</li>
+          <li>TinyRustLM.com remains browser-local. A user imports a local `.slm` file through the browser file picker. Rust/WASM validates the bytes before they can be used.</li>
+          <li>Catalog entries are publisher assertions and evidence pointers. They are not project endorsements, safety certifications, legal opinions, or training-data claims.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="slm" class="content">
+      <h2>The `.slm` Format</h2>
+      <div class="grid">
+        <article class="card">
+          <span class="tag">Binary contract</span>
+          <p>`.slm` v1 is a little-endian, fixed-shape, non-JSON model container for TinyRustLM. It starts with `SLM1`, carries a 108-byte v1 header, a tokenizer section, a 64-byte tensor directory entry per tensor, aligned tensor payloads, and a custom u64 checksum with bytes 100..108 treated as zero during recomputation.</p>
+          <p>The format is intentionally smaller than a general interchange standard. It is not GGUF, ONNX, safetensors, or a dynamic schema language. Those formats may be source inputs, but TinyRustLM executes `.slm` after local conversion and validation.</p>
+        </article>
+        <article class="card">
+          <span class="tag">Validation authority</span>
+          <p>Rust is the acceptance authority. JavaScript may display routes, labels, and progress, but Rust parses and rejects invalid magic, unsupported versions, checksum drift, offset escapes, tensor shape drift, malformed tokenizers, unsupported dtypes, missing scales, and missing required tensors.</p>
+          <p>The current runtime supports f32, q8_0, and q4_0 tensor payloads, `BTOK` byte-tokenizer metadata, `BPE1` custom BPE metadata, explicit output heads, and the v1 tied-output flag.</p>
+        </article>
+      </div>
+      <h3>Header Field Order</h3>
+      <table>
+        <thead><tr><th>Offset</th><th>Type</th><th>Field</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>4 bytes</td><td>`magic`</td><td>`SLM1`</td></tr>
+          <tr><td>4</td><td>u32</td><td>`version`</td><td>Must be `1` for the current parser.</td></tr>
+          <tr><td>8</td><td>u32</td><td>`header_length`</td><td>Minimum 108 bytes.</td></tr>
+          <tr><td>12</td><td>u32</td><td>`model_type`</td><td>Current model type id is `1`.</td></tr>
+          <tr><td>16</td><td>u32</td><td>`flags`</td><td>Bit 0 means tied output projection.</td></tr>
+          <tr><td>20..52</td><td>u32</td><td>shape fields</td><td>Vocabulary, specials, hidden size, layer count, head counts, head dim, FFN size, context.</td></tr>
+          <tr><td>56</td><td>f32</td><td>`rope_theta`</td><td>Finite positive RoPE theta.</td></tr>
+          <tr><td>60</td><td>f32</td><td>`rms_norm_epsilon`</td><td>Finite positive RMSNorm epsilon.</td></tr>
+          <tr><td>64</td><td>u64</td><td>`tokenizer_offset`</td><td>Tokenizer section start.</td></tr>
+          <tr><td>72</td><td>u64</td><td>`tokenizer_length`</td><td>Tokenizer section byte count.</td></tr>
+          <tr><td>80</td><td>u64</td><td>`tensor_directory_offset`</td><td>64-byte aligned tensor directory start.</td></tr>
+          <tr><td>88</td><td>u32</td><td>`tensor_count`</td><td>Number of 64-byte tensor entries.</td></tr>
+          <tr><td>92</td><td>u64</td><td>`tensor_data_offset`</td><td>64-byte aligned tensor payload region start.</td></tr>
+          <tr><td>100</td><td>u64</td><td>`checksum`</td><td>Nonzero custom checksum over the entire file.</td></tr>
+        </tbody>
+      </table>
+      <p>Full reference: <a href="/docs/slm-format.md">docs/slm-format.md</a></p>
+    </section>
+
+    <section id="manifest" class="band">
+      <div class="content">
+        <h2>MiniModel Manifest v0</h2>
+        <div class="grid">
+          <article class="card">
+            <span class="tag">Purpose</span>
+            <p>The MiniModel manifest is a small line-oriented `key=value` document that binds metadata to a user-supplied local artifact. It is not a fetch instruction and never authorizes TinyRustLM to download model bytes from a project server.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Minimum binding</span>
+            <p>A manifest binds model id, publisher identity, license route, model-card route, artifact kind, byte count, artifact SHA256, `.slm` shape, tokenizer checksum, tensor-layout checksum, evidence routes, chunk/Merkle metadata, and signature identity fields.</p>
+          </article>
+        </div>
+        <pre><code>manifest.version=0
+manifest.kind=minimodel.manifest
+model.id=example-tiny-assistant-q8
+publisher.id=example-publisher
+model_card.route=https://example.invalid/models/example-tiny-assistant
+license.route=https://example.invalid/licenses/example
+artifact.kind=slm
+artifact.byte_count=123456
+artifact.sha256=sha256:0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF
+artifact.project_server_url=none
+slm.format_version=1
+slm.quantization=q8_0
+chunks.mode=none
+signature.kind=unsigned-draft</code></pre>
+        <p>Full reference: <a href="/docs/manifest-v0.md">docs/manifest-v0.md</a></p>
+      </div>
+    </section>
+
+    <section id="verifier" class="content">
+      <h2>Rust Verifier MVP</h2>
+      <div class="wide-grid">
+        <article class="card">
+          <span class="tag">Parse</span>
+          <p>Reject duplicate keys, unsupported schema versions, missing required fields, non-ASCII keys, unknown required boundary claims, and signed manifests that contain comments or non-canonical form.</p>
+        </article>
+        <article class="card">
+          <span class="tag">Prove</span>
+          <p>Open only the local artifact path supplied by the user. Verify byte count, SHA256, optional chunk list, Merkle root, `.slm` header, custom checksum, tokenizer identity, tensor layout identity, and runtime compatibility.</p>
+        </article>
+        <article class="card">
+          <span class="tag">Receipt</span>
+          <p>Write a local import receipt after verification passes. The receipt stores checksums, manifest identity, artifact byte count, shape, quantization, and the next gate: user-selected TinyRustLM local file open.</p>
+        </article>
+      </div>
+      <p>Full reference: <a href="/docs/verifier-mvp.md">docs/verifier-mvp.md</a></p>
+    </section>
+
+    <section id="sources" class="band">
+      <div class="content">
+        <h2>Source Lanes</h2>
+        <div class="wide-grid">
+          <article class="card">
+            <span class="tag">Your local files</span>
+            <p>The simplest path. Users bring a local `.slm` file and optional local manifest or evidence sidecars. The verifier proves the local file. TinyRustLM opens the same local file through the browser picker.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Hugging Face</span>
+            <p>Hugging Face is an external discovery and acquisition lane. MiniModel may expose metadata awareness, model-card routes, file hints, and revision identity. Project infrastructure does not use project-owned tokens, proxy `/resolve/` URLs, or turn endpoints into a MiniModel runtime path.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Future P2P</span>
+            <p>Peer transfer comes later and must preserve the same local verifier contract. Consenting peers may exchange chunks, but the artifact becomes importable only after byte count, whole-artifact checksum, chunk/Merkle proof, `.slm` validation, and receipt writing.</p>
+          </article>
+        </div>
+        <p>Full reference: <a href="/docs/source-lanes.md">docs/source-lanes.md</a></p>
+      </div>
+    </section>
+
+    <section id="roadmap" class="content">
+      <h2>Roadmap</h2>
+      <div class="grid">
+        <article class="card">
+          <span class="tag">Implement first</span>
+          <p>Schema docs, example manifests, local Rust parser, checksum drift tests, `.slm` validation calls, receipt writer, and a metadata-only catalog prototype.</p>
+        </article>
+        <article class="card">
+          <span class="tag">Defer networking</span>
+          <p>Compare Rust-native QUIC/blob transfer, Iroh, Rust-libp2p, BitTorrent-style chunking, and Pear/Bare/Hypercore after the verifier is stable. Do not choose a JavaScript runtime as a core dependency without a later explicit justification.</p>
+        </article>
+      </div>
+      <p>Full reference: <a href="/docs/p2p-roadmap.md">docs/p2p-roadmap.md</a></p>
+    </section>
+
+    <section id="agent" class="band">
+      <div class="content">
+        <h2>Agent Reading Order</h2>
+        <ol>
+          <li><a href="/docs/overview.md">Overview and boundaries</a></li>
+          <li><a href="/docs/slm-format.md">`.slm` format reference</a></li>
+          <li><a href="/docs/manifest-v0.md">Manifest v0 schema draft</a></li>
+          <li><a href="/docs/verifier-mvp.md">Rust verifier MVP</a></li>
+          <li><a href="/docs/source-lanes.md">Local, Hugging Face, and P2P source lanes</a></li>
+          <li><a href="/docs/legal-boundary.md">Legal, consent, and liability boundary</a></li>
+          <li><a href="/docs/agent-readme.md">AI-agent operating notes</a></li>
+          <li><a href="/llms.txt">llms.txt</a> and <a href="/llms-full.txt">llms-full.txt</a></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>MiniModel.MiRust.com documents MiniModel.com. Project servers serve docs and metadata only. User model bytes stay outside project infrastructure and are verified locally before TinyRustLM browser import.</p>
+  </footer>
+</body>
+</html>

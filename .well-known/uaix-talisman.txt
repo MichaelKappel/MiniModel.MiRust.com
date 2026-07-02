@@ -1,0 +1,8 @@
+site=MiniModel.MiRust.com
+role=developer-documentation-for-MiniModel.com
+updated_utc=2026-07-02T00:00:00Z
+server_boundary=metadata-docs-schemas-examples-keys-contact-only
+forbidden=user-model-bytes,user-model-execution,model-byte-proxying,automatic-browser-fetch
+runtime_handoff=TinyRustLM.com browser-local file picker
+format=.slm v1 local Rust validation
+memory=pointer-based checksum-bearing

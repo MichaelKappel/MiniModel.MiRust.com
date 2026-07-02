@@ -1,0 +1,32 @@
+# MiniModel.MiRust.com
+
+Developer documentation for MiniModel.com, `.slm`, and the metadata-only tiny model exchange architecture.
+
+Read first:
+
+- /docs/overview.md
+- /docs/slm-format.md
+- /docs/manifest-v0.md
+- /docs/verifier-mvp.md
+- /docs/source-lanes.md
+- /docs/legal-boundary.md
+- /docs/p2p-roadmap.md
+- /docs/agent-readme.md
+- /examples/minimodel.manifest.v0.example
+
+Hard rules:
+
+- Project servers never run user model bytes.
+- Project servers never serve user model bytes.
+- Project servers never proxy external model-byte downloads.
+- MiniModel.com may serve docs, schemas, metadata, public-key routes, examples, and takedown/contact routes only.
+- TinyRustLM.com remains browser-local.
+- Users import local `.slm` files through the browser file picker.
+- Rust owns `.slm` validation and checksum verification.
+- Long-term memory stays pointer-based and checksum-bearing.
+
+Source options:
+
+- User local files: simplest path.
+- Hugging Face: metadata discovery and user-side acquisition context only.
+- Future P2P: consent-based chunk transfer after local verifier and legal boundary are stable.
