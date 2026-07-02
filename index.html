@@ -165,7 +165,7 @@ cargo run -p minimodel -- assemble-peer-pieces examples\tiny-test-model-q8.minim
           </article>
           <article class="card">
             <span class="tag">Hugging Face</span>
-            <p>Hugging Face is an external discovery and acquisition lane. MiniModel may expose metadata awareness, model-card routes, file hints, revision identity, local conversion-request JSON, local Rust conversion-script handoffs, and admitted `.slm` metadata matches. The script runs `convert-huggingface-request` against user-owned files, then calls MiniModel `prepare-peer-share`, `add-peer-source` when a consenting peer becomes known, and `write-catalog-snapshot` for metadata-only reuse; it does not download bytes. Project infrastructure does not use project-owned tokens, proxy `/resolve/` URLs, host converted bytes, or turn endpoints into a MiniModel runtime path.</p>
+            <p>Hugging Face is an external discovery and acquisition lane. MiniModel may expose metadata awareness, model-card routes, file hints, revision identity, local conversion-request JSON, local Rust conversion-script handoffs, and admitted `.slm` metadata matches. The script runs `convert-huggingface-request` against user-owned files, then calls MiniModel `prepare-peer-share`, optional `add-peer-source`, optional `write-peer-source-announcement`, maintainer-side `apply-peer-source-announcements`, and `write-catalog-snapshot` for metadata-only reuse; it does not download bytes. Project infrastructure does not use project-owned tokens, proxy `/resolve/` URLs, host converted bytes, or turn endpoints into a MiniModel runtime path.</p>
           </article>
           <article class="card">
             <span class="tag">Future P2P</span>

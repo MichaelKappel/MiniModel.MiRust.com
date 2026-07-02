@@ -1,6 +1,6 @@
 workspace = "MiniModel.MiRust.com"
 purpose = "Developer documentation site for MiniModel.com, the .slm format, and the MiniModel model exchange architecture."
-updated_utc = "2026-07-02T20:16:14Z"
+updated_utc = "2026-07-02T23:59:00Z"
 
 boundaries = [
   "MiniModel.com project servers never run user model bytes.",
@@ -9,7 +9,7 @@ boundaries = [
   "TinyRustLM.com remains browser-local. Users import local .slm files through the browser file picker.",
   "After verified local .slm import, TinyRustLM may export checksum-bound MiniModel share metadata, not model bytes.",
   "Hugging Face rows are metadata until converted to a verified local .slm; TinyRustLM may save local conversion-request JSON and local Rust conversion-script handoffs.",
-  "MiniModel currently supports direct known-peer Rust handoffs and metadata-only peer-source rows; broad P2P discovery, relays, NAT traversal, and swarm transfer remain roadmap until implemented.",
+  "MiniModel currently supports direct known-peer Rust handoffs, metadata-only peer-source rows, and portable peer-source announcement/apply metadata; broad P2P discovery, relays, NAT traversal, and swarm transfer remain roadmap until implemented.",
   "Rust owns .slm validation, checksum verification, manifest verification, and import receipts.",
   "Long-term memory stays pointer-based and checksum-bearing."
 ]

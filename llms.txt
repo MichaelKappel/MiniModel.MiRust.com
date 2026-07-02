@@ -25,13 +25,13 @@ Hard rules:
 - TinyRustLM.com remains browser-local.
 - Users import local `.slm` files through the browser file picker.
 - Rust owns `.slm` validation and checksum verification.
-- The first `minimodel-core` and `minimodel` verifier crates are implemented in the MiniModel.org source workspace, including local peer-piece export/reassembly, direct known-peer serve/fetch/import, metadata-only catalog snapshots, and `add-peer-source` for late consenting peer availability metadata.
+- The first `minimodel-core` and `minimodel` verifier crates are implemented in the MiniModel.org source workspace, including local peer-piece export/reassembly, direct known-peer serve/fetch/import, metadata-only catalog snapshots, `add-peer-source` for direct late peer availability, and peer-source announcement/apply commands for maintainer-reviewed publication.
 - Long-term memory stays pointer-based and checksum-bearing.
 
 Source options:
 
 - User local files: simplest path.
-- Hugging Face: metadata discovery, local conversion-request JSON, optional local `.tinyrustlm-convert.ps1` script, `convert-huggingface-request`, MiniModel `prepare-peer-share`, optional `add-peer-source`, metadata-only `write-catalog-snapshot`, and user-side acquisition context only; no Hub result is runnable until an admitted `.slm` exists.
+- Hugging Face: metadata discovery, local conversion-request JSON, optional local `.tinyrustlm-convert.ps1` script, `convert-huggingface-request`, MiniModel `prepare-peer-share`, optional `add-peer-source`, optional `write-peer-source-announcement`, maintainer-side `apply-peer-source-announcements`, metadata-only `write-catalog-snapshot`, and user-side acquisition context only; no Hub result is runnable until an admitted `.slm` exists.
 - Local verifier: `cargo run -p minimodel -- verify-manifest`, `verify-artifact`, and `write-import-receipt` prove local `.slm` artifacts before TinyRustLM import.
 - Local peer pieces: `export-peer-pieces`, `serve-peer-pieces`, `fetch-peer-pieces`, `assemble-peer-pieces`, and `import-peer-request` prove direct known-peer transfer and reassembly before broad P2P discovery exists.
 - Local share metadata: after a verified local `.slm`, TinyRustLM can save `minimodel.local_slm_share_metadata.v0` with artifact SHA256, chunk SHA256 entries, chunk-list SHA256, Merkle root, and disabled live-transfer flags.

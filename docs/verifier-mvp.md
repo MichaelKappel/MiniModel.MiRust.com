@@ -30,6 +30,11 @@ minimodel verify-artifact <manifest> <artifact.slm>
 minimodel write-import-receipt <manifest> <artifact.slm> <receipt.minimodel-receipt>
 minimodel export-peer-pieces <manifest> <artifact.slm> <output-dir>
 minimodel assemble-peer-pieces <manifest> <piece-dir> <output.slm>
+minimodel prepare-peer-share <artifact.slm> <output-dir> <model-id> [source-huggingface-model-id]
+minimodel add-peer-source <catalog-entry-json> <output-json> <known-peer-base-url>
+minimodel write-peer-source-announcement <catalog-entry-json> <announcement-json> <known-peer-base-url>
+minimodel apply-peer-source-announcements <catalog-entry-json> <output-json> <announcement-json>...
+minimodel write-catalog-snapshot <output-json> <catalog-entry-json>...
 ```
 
 `verify-manifest` checks schema, required fields, boundary fields, license/model-card routes, route shape, source lanes, and signature placeholder rules.
@@ -226,12 +231,16 @@ cargo run -p minimodel -- import-peer-request .\tiny-test-model-q8.minimodel-pee
 cargo run -p minimodel -- prepare-peer-share ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm .\prepared-share\tiny-test-model-q8 tinyrustlm/prepared-tiny-test-model-q8 tinyrustlm/tiny-test-model-q8
 cargo run -p minimodel -- write-catalog-entry examples\tiny-test-model-q8.minimodel.manifest.v0 examples\tiny-test-model-q8.minimodel-peer-offer .\catalog-entry.v0.json
 cargo run -p minimodel -- add-peer-source .\catalog-entry.v0.json .\catalog-entry.with-peer.v0.json http://127.0.0.1:8123/
+cargo run -p minimodel -- write-peer-source-announcement .\catalog-entry.v0.json .\catalog-entry.peer-source-announcement.v0.json http://127.0.0.1:8123/
+cargo run -p minimodel -- apply-peer-source-announcements .\catalog-entry.v0.json .\catalog-entry.announced-peer.v0.json .\catalog-entry.peer-source-announcement.v0.json
 cargo run -p minimodel -- write-catalog-snapshot .\models.v0.json .\catalog-entry.with-peer.v0.json
 ```
 
 The receipt stores only the artifact basename as `artifact.local_path_hint`; it must not store private absolute paths.
 
 `add-peer-source` is the safe late-publication step for a proof-ready catalog entry. It attaches one validated consenting direct peer URL, rejects MiniModel/TinyRustLM/project hosts, revalidates the peer-source count, and writes a new catalog entry for `write-catalog-snapshot`. It does not upload, proxy, download, or serve model bytes through project infrastructure.
+
+`write-peer-source-announcement` is the portable late-publication step. It writes metadata-only JSON that binds the catalog entry checksum, model id, artifact identity, peer-offer proof, Merkle root, and one consenting direct peer URL. `apply-peer-source-announcements` is the maintainer merge step: it validates one or more announcements against the catalog entry, rejects drift, deduplicates peer URLs, and writes the with-peer catalog entry used by the next metadata-only snapshot.
 
 ## Later Networking Boundary
 

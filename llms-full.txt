@@ -129,7 +129,7 @@ Verification order:
 
 Receipts must contain checksums and identity fields, not model bytes or private secrets. The next gate is `user-selected-tinyrustlm-local-file-open`.
 
-Local peer pieces and direct known-peer transfer are the current P2P bridge. They create and consume local model-byte chunks plus `minimodel.peer_piece_set.v0`, can serve/fetch pieces from a consenting direct peer, and re-run full verification before TinyRustLM import. `add-peer-source` attaches a validated consenting peer URL to proof-ready catalog metadata for the next metadata-only snapshot. The chunks must not be deployed to project servers.
+Local peer pieces and direct known-peer transfer are the current P2P bridge. They create and consume local model-byte chunks plus `minimodel.peer_piece_set.v0`, can serve/fetch pieces from a consenting direct peer, and re-run full verification before TinyRustLM import. `add-peer-source` attaches a validated consenting peer URL to proof-ready catalog metadata for the next metadata-only snapshot. `write-peer-source-announcement` and `apply-peer-source-announcements` let converters send portable peer availability metadata that maintainers drift-check before publication. The chunks must not be deployed to project servers.
 
 ## Source Lanes
 
@@ -145,7 +145,7 @@ Hugging Face:
 - external metadata and user-side acquisition context
 - model cards, license routes, source revisions, file hints, and endpoint awareness
 - local `minimodel.huggingface_conversion_request.v0` handoff when no admitted `.slm` metadata exists
-- optional local `.tinyrustlm-convert.ps1` handoff that runs `convert-huggingface-request` against a saved conversion request and user-owned `.safetensors`, then MiniModel `prepare-peer-share`, optional `add-peer-source`, and `write-catalog-snapshot`
+- optional local `.tinyrustlm-convert.ps1` handoff that runs `convert-huggingface-request` against a saved conversion request and user-owned `.safetensors`, then MiniModel `prepare-peer-share`, optional `add-peer-source`, optional `write-peer-source-announcement`, maintainer-side `apply-peer-source-announcements`, and `write-catalog-snapshot`
 - MiniModel metadata match display only after conversion, validation, and admission evidence
 - after a verified local `.slm`, TinyRustLM may save `minimodel.local_slm_share_metadata.v0` with a catalog-entry candidate, artifact SHA256, fixed-size chunk SHA256 entries, chunk-list SHA256, and Merkle root
 - not a MiniModel server run path

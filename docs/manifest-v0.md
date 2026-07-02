@@ -91,7 +91,7 @@ Hugging Face `/resolve/`, LFS/Xet/CAS transfers, Inference Providers, Inference 
 
 TinyRustLM may save a `minimodel.huggingface_conversion_request.v0` JSON file when Hub metadata has no admitted `.slm` match. That file is not a manifest and not an execution grant. It is a local handoff for review, conversion, validation, admission, and later P2P availability metadata.
 
-TinyRustLM may also save a `.tinyrustlm-convert.ps1` handoff script for the same Hub record. The script is not MiniModel metadata and not a download grant. It is a local wrapper around `tinyrustlm-slm-pack convert-huggingface-request`, which consumes the saved request plus a user-owned local `.safetensors` path, writes a verified `.slm`, and writes a checksum-bound conversion receipt. The same script then calls MiniModel `prepare-peer-share` and `write-catalog-snapshot` to publish metadata. It must not download model bytes.
+TinyRustLM may also save a `.tinyrustlm-convert.ps1` handoff script for the same Hub record. The script is not MiniModel metadata and not a download grant. It is a local wrapper around `tinyrustlm-slm-pack convert-huggingface-request`, which consumes the saved request plus a user-owned local `.safetensors` path, writes a verified `.slm`, and writes a checksum-bound conversion receipt. The same script then calls MiniModel `prepare-peer-share` to write proof-ready metadata. If a consenting peer URL is available, the script can run `add-peer-source` for a local with-peer entry and `write-peer-source-announcement` for portable availability metadata; a catalog maintainer can later run `apply-peer-source-announcements` before `write-catalog-snapshot`. It must not download model bytes.
 
 The Rust `peer-offer` output is a text manifest, usually named `.minimodel-peer-offer`, with SHA256 artifact identity, fixed-size chunk SHA256 rows, chunk-list SHA256, and a Merkle root. It proves what a future peer client must transfer and what the recipient must reverify before local browser import. It is not executable code and not a project-hosted artifact URL.
 
@@ -104,6 +104,15 @@ minimodel add-peer-source <catalog-entry-json> <output-json> <known-peer-base-ur
 ```
 
 That command validates the existing catalog entry, rejects project-server peer hosts, writes one consenting direct-peer source, revalidates `peer_source_count`, and writes a new catalog-entry JSON for the next metadata-only snapshot. It does not upload, proxy, or fetch `.slm` bytes.
+
+For portable late-publication, MiniModel can write and apply peer-source announcements:
+
+```text
+minimodel write-peer-source-announcement <catalog-entry-json> <announcement-json> <known-peer-base-url>
+minimodel apply-peer-source-announcements <catalog-entry-json> <output-json> <announcement-json>...
+```
+
+The announcement binds the catalog-entry checksum, model id, artifact byte count, artifact SHA256, peer-offer SHA256, Merkle root, and one consenting direct-peer URL. The apply command rejects model, artifact, and proof drift; deduplicates peer URLs; writes `peer_sources`; and revalidates the entry before the next metadata-only `write-catalog-snapshot` publication. This is how a converted model can become P2P-ready for later users without rerunning conversion or hosting bytes on project servers.
 
 ## Chunk Fields
 

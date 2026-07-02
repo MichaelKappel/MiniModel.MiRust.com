@@ -17,6 +17,7 @@ Publish:
 - example manifest
 - example catalog entry
 - example local share metadata bundle
+- peer-source announcement and maintainer apply command documentation
 
 ## Phase 1: Local Rust Verifier
 
@@ -57,6 +58,8 @@ Publish static catalog entries that include:
 - peer hint status
 
 Catalog entries must not include project-server artifact URLs.
+
+Late peer availability now has two metadata-only publication paths. `add-peer-source` is the direct local path when the catalog entry and consenting peer URL are in the same workflow. `write-peer-source-announcement` plus `apply-peer-source-announcements` is the maintainer path when a converter sends portable availability metadata for drift-checked merge before the next snapshot.
 
 ## Phase 3: Local Share Metadata
 

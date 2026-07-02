@@ -48,7 +48,7 @@ The first deliverable is not networking. It is now a small, durable verification
 3. Local Rust verifier in `minimodel-core` and the `minimodel` CLI.
 4. Local import receipt with basename-only artifact path hints.
 5. Direct known-peer serve/fetch/import commands that still require full Rust re-verification.
-6. Metadata-only catalog examples and `add-peer-source` for late peer availability.
+6. Metadata-only catalog examples, `add-peer-source` for direct late peer availability, and peer-source announcement/apply commands for maintainer-reviewed availability publication.
 7. Clear legal and consent boundaries.
 
 TinyRustLM can export local share metadata bundles from verified `.slm` imports, the Rust packer can write `.minimodel-peer-offer` proof manifests, and the MiniModel verifier can export, serve, fetch, import, and reassemble peer pieces with full re-verification. Broader peer networking can then reuse the same manifest, chunk, Merkle, piece, peer-source, and receipt contract.
@@ -62,12 +62,16 @@ MiniModel has three source lanes:
 - Local share metadata: checksum-bound JSON exported only after a verified local `.slm` import.
 - Peer-offer proof: Rust-generated text manifest binding the converted `.slm` to artifact SHA256, chunk SHA256 rows, and a Merkle root.
 - Local peer pieces: chunk files plus `minimodel.peer_piece_set.v0` exported, served, fetched, imported, and reassembled through Rust verification.
-- MiniModel catalog metadata: proof-ready entries, metadata-only snapshots, and `add-peer-source` rows for consenting direct peers.
+- MiniModel catalog metadata: proof-ready entries, metadata-only snapshots, `add-peer-source` rows for consenting direct peers, and peer-source announcements that maintainers can drift-check before publication.
 - Future P2P exchange: broader discovery and consent-based chunk transfer verified locally before import.
 
 All source lanes converge on the same rule: the user controls the local artifact, Rust verifies it locally, and TinyRustLM loads only a user-selected local `.slm` file.
 
 Hugging Face rows are not compatible by default. They become TinyRustLM-runnable only after a compatible source is converted to `.slm`, validated locally, and imported through the browser file picker. TinyRustLM's generated `.tinyrustlm-convert.ps1` script is a local wrapper around Rust packer commands and does not download model bytes.
+
+## Converted-Once Publication
+
+A converted model becomes easier for later users only after metadata and peer availability are published honestly. The direct local path is `add-peer-source`: it upgrades one proof-ready catalog entry with one consenting direct peer URL. The portable maintainer path is `write-peer-source-announcement` plus `apply-peer-source-announcements`: a converter writes a small JSON availability claim, and a maintainer validates it against the catalog entry before the next `write-catalog-snapshot`. Neither path uploads model bytes to MiniModel.com.
 
 ## Trust Model
 
