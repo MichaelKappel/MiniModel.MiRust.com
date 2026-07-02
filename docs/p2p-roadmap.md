@@ -75,7 +75,9 @@ Export `minimodel.local_slm_share_metadata.v0` after a verified local `.slm` imp
 - `peer_transfer_implemented=false`
 - `network_transfer_available=false`
 
-The bundle is a review and future-transfer input, not an endorsement, model upload, or live transfer claim.
+The Rust packer should also write `.minimodel-peer-offer` with `peer-offer <input.slm> <output.peer-offer>` and verify it with `validate-peer-offer`. That text manifest binds artifact SHA256, chunk SHA256 rows, chunk-list SHA256, and the Merkle root without embedding or serving model bytes.
+
+The bundle and peer-offer are review and future-transfer inputs, not endorsements, model uploads, or live transfer claims.
 
 ## Phase 4: Chunk and Merkle Proofs
 

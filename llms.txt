@@ -29,6 +29,6 @@ Hard rules:
 Source options:
 
 - User local files: simplest path.
-- Hugging Face: metadata discovery, local conversion-request JSON, optional local `.tinyrustlm-convert.ps1` script, and user-side acquisition context only; no Hub result is runnable until an admitted `.slm` exists.
+- Hugging Face: metadata discovery, local conversion-request JSON, optional local `.tinyrustlm-convert.ps1` script, Rust `.minimodel-peer-offer` proof output, and user-side acquisition context only; no Hub result is runnable until an admitted `.slm` exists.
 - Local share metadata: after a verified local `.slm`, TinyRustLM can save `minimodel.local_slm_share_metadata.v0` with artifact SHA256, chunk SHA256 entries, chunk-list SHA256, Merkle root, and disabled live-transfer flags.
-- Future P2P: consent-based chunk transfer after local verifier, share metadata, and legal boundary are stable.
+- Future P2P: consent-based chunk transfer after local verifier, Rust `.minimodel-peer-offer` proof, share metadata, and legal boundary are stable.

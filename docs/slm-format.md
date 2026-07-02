@@ -279,6 +279,8 @@ The current packer flow supports:
 - `validate-source`
 - `convert-trained`
 - `convert-safetensors-trained`
+- `peer-offer`
+- `validate-peer-offer`
 - `runtime-smoke`
 - `eval-template`
 - native eval runner

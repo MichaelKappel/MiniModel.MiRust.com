@@ -44,7 +44,7 @@ Use:
 
 Do not imply that Hugging Face endpoints are MiniModel execution paths.
 
-Do say that Hugging Face rows are external metadata until an admitted `.slm` exists. TinyRustLM may save a conversion-request JSON and a local `.tinyrustlm-convert.ps1` script, but the user must obtain and review source bytes outside project infrastructure, then Rust must convert and validate the local `.slm`.
+Do say that Hugging Face rows are external metadata until an admitted `.slm` exists. TinyRustLM may save a conversion-request JSON and a local `.tinyrustlm-convert.ps1` script, but the user must obtain and review source bytes outside project infrastructure, then Rust must convert and validate the local `.slm` and write/validate a `.minimodel-peer-offer` proof.
 
 Do not imply that MiniModel P2P is already live unless it is implemented and deployed.
 

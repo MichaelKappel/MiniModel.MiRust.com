@@ -135,7 +135,7 @@ Hugging Face:
 - external metadata and user-side acquisition context
 - model cards, license routes, source revisions, file hints, and endpoint awareness
 - local `minimodel.huggingface_conversion_request.v0` handoff when no admitted `.slm` metadata exists
-- optional local `.tinyrustlm-convert.ps1` handoff that runs `inspect-safetensors`, `plan-safetensors-source`, `convert-safetensors-trained`, `validate`, and `validate-manifest` against user-owned files
+- optional local `.tinyrustlm-convert.ps1` handoff that runs `inspect-safetensors`, `plan-safetensors-source`, `convert-safetensors-trained`, `validate`, `validate-manifest`, `peer-offer`, and `validate-peer-offer` against user-owned files
 - MiniModel metadata match display only after conversion, validation, and admission evidence
 - after a verified local `.slm`, TinyRustLM may save `minimodel.local_slm_share_metadata.v0` with a catalog-entry candidate, artifact SHA256, fixed-size chunk SHA256 entries, chunk-list SHA256, and Merkle root
 - not a MiniModel server run path
@@ -147,7 +147,7 @@ Hugging Face:
 Future P2P:
 
 - later consent-based transfer
-- may consume local share metadata, but the bundle itself is not a live transfer claim
+- may consume local share metadata and Rust `.minimodel-peer-offer` proof, but neither artifact is a live transfer claim
 - chunk/Merkle verification
 - local receipt before import
 - MiniModel.com still does not serve model bytes
