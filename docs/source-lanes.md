@@ -50,6 +50,7 @@ Allowed MiniModel behavior:
 - show whether a user-supplied Hugging Face token may be required outside MiniModel
 - show warnings about remote execution products
 - save a local conversion-request JSON when no admitted `.slm` metadata exists yet
+- save an optional `.tinyrustlm-convert.ps1` local script that runs Rust packer commands against user-owned local source files
 - show MiniModel metadata matches when a reviewed Hugging Face checkpoint has already produced an admitted `.slm`
 
 Forbidden MiniModel server behavior:
@@ -68,11 +69,14 @@ The MiniModel path is:
 
 1. User reviews metadata.
 2. If no admitted `.slm` exists, the user saves a local `minimodel.huggingface_conversion_request.v0` handoff.
-3. A user or converter acquires source bytes outside project infrastructure if they choose.
-4. Conversion writes a local `.slm`, then Rust validates byte count, checksum, shape, tokenizer, runtime smoke, and admission evidence.
-5. TinyRustLM may export `minimodel.local_slm_share_metadata.v0` with the verified artifact SHA256, chunk hashes, chunk-list SHA256, and a Merkle root.
-6. MiniModel may publish checksum-bound metadata with `source_huggingface_model_id` and future peer hints.
-7. User opens the verified local `.slm` in TinyRustLM.
+3. The user may also save a `.tinyrustlm-convert.ps1` script. It runs `inspect-safetensors`, `plan-safetensors-source`, `convert-safetensors-trained`, `validate`, and `validate-manifest` locally.
+4. A user or converter acquires source bytes outside project infrastructure if they choose.
+5. Conversion writes a local `.slm`, then Rust validates byte count, checksum, shape, tokenizer, runtime smoke, and admission evidence.
+6. TinyRustLM may export `minimodel.local_slm_share_metadata.v0` with the verified artifact SHA256, chunk hashes, chunk-list SHA256, and a Merkle root.
+7. MiniModel may publish checksum-bound metadata with `source_huggingface_model_id` and future peer hints.
+8. User opens the verified local `.slm` in TinyRustLM.
+
+The generated conversion script must not download model bytes, call a MiniModel proxy, or use a project-owned token. It is a local convenience wrapper over Rust commands and must be edited to point at the user's local TinyRustLM workspace and local `.safetensors` file.
 
 Until that chain exists for a model, the correct UI state is `conversion required`, not compatible or runnable.
 

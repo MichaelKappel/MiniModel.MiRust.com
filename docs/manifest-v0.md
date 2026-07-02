@@ -89,6 +89,8 @@ Hugging Face `/resolve/`, LFS/Xet/CAS transfers, Inference Providers, Inference 
 
 TinyRustLM may save a `minimodel.huggingface_conversion_request.v0` JSON file when Hub metadata has no admitted `.slm` match. That file is not a manifest and not an execution grant. It is a local handoff for review, conversion, validation, admission, and later P2P availability metadata.
 
+TinyRustLM may also save a `.tinyrustlm-convert.ps1` handoff script for the same Hub record. The script is not MiniModel metadata and not a download grant. It is a local wrapper around Rust packer commands: `inspect-safetensors`, `plan-safetensors-source`, `convert-safetensors-trained`, `validate`, and `validate-manifest`. It must require a user-owned local `.safetensors` path and must not download model bytes.
+
 After local `.slm` verification, TinyRustLM may save a `minimodel.local_slm_share_metadata.v0` JSON bundle. It contains a catalog-entry candidate and `minimodel.peer_offer.v0` metadata with artifact SHA256, chunk SHA256 entries, chunk-list SHA256, and Merkle root. It must keep peer transfer marked unavailable until networking is actually implemented.
 
 ## Chunk Fields

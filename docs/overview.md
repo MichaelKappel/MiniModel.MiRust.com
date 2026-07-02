@@ -57,11 +57,13 @@ After those are stable, TinyRustLM can export local share metadata bundles from 
 MiniModel has three source lanes:
 
 - User local files: the simplest and first-class route.
-- Hugging Face discovery: user-triggered external metadata and source context.
+- Hugging Face discovery: user-triggered external metadata, source context, conversion-request JSON, and optional local Rust conversion-script handoff.
 - Local share metadata: checksum-bound JSON exported only after a verified local `.slm` import.
 - Future P2P exchange: consent-based chunk transfer verified locally before import.
 
 All source lanes converge on the same rule: the user controls the local artifact, Rust verifies it locally, and TinyRustLM loads only a user-selected local `.slm` file.
+
+Hugging Face rows are not compatible by default. They become TinyRustLM-runnable only after a compatible source is converted to `.slm`, validated locally, and imported through the browser file picker. TinyRustLM's generated `.tinyrustlm-convert.ps1` script is a local wrapper around Rust packer commands and does not download model bytes.
 
 ## Trust Model
 
