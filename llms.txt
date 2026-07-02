@@ -31,7 +31,7 @@ Hard rules:
 Source options:
 
 - User local files: simplest path.
-- Hugging Face: metadata discovery, local conversion-request JSON, optional local `.tinyrustlm-convert.ps1` script, `convert-huggingface-request`, MiniModel `prepare-peer-share`, optional `add-peer-source`, optional `write-peer-source-announcement`, maintainer-side `apply-peer-source-announcements`, batch `write-catalog-snapshot-with-announcements`, metadata-only `write-catalog-snapshot`, and user-side acquisition context only; no Hub result is runnable until an admitted `.slm` exists.
+- Hugging Face: metadata discovery, local conversion-request JSON, optional local `.tinyrustlm-convert.ps1` script, `convert-huggingface-request`, MiniModel `prepare-peer-share`, optional `add-peer-source`, optional `write-peer-source-announcement`, optional TinyRustLM local peer-source announcement overlay, maintainer-side `apply-peer-source-announcements`, batch `write-catalog-snapshot-with-announcements`, metadata-only `write-catalog-snapshot`, and user-side acquisition context only; no Hub result is runnable until an admitted `.slm` exists.
 - Local verifier: `cargo run -p minimodel -- verify-manifest`, `verify-artifact`, and `write-import-receipt` prove local `.slm` artifacts before TinyRustLM import.
 - Local peer pieces: `export-peer-pieces`, `serve-peer-pieces`, `fetch-peer-pieces`, `assemble-peer-pieces`, and `import-peer-request` prove direct known-peer transfer and reassembly before broad P2P discovery exists.
 - Local share metadata: after a verified local `.slm`, TinyRustLM can save `minimodel.local_slm_share_metadata.v0` with artifact SHA256, chunk SHA256 entries, chunk-list SHA256, Merkle root, and disabled live-transfer flags.
