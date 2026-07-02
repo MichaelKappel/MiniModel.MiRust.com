@@ -134,6 +134,8 @@ Hugging Face:
 
 - external metadata and user-side acquisition context
 - model cards, license routes, source revisions, file hints, and endpoint awareness
+- local `minimodel.huggingface_conversion_request.v0` handoff when no admitted `.slm` metadata exists
+- MiniModel metadata match display only after conversion, validation, and admission evidence
 - not a MiniModel server run path
 - no project-owned tokens
 - no project proxying of `/resolve/`

@@ -49,6 +49,8 @@ Allowed MiniModel behavior:
 - show expected source config/tokenizer checksums
 - show whether a user-supplied Hugging Face token may be required outside MiniModel
 - show warnings about remote execution products
+- save a local conversion-request JSON when no admitted `.slm` metadata exists yet
+- show MiniModel metadata matches when a reviewed Hugging Face checkpoint has already produced an admitted `.slm`
 
 Forbidden MiniModel server behavior:
 
@@ -65,10 +67,13 @@ Executable Spaces are also outside the MiniModel runtime path.
 The MiniModel path is:
 
 1. User reviews metadata.
-2. User acquires source bytes outside project infrastructure if they choose.
-3. User converts or imports locally.
-4. Rust verifies a local `.slm`.
-5. User opens the local `.slm` in TinyRustLM.
+2. If no admitted `.slm` exists, the user saves a local `minimodel.huggingface_conversion_request.v0` handoff.
+3. A user or converter acquires source bytes outside project infrastructure if they choose.
+4. Conversion writes a local `.slm`, then Rust validates byte count, checksum, shape, tokenizer, runtime smoke, and admission evidence.
+5. MiniModel may publish checksum-bound metadata with `source_huggingface_model_id` and future peer hints.
+6. User opens the verified local `.slm` in TinyRustLM.
+
+Until that chain exists for a model, the correct UI state is `conversion required`, not compatible or runnable.
 
 ## Lane 3: Future MiniModel P2P
 

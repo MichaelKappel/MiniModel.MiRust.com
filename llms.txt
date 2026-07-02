@@ -28,5 +28,5 @@ Hard rules:
 Source options:
 
 - User local files: simplest path.
-- Hugging Face: metadata discovery and user-side acquisition context only.
+- Hugging Face: metadata discovery, local conversion-request handoff, and user-side acquisition context only; no Hub result is runnable until an admitted `.slm` exists.
 - Future P2P: consent-based chunk transfer after local verifier and legal boundary are stable.

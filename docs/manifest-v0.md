@@ -80,11 +80,14 @@ These fields distinguish local, Hugging Face, and future P2P discovery without c
 | `source.discovery.kind` | `local-file`, `local-list`, `huggingface-hub`, `minimodel-p2p`, or `unknown`. |
 | `source.discovery.route` | Metadata or model-card route only. |
 | `source.discovery.revision` | External source revision, commit, or `unknown`. |
+| `source.huggingface_model_id` | Hugging Face model id when the verified `.slm` came from a reviewed Hub checkpoint. |
 | `source.discovery.user_token_required` | `true` only when a user-supplied external credential is required. |
 
 Project-owned tokens are forbidden for user artifact acquisition.
 
 Hugging Face `/resolve/`, LFS/Xet/CAS transfers, Inference Providers, Inference Endpoints, and executable Spaces are not MiniModel server capabilities. They may inform user-side discovery or external acquisition only.
+
+TinyRustLM may save a `minimodel.huggingface_conversion_request.v0` JSON file when Hub metadata has no admitted `.slm` match. That file is not a manifest and not an execution grant. It is a local handoff for review, conversion, validation, admission, and later P2P availability metadata.
 
 ## Chunk Fields
 
