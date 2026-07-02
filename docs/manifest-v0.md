@@ -17,10 +17,12 @@ Rules:
 - Keys are lowercase ASCII with dot separators.
 - Values are trimmed ASCII unless a field explicitly allows UTF-8.
 - Duplicate keys are rejected.
-- SHA256 values use `sha256:` followed by 64 uppercase hexadecimal characters.
+- SHA256 values use `sha256:` followed by 64 hexadecimal characters. The verifier normalizes hex case.
 - The signed canonical form sorts all non-signature keys lexicographically, uses LF endings, and ends with one trailing LF.
 
 The line-oriented format matches TinyRustLM evidence sidecars and keeps the first verifier small.
+
+The first real fixture manifest is [../examples/tiny-test-model-q8.minimodel.manifest.v0](../examples/tiny-test-model-q8.minimodel.manifest.v0). It binds the TinyRustLM q8 fixture to artifact SHA256, `.slm` checksum, tokenizer checksum, tensor-layout checksum, peer-offer route, chunk-list SHA256, and Merkle root without hosting the model bytes.
 
 ## Required Fields
 

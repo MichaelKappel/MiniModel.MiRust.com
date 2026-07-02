@@ -30,7 +30,7 @@
       <div>
         <p class="eyebrow">Rust-first tiny model exchange</p>
         <h1>MiniModel.com developer documentation</h1>
-        <p class="lead">MiniModel is a metadata and verification layer for tiny local AI models. The first implementation target is deliberately simple: publish schemas and documentation, verify local `.slm` files with Rust, write checksum-bearing receipts, let TinyRustLM.com load only user-selected local files in the browser, and export checksum-bound share metadata for later peer transfer.</p>
+        <p class="lead">MiniModel is a metadata and verification layer for tiny local AI models. The first implementation layer is deliberately simple: publish schemas and documentation, verify local `.slm` files with Rust, write checksum-bearing receipts, let TinyRustLM.com load only user-selected local files in the browser, and export checksum-bound share metadata for later peer transfer.</p>
         <div class="callouts" aria-label="Core boundaries">
           <div class="callout">
             <strong>No server model bytes</strong>
@@ -148,6 +148,8 @@ signature.kind=unsigned-draft</code></pre>
           <p>Write a local import receipt after verification passes. The receipt stores checksums, manifest identity, artifact byte count, shape, quantization, and the next gate: user-selected TinyRustLM local file open.</p>
         </article>
       </div>
+      <pre><code>cargo run -p minimodel -- verify-manifest examples\tiny-test-model-q8.minimodel.manifest.v0
+cargo run -p minimodel -- verify-artifact examples\tiny-test-model-q8.minimodel.manifest.v0 ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm</code></pre>
       <p>Full reference: <a href="/docs/verifier-mvp.md">docs/verifier-mvp.md</a></p>
     </section>
 
@@ -199,6 +201,7 @@ signature.kind=unsigned-draft</code></pre>
           <li><a href="/docs/legal-boundary.md">Legal, consent, and liability boundary</a></li>
           <li><a href="/docs/agent-readme.md">AI-agent operating notes</a></li>
           <li><a href="/examples/share-metadata.v0.json">Local share metadata example</a></li>
+          <li><a href="/examples/tiny-test-model-q8.minimodel.manifest.v0">Real q8 fixture manifest</a></li>
           <li><a href="/llms.txt">llms.txt</a> and <a href="/llms-full.txt">llms-full.txt</a></li>
         </ol>
       </div>

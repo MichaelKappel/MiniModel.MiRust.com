@@ -41,12 +41,12 @@ TinyRustLM.MiRust.com is the TinyRustLM developer portal.
 
 ## First Implementable Shape
 
-The first deliverable is not networking. It is a small, durable verification stack:
+The first deliverable is not networking. It is now a small, durable verification stack:
 
 1. `.slm` format reference.
 2. MiniModel manifest v0 schema.
-3. Local Rust verifier.
-4. Local import receipt.
+3. Local Rust verifier in `minimodel-core` and the `minimodel` CLI.
+4. Local import receipt with basename-only artifact path hints.
 5. Metadata-only catalog examples.
 6. Clear legal and consent boundaries.
 
@@ -87,7 +87,7 @@ None of those steps mean MiniModel endorses the model, certifies training data, 
 
 - `slm-format.md`: binary file details, tokenizer sections, tensor directory, checksum, quantization, adapters, conversion and admission chain.
 - `manifest-v0.md`: MiniModel line-oriented manifest fields and rejection rules.
-- `verifier-mvp.md`: local Rust verifier plan and receipt fields.
+- `verifier-mvp.md`: implemented local Rust verifier MVP and receipt fields.
 - `source-lanes.md`: local files, Hugging Face discovery, local share metadata, peer-offer proof, and future P2P.
 - `legal-boundary.md`: consent, liability, moderation, and takedown language.
 - `p2p-roadmap.md`: Rust-first transfer roadmap and ecosystem tradeoffs.

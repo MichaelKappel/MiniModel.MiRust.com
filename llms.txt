@@ -13,6 +13,7 @@ Read first:
 - /docs/p2p-roadmap.md
 - /docs/agent-readme.md
 - /examples/minimodel.manifest.v0.example
+- /examples/tiny-test-model-q8.minimodel.manifest.v0
 - /examples/share-metadata.v0.json
 
 Hard rules:
@@ -24,11 +25,13 @@ Hard rules:
 - TinyRustLM.com remains browser-local.
 - Users import local `.slm` files through the browser file picker.
 - Rust owns `.slm` validation and checksum verification.
+- The first `minimodel-core` and `minimodel` verifier crates are implemented in the MiniModel.org source workspace.
 - Long-term memory stays pointer-based and checksum-bearing.
 
 Source options:
 
 - User local files: simplest path.
 - Hugging Face: metadata discovery, local conversion-request JSON, optional local `.tinyrustlm-convert.ps1` script, Rust `.minimodel-peer-offer` proof output, and user-side acquisition context only; no Hub result is runnable until an admitted `.slm` exists.
+- Local verifier: `cargo run -p minimodel -- verify-manifest`, `verify-artifact`, and `write-import-receipt` prove local `.slm` artifacts before TinyRustLM import.
 - Local share metadata: after a verified local `.slm`, TinyRustLM can save `minimodel.local_slm_share_metadata.v0` with artifact SHA256, chunk SHA256 entries, chunk-list SHA256, Merkle root, and disabled live-transfer flags.
 - Future P2P: consent-based chunk transfer after local verifier, Rust `.minimodel-peer-offer` proof, share metadata, and legal boundary are stable.

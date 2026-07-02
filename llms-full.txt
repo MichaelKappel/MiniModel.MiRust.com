@@ -2,7 +2,7 @@
 
 MiniModel.MiRust.com is the developer documentation site for MiniModel.com.
 
-MiniModel.com is planned as a Rust-first metadata and verification layer for tiny local AI model packages. It is not a model host and not an inference service.
+MiniModel.com is a Rust-first metadata and verification layer for tiny local AI model packages. It is not a model host and not an inference service.
 
 ## Non-Negotiable Boundary
 
@@ -96,7 +96,13 @@ The manifest is not a fetch instruction. The user must provide the local artifac
 
 ## Verifier MVP
 
-Implement the verifier before networking.
+The first verifier exists before networking.
+
+Implementation:
+
+- `minimodel-core`: parser, boundary checks, SHA256, chunk/Merkle verification, TinyRustLM `.slm` validation, and receipt writing.
+- `minimodel`: CLI wrapper.
+- `examples/tiny-test-model-q8.minimodel.manifest.v0`: real q8 fixture manifest with artifact SHA256, `.slm` checksum, tokenizer checksum, tensor-layout checksum, peer-offer route, chunk-list SHA256, and Merkle root.
 
 Commands:
 
@@ -119,7 +125,7 @@ Verification order:
 9. Verify supplied evidence sidecars.
 10. Write local import receipt.
 
-Receipts must contain checksums and identity fields, not model bytes or private secrets.
+Receipts must contain checksums and identity fields, not model bytes or private secrets. The next gate is `user-selected-tinyrustlm-local-file-open`.
 
 ## Source Lanes
 
@@ -207,3 +213,4 @@ Read order:
 6. `/docs/legal-boundary.md`
 7. `/docs/p2p-roadmap.md`
 8. `/docs/agent-readme.md`
+9. `/examples/tiny-test-model-q8.minimodel.manifest.v0`

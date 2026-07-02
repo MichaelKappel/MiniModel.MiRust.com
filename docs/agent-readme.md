@@ -50,6 +50,20 @@ Do not imply that MiniModel P2P is already live unless it is implemented and dep
 
 It is accurate to say TinyRustLM can save `minimodel.local_slm_share_metadata.v0` after verified local `.slm` import when that feature is deployed. That bundle is metadata, not a model transfer.
 
+## Current Verifier Surface
+
+The first verifier crates are implemented in the MiniModel.org source workspace:
+
+- `minimodel-core`
+- `minimodel`
+
+Use the q8 fixture manifest for smoke checks:
+
+```powershell
+cargo run -p minimodel -- verify-manifest examples\tiny-test-model-q8.minimodel.manifest.v0
+cargo run -p minimodel -- verify-artifact examples\tiny-test-model-q8.minimodel.manifest.v0 ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm
+```
+
 ## Manifest Safety
 
 Never add fields that cause automatic model-byte fetches by project servers or browsers.
