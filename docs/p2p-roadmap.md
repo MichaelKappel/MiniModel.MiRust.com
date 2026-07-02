@@ -79,7 +79,7 @@ The Rust packer should also write `.minimodel-peer-offer` with `peer-offer <inpu
 
 The bundle and peer-offer are review and future-transfer inputs, not endorsements, model uploads, or live transfer claims.
 
-## Phase 4: Chunk and Merkle Proofs
+## Phase 4: Local Peer Pieces
 
 Define `fixed-size-merkle-v0`:
 
@@ -90,7 +90,14 @@ Define `fixed-size-merkle-v0`:
 - optional chunk-list metadata route
 - chunk-list metadata checksum
 
-The verifier should be able to validate local chunk sets before a network exists. This keeps networking from becoming the first place chunk logic is tested.
+The verifier now validates local chunk sets before a network exists:
+
+```text
+minimodel export-peer-pieces <manifest> <artifact.slm> <output-dir>
+minimodel assemble-peer-pieces <manifest> <piece-dir> <output.slm>
+```
+
+`export-peer-pieces` writes `minimodel.peer_piece_set.v0` plus local piece files only after the source `.slm` passes verification. `assemble-peer-pieces` rejects piece drift, unsafe piece paths, chunk identity drift, and assembled artifact drift before writing the accepted `.slm`. This keeps networking from becoming the first place chunk logic is tested.
 
 ## Phase 5: Transfer Experiments
 

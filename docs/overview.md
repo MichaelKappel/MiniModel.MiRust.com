@@ -47,20 +47,23 @@ The first deliverable is not networking. It is now a small, durable verification
 2. MiniModel manifest v0 schema.
 3. Local Rust verifier in `minimodel-core` and the `minimodel` CLI.
 4. Local import receipt with basename-only artifact path hints.
-5. Metadata-only catalog examples.
-6. Clear legal and consent boundaries.
+5. Direct known-peer serve/fetch/import commands that still require full Rust re-verification.
+6. Metadata-only catalog examples and `add-peer-source` for late peer availability.
+7. Clear legal and consent boundaries.
 
-After those are stable, TinyRustLM can export local share metadata bundles from verified `.slm` imports, and the Rust packer can write `.minimodel-peer-offer` proof manifests. Peer networking can then reuse the same manifest, chunk, Merkle, and receipt contract.
+TinyRustLM can export local share metadata bundles from verified `.slm` imports, the Rust packer can write `.minimodel-peer-offer` proof manifests, and the MiniModel verifier can export, serve, fetch, import, and reassemble peer pieces with full re-verification. Broader peer networking can then reuse the same manifest, chunk, Merkle, piece, peer-source, and receipt contract.
 
 ## Source Lanes
 
 MiniModel has three source lanes:
 
 - User local files: the simplest and first-class route.
-- Hugging Face discovery: user-triggered external metadata, source context, conversion-request JSON, optional local Rust conversion-script handoff, and `.minimodel-peer-offer` proof output.
+- Hugging Face discovery: user-triggered external metadata, source context, conversion-request JSON, optional local Rust conversion-script handoff, `convert-huggingface-request`, and MiniModel share metadata output.
 - Local share metadata: checksum-bound JSON exported only after a verified local `.slm` import.
 - Peer-offer proof: Rust-generated text manifest binding the converted `.slm` to artifact SHA256, chunk SHA256 rows, and a Merkle root.
-- Future P2P exchange: consent-based chunk transfer verified locally before import.
+- Local peer pieces: chunk files plus `minimodel.peer_piece_set.v0` exported, served, fetched, imported, and reassembled through Rust verification.
+- MiniModel catalog metadata: proof-ready entries, metadata-only snapshots, and `add-peer-source` rows for consenting direct peers.
+- Future P2P exchange: broader discovery and consent-based chunk transfer verified locally before import.
 
 All source lanes converge on the same rule: the user controls the local artifact, Rust verifies it locally, and TinyRustLM loads only a user-selected local `.slm` file.
 
@@ -75,6 +78,7 @@ MiniModel should be understood as a pointer and evidence system:
 - Evidence sidecars bind conversion, runtime-smoke, eval, and admission results.
 - A local verifier proves the artifact supplied by the user.
 - A local share metadata bundle and peer-offer proof record artifact and chunk hashes without moving model bytes.
+- A local peer-piece set records the exact chunks a future peer transport must carry, while keeping those model-byte chunks outside project servers.
 - A receipt records what was verified locally.
 
 None of those steps mean MiniModel endorses the model, certifies training data, or guarantees safety.

@@ -69,23 +69,28 @@ The MiniModel path is:
 
 1. User reviews metadata.
 2. If no admitted `.slm` exists, the user saves a local `minimodel.huggingface_conversion_request.v0` handoff.
-3. The user may also save a `.tinyrustlm-convert.ps1` script. It runs `inspect-safetensors`, `plan-safetensors-source`, `convert-safetensors-trained`, `validate`, `validate-manifest`, `peer-offer`, and `validate-peer-offer` locally.
+3. The user may also save a `.tinyrustlm-convert.ps1` script. It runs `tinyrustlm-slm-pack convert-huggingface-request` locally against the saved request plus a user-owned `.safetensors` file.
 4. A user or converter acquires source bytes outside project infrastructure if they choose.
-5. Conversion writes a local `.slm`, then Rust validates byte count, checksum, shape, tokenizer, runtime smoke, and admission evidence.
-6. The Rust packer may emit a `.minimodel-peer-offer` text manifest with artifact SHA256, fixed-size chunk SHA256 rows, chunk-list SHA256, and a Merkle root.
-7. TinyRustLM may export `minimodel.local_slm_share_metadata.v0` with the verified artifact SHA256, chunk hashes, chunk-list SHA256, Merkle root, and peer-offer reference.
-8. MiniModel may publish checksum-bound metadata with `source_huggingface_model_id`, `peer_offer_route`, `peer_offer_sha256`, and future peer hints.
-9. User opens the verified local `.slm` in TinyRustLM.
+5. Conversion writes a local `.slm`, then Rust validates byte count, checksum, shape, tokenizer, runtime smoke, and admission evidence, and writes `tinyrustlm-conversion.receipt`.
+6. `minimodel prepare-peer-share` emits a MiniModel manifest, `.minimodel-peer-offer` text proof, local peer pieces, and catalog-entry JSON in one directory.
+7. `minimodel write-catalog-snapshot` can publish metadata-only `models.v0.json` from verified catalog entries.
+8. If a consenting peer URL becomes known later, `minimodel add-peer-source` can attach one validated direct-peer source to the proof-ready entry before the next snapshot.
+9. `serve-peer-pieces`, `fetch-peer-pieces`, `assemble-peer-pieces`, and `import-peer-request` exercise the current direct known-peer byte path, with full Rust re-verification before local browser import.
+10. TinyRustLM may export `minimodel.local_slm_share_metadata.v0` with the verified artifact SHA256, chunk hashes, chunk-list SHA256, Merkle root, and peer-offer reference.
+11. MiniModel may publish checksum-bound metadata with `source_huggingface_model_id`, `peer_offer_route`, `peer_offer_sha256`, `peer_source_count`, and `peer_sources` when a consenting peer source exists.
+12. User opens the verified local `.slm` in TinyRustLM.
 
 The generated conversion script must not download model bytes, call a MiniModel proxy, or use a project-owned token. It is a local convenience wrapper over Rust commands and must be edited to point at the user's local TinyRustLM workspace and local `.safetensors` file.
 
 Until that chain exists for a model, the correct UI state is `Rust conversion required`, not compatible or runnable.
 
-The local share metadata bundle and `.minimodel-peer-offer` proof are not live transfer claims. They must say peer transfer is not implemented until a consenting peer app can move chunks and Rust can reverify them before import.
+The local share metadata bundle, `.minimodel-peer-offer` proof, and `minimodel.peer_piece_set.v0` sidecar are not project-hosted transfer claims. The current implementation supports direct known-peer serve/fetch/import through Rust commands; broader discovery, relay, and NAT traversal remain later work.
 
 ## Lane 3: Future MiniModel P2P
 
-P2P is a later phase. It should reuse the manifest and verifier instead of inventing a separate trust model.
+Broad P2P discovery is a later phase. It should reuse the manifest and verifier instead of inventing a separate trust model.
+
+The current implemented bridge is direct known-peer serve/fetch/import plus local peer-piece export and assembly. It proves that chunk files can be generated from a verified `.slm`, moved from a consenting direct peer endpoint, checked independently, reassembled, and passed back through the full verifier. A broader network transport can later move those same chunks, but it does not get to replace verification.
 
 The peer app may eventually support:
 
@@ -99,6 +104,7 @@ The peer app may eventually support:
 - local cache controls
 - transfer receipts
 - import receipts
+- peer-piece sidecars
 
 The peer app must still ensure:
 
@@ -110,6 +116,7 @@ The peer app must still ensure:
 - Merkle-root verification
 - `.slm` validation
 - local import receipt
+- local import receipt after peer-piece assembly before execution
 
 MiniModel.com servers remain metadata-only even when P2P exists.
 

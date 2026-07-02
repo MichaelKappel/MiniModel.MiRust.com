@@ -30,7 +30,7 @@
       <div>
         <p class="eyebrow">Rust-first tiny model exchange</p>
         <h1>MiniModel.com developer documentation</h1>
-        <p class="lead">MiniModel is a metadata and verification layer for tiny local AI models. The first implementation layer is deliberately simple: publish schemas and documentation, verify local `.slm` files with Rust, write checksum-bearing receipts, let TinyRustLM.com load only user-selected local files in the browser, and export checksum-bound share metadata for later peer transfer.</p>
+        <p class="lead">MiniModel is a metadata and verification layer for tiny local AI models. The first implementation layer is deliberately simple: publish schemas and documentation, verify local `.slm` files with Rust, prepare peer-share metadata and local pieces with Rust, attach consenting peer-source metadata when available, write checksum-bearing receipts, and let TinyRustLM.com load only verified user-selected local files in the browser.</p>
         <div class="callouts" aria-label="Core boundaries">
           <div class="callout">
             <strong>No server model bytes</strong>
@@ -141,7 +141,7 @@ signature.kind=unsigned-draft</code></pre>
         </article>
         <article class="card">
           <span class="tag">Prove</span>
-          <p>Open only the local artifact path supplied by the user. Verify byte count, SHA256, optional chunk list, Merkle root, `.slm` header, custom checksum, tokenizer identity, tensor layout identity, and runtime compatibility.</p>
+          <p>Open only the local artifact path supplied by the user. Verify byte count, SHA256, optional chunk list, Merkle root, `.slm` header, custom checksum, tokenizer identity, tensor layout identity, peer-piece reassembly, and runtime compatibility.</p>
         </article>
         <article class="card">
           <span class="tag">Receipt</span>
@@ -149,7 +149,9 @@ signature.kind=unsigned-draft</code></pre>
         </article>
       </div>
       <pre><code>cargo run -p minimodel -- verify-manifest examples\tiny-test-model-q8.minimodel.manifest.v0
-cargo run -p minimodel -- verify-artifact examples\tiny-test-model-q8.minimodel.manifest.v0 ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm</code></pre>
+cargo run -p minimodel -- verify-artifact examples\tiny-test-model-q8.minimodel.manifest.v0 ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm
+cargo run -p minimodel -- export-peer-pieces examples\tiny-test-model-q8.minimodel.manifest.v0 ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm .\peer-pieces\tiny-test-model-q8
+cargo run -p minimodel -- assemble-peer-pieces examples\tiny-test-model-q8.minimodel.manifest.v0 .\peer-pieces\tiny-test-model-q8 .\tiny-test-model-q8.from-pieces.slm</code></pre>
       <p>Full reference: <a href="/docs/verifier-mvp.md">docs/verifier-mvp.md</a></p>
     </section>
 
@@ -163,11 +165,11 @@ cargo run -p minimodel -- verify-artifact examples\tiny-test-model-q8.minimodel.
           </article>
           <article class="card">
             <span class="tag">Hugging Face</span>
-            <p>Hugging Face is an external discovery and acquisition lane. MiniModel may expose metadata awareness, model-card routes, file hints, revision identity, local conversion-request JSON, local Rust conversion-script handoffs, and admitted `.slm` metadata matches. The script runs local packer commands against user-owned files, then writes a `.minimodel-peer-offer` proof for the converted `.slm`; it does not download bytes. Project infrastructure does not use project-owned tokens, proxy `/resolve/` URLs, host converted bytes, or turn endpoints into a MiniModel runtime path.</p>
+            <p>Hugging Face is an external discovery and acquisition lane. MiniModel may expose metadata awareness, model-card routes, file hints, revision identity, local conversion-request JSON, local Rust conversion-script handoffs, and admitted `.slm` metadata matches. The script runs `convert-huggingface-request` against user-owned files, then calls MiniModel `prepare-peer-share`, `add-peer-source` when a consenting peer becomes known, and `write-catalog-snapshot` for metadata-only reuse; it does not download bytes. Project infrastructure does not use project-owned tokens, proxy `/resolve/` URLs, host converted bytes, or turn endpoints into a MiniModel runtime path.</p>
           </article>
           <article class="card">
             <span class="tag">Future P2P</span>
-            <p>Peer transfer comes later and must preserve the same local verifier contract. Today the bridge is `minimodel.local_slm_share_metadata.v0` plus Rust-generated `.minimodel-peer-offer`: metadata with whole-artifact SHA256, chunk SHA256 entries, chunk-list SHA256, and a Merkle root, while live network transfer remains explicitly unavailable.</p>
+            <p>Broad peer discovery comes later and must preserve the same local verifier contract. Today the bridge is direct known-peer serve/fetch/import, `minimodel.local_slm_share_metadata.v0`, Rust-generated `.minimodel-peer-offer`, metadata-only catalog snapshots, and optional `peer_sources` rows that name consenting direct peers without making MiniModel.com a byte host.</p>
           </article>
         </div>
         <p>Full reference: <a href="/docs/source-lanes.md">docs/source-lanes.md</a></p>

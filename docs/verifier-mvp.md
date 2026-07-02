@@ -6,7 +6,7 @@ The first implementation target is a local Rust verifier. It proves manifest fie
 
 The first verifier workspace lives in the MiniModel.org source repository:
 
-- `crates/minimodel-core`: parser, boundary checks, SHA256, chunk/Merkle verification, TinyRustLM `.slm` validation, and receipt writing.
+- `crates/minimodel-core`: parser, boundary checks, SHA256, chunk/Merkle verification, TinyRustLM `.slm` validation, peer-piece export/reassembly, and receipt writing.
 - `crates/minimodel`: CLI wrapper for developer use.
 - `examples/tiny-test-model-q8.minimodel.manifest.v0`: real q8 fixture manifest.
 
@@ -28,6 +28,8 @@ The first pass uses standard-library Rust and line-oriented parsing. Networking,
 minimodel verify-manifest <manifest>
 minimodel verify-artifact <manifest> <artifact.slm>
 minimodel write-import-receipt <manifest> <artifact.slm> <receipt.minimodel-receipt>
+minimodel export-peer-pieces <manifest> <artifact.slm> <output-dir>
+minimodel assemble-peer-pieces <manifest> <piece-dir> <output.slm>
 ```
 
 `verify-manifest` checks schema, required fields, boundary fields, license/model-card routes, route shape, source lanes, and signature placeholder rules.
@@ -35,6 +37,10 @@ minimodel write-import-receipt <manifest> <artifact.slm> <receipt.minimodel-rece
 `verify-artifact` additionally checks local file byte count, SHA256, optional chunk metadata, Merkle root, and TinyRustLM `.slm` compatibility.
 
 `write-import-receipt` only succeeds after `verify-artifact` passes.
+
+`export-peer-pieces` only succeeds after `verify-artifact` passes. It writes local chunk files plus `minimodel.peer_piece_set.v0`, binding manifest checksum, artifact checksum, chunk SHA256 rows, chunk-list SHA256, and Merkle root.
+
+`assemble-peer-pieces` verifies each local chunk, assembles a temporary `.slm`, reruns the full artifact verifier, and only then writes the accepted output file. This is a transport-shaped local primitive, not live networking.
 
 ## Verification Stages
 
@@ -144,6 +150,36 @@ Required receipt fields:
 
 Receipts must not contain model bytes, public model-byte URLs, private local absolute paths, or claims that MiniModel endorses the artifact.
 
+### 7. Peer-Piece Export and Assembly
+
+Peer-piece export and assembly are local operations that exercise the same byte contract future P2P must preserve.
+
+Export writes:
+
+- `minimodel.peer_piece_set.v0`
+- one fixed-size piece file per manifest chunk
+- manifest checksum
+- artifact checksum
+- piece file names
+- piece offsets
+- piece byte counts
+- piece SHA256 values
+- chunk-list SHA256
+- Merkle root
+
+Assembly rejects:
+
+- missing piece-set fields
+- manifest checksum drift
+- artifact identity drift
+- unsafe piece file names
+- piece byte-count drift
+- piece SHA256 drift
+- assembled artifact byte/SHA256 drift
+- invalid `.slm` bytes
+
+The piece files are model bytes. They must not be uploaded to MiniModel.com or MiniModel.MiRust.com.
+
 ## Drift Tests
 
 The MVP test suite should include one passing fixture and failures for:
@@ -182,10 +218,21 @@ From the MiniModel.org workspace:
 cargo run -p minimodel -- verify-manifest examples\tiny-test-model-q8.minimodel.manifest.v0
 cargo run -p minimodel -- verify-artifact examples\tiny-test-model-q8.minimodel.manifest.v0 ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm
 cargo run -p minimodel -- write-import-receipt examples\tiny-test-model-q8.minimodel.manifest.v0 ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm .\tiny-test-model-q8.minimodel-receipt
+cargo run -p minimodel -- export-peer-pieces examples\tiny-test-model-q8.minimodel.manifest.v0 ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm .\peer-pieces\tiny-test-model-q8
+cargo run -p minimodel -- serve-peer-pieces examples\tiny-test-model-q8.minimodel.manifest.v0 .\peer-pieces\tiny-test-model-q8 127.0.0.1:8123
+cargo run -p minimodel -- fetch-peer-pieces examples\tiny-test-model-q8.minimodel.manifest.v0 http://127.0.0.1:8123/ .\peer-pieces\fetched-tiny-test-model-q8
+cargo run -p minimodel -- assemble-peer-pieces examples\tiny-test-model-q8.minimodel.manifest.v0 .\peer-pieces\tiny-test-model-q8 .\tiny-test-model-q8.from-pieces.slm
+cargo run -p minimodel -- import-peer-request .\tiny-test-model-q8.minimodel-peer-import-request.json examples\tiny-test-model-q8.minimodel.manifest.v0 .\imported-tiny-test-model-q8
+cargo run -p minimodel -- prepare-peer-share ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm .\prepared-share\tiny-test-model-q8 tinyrustlm/prepared-tiny-test-model-q8 tinyrustlm/tiny-test-model-q8
+cargo run -p minimodel -- write-catalog-entry examples\tiny-test-model-q8.minimodel.manifest.v0 examples\tiny-test-model-q8.minimodel-peer-offer .\catalog-entry.v0.json
+cargo run -p minimodel -- add-peer-source .\catalog-entry.v0.json .\catalog-entry.with-peer.v0.json http://127.0.0.1:8123/
+cargo run -p minimodel -- write-catalog-snapshot .\models.v0.json .\catalog-entry.with-peer.v0.json
 ```
 
 The receipt stores only the artifact basename as `artifact.local_path_hint`; it must not store private absolute paths.
 
+`add-peer-source` is the safe late-publication step for a proof-ready catalog entry. It attaches one validated consenting direct peer URL, rejects MiniModel/TinyRustLM/project hosts, revalidates the peer-source count, and writes a new catalog entry for `write-catalog-snapshot`. It does not upload, proxy, download, or serve model bytes through project infrastructure.
+
 ## Later Networking Boundary
 
-Future peer transfer can reuse manifest and receipt fields, but it must not weaken local verification. A future peer app may fetch chunks from consenting peers. MiniModel.com servers still publish only metadata, schemas, public-key routes, and takedown/contact routes.
+Future peer transfer can reuse manifest, peer-piece, and receipt fields, but it must not weaken local verification. A future peer app may fetch chunks from consenting peers. MiniModel.com servers still publish only metadata, schemas, public-key routes, and takedown/contact routes.

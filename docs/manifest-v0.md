@@ -91,11 +91,19 @@ Hugging Face `/resolve/`, LFS/Xet/CAS transfers, Inference Providers, Inference 
 
 TinyRustLM may save a `minimodel.huggingface_conversion_request.v0` JSON file when Hub metadata has no admitted `.slm` match. That file is not a manifest and not an execution grant. It is a local handoff for review, conversion, validation, admission, and later P2P availability metadata.
 
-TinyRustLM may also save a `.tinyrustlm-convert.ps1` handoff script for the same Hub record. The script is not MiniModel metadata and not a download grant. It is a local wrapper around Rust packer commands: `inspect-safetensors`, `plan-safetensors-source`, `convert-safetensors-trained`, `validate`, `validate-manifest`, `peer-offer`, and `validate-peer-offer`. It must require a user-owned local `.safetensors` path and must not download model bytes.
+TinyRustLM may also save a `.tinyrustlm-convert.ps1` handoff script for the same Hub record. The script is not MiniModel metadata and not a download grant. It is a local wrapper around `tinyrustlm-slm-pack convert-huggingface-request`, which consumes the saved request plus a user-owned local `.safetensors` path, writes a verified `.slm`, and writes a checksum-bound conversion receipt. The same script then calls MiniModel `prepare-peer-share` and `write-catalog-snapshot` to publish metadata. It must not download model bytes.
 
 The Rust `peer-offer` output is a text manifest, usually named `.minimodel-peer-offer`, with SHA256 artifact identity, fixed-size chunk SHA256 rows, chunk-list SHA256, and a Merkle root. It proves what a future peer client must transfer and what the recipient must reverify before local browser import. It is not executable code and not a project-hosted artifact URL.
 
 After local `.slm` verification, TinyRustLM may save a `minimodel.local_slm_share_metadata.v0` JSON bundle. It contains a catalog-entry candidate and `minimodel.peer_offer.v0` metadata with artifact SHA256, chunk SHA256 entries, chunk-list SHA256, and Merkle root. Catalog entries may also point at a Rust-generated `.minimodel-peer-offer` using `peer_offer_route`, `peer_offer_sha256`, `peer_offer_chunk_count`, and `peer_offer_merkle_root_sha256`. It must keep peer transfer marked unavailable until networking is actually implemented.
+
+MiniModel can also attach peer-source availability after conversion with:
+
+```text
+minimodel add-peer-source <catalog-entry-json> <output-json> <known-peer-base-url>
+```
+
+That command validates the existing catalog entry, rejects project-server peer hosts, writes one consenting direct-peer source, revalidates `peer_source_count`, and writes a new catalog-entry JSON for the next metadata-only snapshot. It does not upload, proxy, or fetch `.slm` bytes.
 
 ## Chunk Fields
 
