@@ -46,7 +46,7 @@ Do not imply that Hugging Face endpoints are MiniModel execution paths.
 
 Do say that Hugging Face rows are external metadata until an admitted `.slm` exists. TinyRustLM may save a conversion-request JSON and a local `.tinyrustlm-convert.ps1` script, but the user must obtain and review source bytes outside project infrastructure, then Rust must convert and validate the local `.slm` and write/validate a `.minimodel-peer-offer` proof.
 
-Do not imply that broad MiniModel P2P discovery, relays, or swarm networking are already live unless they are implemented and deployed. It is accurate to describe the current direct known-peer Rust bridge: `prepare-peer-share`, `serve-peer-pieces`, `fetch-peer-pieces`, `assemble-peer-pieces`, `import-peer-request`, `add-peer-source`, `write-peer-source-announcement`, `apply-peer-source-announcements`, and `write-catalog-snapshot`.
+Do not imply that broad MiniModel P2P discovery, relays, or swarm networking are already live unless they are implemented and deployed. It is accurate to describe the current direct known-peer Rust bridge: `prepare-peer-share`, `serve-peer-pieces`, `fetch-peer-pieces`, `assemble-peer-pieces`, `import-peer-request`, `add-peer-source`, `write-peer-source-announcement`, `apply-peer-source-announcements`, `write-catalog-snapshot-with-announcements`, and `write-catalog-snapshot`.
 
 It is accurate to say TinyRustLM can save `minimodel.local_slm_share_metadata.v0` after verified local `.slm` import when that feature is deployed. That bundle is metadata, not a model transfer.
 
@@ -67,6 +67,7 @@ cargo run -p minimodel -- prepare-peer-share ..\SLMComposer.com\tinyrustlm\model
 cargo run -p minimodel -- add-peer-source .\catalog-entry.v0.json .\catalog-entry.with-peer.v0.json http://127.0.0.1:8123/
 cargo run -p minimodel -- write-peer-source-announcement .\catalog-entry.v0.json .\catalog-entry.peer-source-announcement.v0.json http://127.0.0.1:8123/
 cargo run -p minimodel -- apply-peer-source-announcements .\catalog-entry.v0.json .\catalog-entry.announced-peer.v0.json .\catalog-entry.peer-source-announcement.v0.json
+cargo run -p minimodel -- write-catalog-snapshot-with-announcements .\models.v0.json .\catalog-entry.v0.json --announcements .\catalog-entry.peer-source-announcement.v0.json
 cargo run -p minimodel -- assemble-peer-pieces examples\tiny-test-model-q8.minimodel.manifest.v0 .\peer-pieces\tiny-test-model-q8 .\tiny-test-model-q8.from-pieces.slm
 ```
 

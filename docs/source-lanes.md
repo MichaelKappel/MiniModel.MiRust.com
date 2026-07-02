@@ -74,7 +74,7 @@ The MiniModel path is:
 5. Conversion writes a local `.slm`, then Rust validates byte count, checksum, shape, tokenizer, runtime smoke, and admission evidence, and writes `tinyrustlm-conversion.receipt`.
 6. `minimodel prepare-peer-share` emits a MiniModel manifest, `.minimodel-peer-offer` text proof, local peer pieces, and catalog-entry JSON in one directory.
 7. If a consenting peer URL becomes known later, `minimodel add-peer-source` can attach one validated direct-peer source to the proof-ready entry before the next snapshot.
-8. If availability metadata needs to travel between a converter and a catalog maintainer, `minimodel write-peer-source-announcement` writes portable metadata and `minimodel apply-peer-source-announcements` validates drift before merging peer sources.
+8. If availability metadata needs to travel between a converter and a catalog maintainer, `minimodel write-peer-source-announcement` writes portable metadata, `minimodel apply-peer-source-announcements` validates drift before merging peer sources, and `minimodel write-catalog-snapshot-with-announcements` batch-publishes many entries plus announcements into metadata-only `models.v0.json`.
 9. `minimodel write-catalog-snapshot` can publish metadata-only `models.v0.json` from proof-ready or with-peer catalog entries.
 10. `serve-peer-pieces`, `fetch-peer-pieces`, `assemble-peer-pieces`, and `import-peer-request` exercise the current direct known-peer byte path, with full Rust re-verification before local browser import.
 11. TinyRustLM may export `minimodel.local_slm_share_metadata.v0` with the verified artifact SHA256, chunk hashes, chunk-list SHA256, Merkle root, and peer-offer reference.

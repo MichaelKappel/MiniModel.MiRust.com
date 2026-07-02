@@ -34,6 +34,7 @@ minimodel prepare-peer-share <artifact.slm> <output-dir> <model-id> [source-hugg
 minimodel add-peer-source <catalog-entry-json> <output-json> <known-peer-base-url>
 minimodel write-peer-source-announcement <catalog-entry-json> <announcement-json> <known-peer-base-url>
 minimodel apply-peer-source-announcements <catalog-entry-json> <output-json> <announcement-json>...
+minimodel write-catalog-snapshot-with-announcements <output-json> <catalog-entry-json>... --announcements <announcement-json>...
 minimodel write-catalog-snapshot <output-json> <catalog-entry-json>...
 ```
 
@@ -233,6 +234,7 @@ cargo run -p minimodel -- write-catalog-entry examples\tiny-test-model-q8.minimo
 cargo run -p minimodel -- add-peer-source .\catalog-entry.v0.json .\catalog-entry.with-peer.v0.json http://127.0.0.1:8123/
 cargo run -p minimodel -- write-peer-source-announcement .\catalog-entry.v0.json .\catalog-entry.peer-source-announcement.v0.json http://127.0.0.1:8123/
 cargo run -p minimodel -- apply-peer-source-announcements .\catalog-entry.v0.json .\catalog-entry.announced-peer.v0.json .\catalog-entry.peer-source-announcement.v0.json
+cargo run -p minimodel -- write-catalog-snapshot-with-announcements .\models.v0.json .\catalog-entry.v0.json --announcements .\catalog-entry.peer-source-announcement.v0.json
 cargo run -p minimodel -- write-catalog-snapshot .\models.v0.json .\catalog-entry.with-peer.v0.json
 ```
 
@@ -240,7 +242,7 @@ The receipt stores only the artifact basename as `artifact.local_path_hint`; it 
 
 `add-peer-source` is the safe late-publication step for a proof-ready catalog entry. It attaches one validated consenting direct peer URL, rejects MiniModel/TinyRustLM/project hosts, revalidates the peer-source count, and writes a new catalog entry for `write-catalog-snapshot`. It does not upload, proxy, download, or serve model bytes through project infrastructure.
 
-`write-peer-source-announcement` is the portable late-publication step. It writes metadata-only JSON that binds the catalog entry checksum, model id, artifact identity, peer-offer proof, Merkle root, and one consenting direct peer URL. `apply-peer-source-announcements` is the maintainer merge step: it validates one or more announcements against the catalog entry, rejects drift, deduplicates peer URLs, and writes the with-peer catalog entry used by the next metadata-only snapshot.
+`write-peer-source-announcement` is the portable late-publication step. It writes metadata-only JSON that binds the catalog entry checksum, model id, artifact identity, peer-offer proof, Merkle root, and one consenting direct peer URL. `apply-peer-source-announcements` is the maintainer merge step: it validates one or more announcements against the catalog entry, rejects drift, deduplicates peer URLs, and writes the with-peer catalog entry used by the next metadata-only snapshot. `write-catalog-snapshot-with-announcements` is the maintainer batch step: it validates many entries and announcement files together, rejects unmatched announcement model ids, and writes final `models.v0.json` directly.
 
 ## Later Networking Boundary
 
