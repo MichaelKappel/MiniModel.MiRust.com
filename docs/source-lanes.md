@@ -79,6 +79,7 @@ The MiniModel path is:
 10. `serve-peer-pieces`, `fetch-peer-pieces`, `assemble-peer-pieces`, and `import-peer-request` exercise the current direct known-peer byte path, with full Rust re-verification before local browser import.
 11. TinyRustLM may export `minimodel.local_slm_share_metadata.v0` with the verified artifact SHA256, chunk hashes, chunk-list SHA256, Merkle root, and peer-offer reference.
 12. MiniModel may publish checksum-bound metadata with `source_huggingface_model_id`, `peer_offer_route`, `peer_offer_sha256`, `peer_source_count`, and `peer_sources` when a consenting peer source exists.
+13. A shared catalog may also publish same-origin, SHA-256-bound `peer_source_announcement_routes` so TinyRustLM can verify small availability feeds before rendering `P2P Import`.
 13. User opens the verified local `.slm` in TinyRustLM.
 
 The generated conversion script must not download model bytes, call a MiniModel proxy, or use a project-owned token. It is a local convenience wrapper over Rust commands and must be edited to point at the user's local TinyRustLM workspace and local `.safetensors` file.

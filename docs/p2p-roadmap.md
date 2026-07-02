@@ -61,6 +61,8 @@ Catalog entries must not include project-server artifact URLs.
 
 Late peer availability now has two metadata-only publication paths. `add-peer-source` is the direct local path when the catalog entry and consenting peer URL are in the same workflow. `write-peer-source-announcement` plus `apply-peer-source-announcements` is the maintainer path when a converter sends portable availability metadata for drift-checked merge before the next snapshot. For many entries and announcements, `write-catalog-snapshot-with-announcements` performs the drift checks and writes final metadata-only `models.v0.json` in one command.
 
+Catalog-declared peer-source announcement feeds are the first browser-visible publication convenience on top of that path. They are still metadata, must stay same-origin with the catalog, must be bound by SHA-256, and must only help TinyRustLM discover consenting peer sources for Rust `import-peer-request`.
+
 ## Phase 3: Local Share Metadata
 
 Export `minimodel.local_slm_share_metadata.v0` after a verified local `.slm` import. The bundle should include:

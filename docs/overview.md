@@ -73,6 +73,8 @@ Hugging Face rows are not compatible by default. They become TinyRustLM-runnable
 
 A converted model becomes easier for later users only after metadata and peer availability are published honestly. The direct local path is `add-peer-source`: it upgrades one proof-ready catalog entry with one consenting direct peer URL. The portable maintainer path is `write-peer-source-announcement` plus `apply-peer-source-announcements`: a converter writes a small JSON availability claim, and a maintainer validates it against the catalog entry before the next `write-catalog-snapshot`. For many entries, `write-catalog-snapshot-with-announcements` validates entries and announcements together and writes final `models.v0.json` directly. None of these paths upload model bytes to MiniModel.com.
 
+TinyRustLM may also follow a catalog-declared peer-source announcement feed when the snapshot binds that feed route to SHA-256 and the route stays on the catalog origin. That fetch is metadata-only and only upgrades matching proof-ready rows to `P2P Import`; actual `.slm` bytes still come from local files or a consenting peer through Rust verification.
+
 ## Trust Model
 
 MiniModel should be understood as a pointer and evidence system:
