@@ -13,6 +13,7 @@ Read first:
 - /docs/p2p-roadmap.md
 - /docs/agent-readme.md
 - /examples/minimodel.manifest.v0.example
+- /examples/share-metadata.v0.json
 
 Hard rules:
 
@@ -29,4 +30,5 @@ Source options:
 
 - User local files: simplest path.
 - Hugging Face: metadata discovery, local conversion-request handoff, and user-side acquisition context only; no Hub result is runnable until an admitted `.slm` exists.
-- Future P2P: consent-based chunk transfer after local verifier and legal boundary are stable.
+- Local share metadata: after a verified local `.slm`, TinyRustLM can save `minimodel.local_slm_share_metadata.v0` with artifact SHA256, chunk SHA256 entries, chunk-list SHA256, Merkle root, and disabled live-transfer flags.
+- Future P2P: consent-based chunk transfer after local verifier, share metadata, and legal boundary are stable.

@@ -70,10 +70,13 @@ The MiniModel path is:
 2. If no admitted `.slm` exists, the user saves a local `minimodel.huggingface_conversion_request.v0` handoff.
 3. A user or converter acquires source bytes outside project infrastructure if they choose.
 4. Conversion writes a local `.slm`, then Rust validates byte count, checksum, shape, tokenizer, runtime smoke, and admission evidence.
-5. MiniModel may publish checksum-bound metadata with `source_huggingface_model_id` and future peer hints.
-6. User opens the verified local `.slm` in TinyRustLM.
+5. TinyRustLM may export `minimodel.local_slm_share_metadata.v0` with the verified artifact SHA256, chunk hashes, chunk-list SHA256, and a Merkle root.
+6. MiniModel may publish checksum-bound metadata with `source_huggingface_model_id` and future peer hints.
+7. User opens the verified local `.slm` in TinyRustLM.
 
 Until that chain exists for a model, the correct UI state is `conversion required`, not compatible or runnable.
+
+The local share metadata bundle is not a live transfer claim. It must say peer transfer is not implemented until a consenting peer app can move chunks and Rust can reverify them before import.
 
 ## Lane 3: Future MiniModel P2P
 

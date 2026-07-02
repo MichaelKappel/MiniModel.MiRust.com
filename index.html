@@ -30,7 +30,7 @@
       <div>
         <p class="eyebrow">Rust-first tiny model exchange</p>
         <h1>MiniModel.com developer documentation</h1>
-        <p class="lead">MiniModel is a metadata and verification layer for tiny local AI models. The first implementation target is deliberately simple: publish schemas and documentation, verify local `.slm` files with Rust, write checksum-bearing receipts, and let TinyRustLM.com load only user-selected local files in the browser.</p>
+        <p class="lead">MiniModel is a metadata and verification layer for tiny local AI models. The first implementation target is deliberately simple: publish schemas and documentation, verify local `.slm` files with Rust, write checksum-bearing receipts, let TinyRustLM.com load only user-selected local files in the browser, and export checksum-bound share metadata for later peer transfer.</p>
         <div class="callouts" aria-label="Core boundaries">
           <div class="callout">
             <strong>No server model bytes</strong>
@@ -161,11 +161,11 @@ signature.kind=unsigned-draft</code></pre>
           </article>
           <article class="card">
             <span class="tag">Hugging Face</span>
-            <p>Hugging Face is an external discovery and acquisition lane. MiniModel may expose metadata awareness, model-card routes, file hints, revision identity, local conversion-request handoffs, and admitted `.slm` metadata matches. Project infrastructure does not use project-owned tokens, proxy `/resolve/` URLs, host converted bytes, or turn endpoints into a MiniModel runtime path.</p>
+            <p>Hugging Face is an external discovery and acquisition lane. MiniModel may expose metadata awareness, model-card routes, file hints, revision identity, local conversion-request handoffs, and admitted `.slm` metadata matches. After conversion and local verification, TinyRustLM can export a share metadata bundle with artifact and chunk hashes. Project infrastructure does not use project-owned tokens, proxy `/resolve/` URLs, host converted bytes, or turn endpoints into a MiniModel runtime path.</p>
           </article>
           <article class="card">
             <span class="tag">Future P2P</span>
-            <p>Peer transfer comes later and must preserve the same local verifier contract. Consenting peers may exchange chunks, but the artifact becomes importable only after byte count, whole-artifact checksum, chunk/Merkle proof, `.slm` validation, and receipt writing.</p>
+            <p>Peer transfer comes later and must preserve the same local verifier contract. Today the bridge is `minimodel.local_slm_share_metadata.v0`: local JSON with whole-artifact SHA256, chunk SHA256 entries, chunk-list SHA256, and a Merkle root, while live network transfer remains explicitly unavailable.</p>
           </article>
         </div>
         <p>Full reference: <a href="/docs/source-lanes.md">docs/source-lanes.md</a></p>
@@ -177,7 +177,7 @@ signature.kind=unsigned-draft</code></pre>
       <div class="grid">
         <article class="card">
           <span class="tag">Implement first</span>
-          <p>Schema docs, example manifests, local Rust parser, checksum drift tests, `.slm` validation calls, receipt writer, and a metadata-only catalog prototype.</p>
+          <p>Schema docs, example manifests, local Rust parser, checksum drift tests, `.slm` validation calls, receipt writer, local share metadata export, and a metadata-only catalog prototype.</p>
         </article>
         <article class="card">
           <span class="tag">Defer networking</span>
@@ -198,6 +198,7 @@ signature.kind=unsigned-draft</code></pre>
           <li><a href="/docs/source-lanes.md">Local, Hugging Face, and P2P source lanes</a></li>
           <li><a href="/docs/legal-boundary.md">Legal, consent, and liability boundary</a></li>
           <li><a href="/docs/agent-readme.md">AI-agent operating notes</a></li>
+          <li><a href="/examples/share-metadata.v0.json">Local share metadata example</a></li>
           <li><a href="/llms.txt">llms.txt</a> and <a href="/llms-full.txt">llms-full.txt</a></li>
         </ol>
       </div>

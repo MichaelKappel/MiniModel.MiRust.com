@@ -1,12 +1,13 @@
 workspace = "MiniModel.MiRust.com"
 purpose = "Developer documentation site for MiniModel.com, the .slm format, and the MiniModel model exchange architecture."
-updated_utc = "2026-07-02T00:00:00Z"
+updated_utc = "2026-07-02T05:15:00Z"
 
 boundaries = [
   "MiniModel.com project servers never run user model bytes.",
   "MiniModel.com project servers never serve user model bytes.",
   "MiniModel.MiRust.com serves documentation, schemas, examples, metadata guidance, public-key guidance, and takedown/contact language only.",
   "TinyRustLM.com remains browser-local. Users import local .slm files through the browser file picker.",
+  "After verified local .slm import, TinyRustLM may export checksum-bound MiniModel share metadata, not model bytes.",
   "Rust owns .slm validation, checksum verification, manifest verification, and import receipts.",
   "Long-term memory stays pointer-based and checksum-bearing."
 ]

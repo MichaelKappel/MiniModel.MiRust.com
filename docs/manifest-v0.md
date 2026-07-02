@@ -89,6 +89,8 @@ Hugging Face `/resolve/`, LFS/Xet/CAS transfers, Inference Providers, Inference 
 
 TinyRustLM may save a `minimodel.huggingface_conversion_request.v0` JSON file when Hub metadata has no admitted `.slm` match. That file is not a manifest and not an execution grant. It is a local handoff for review, conversion, validation, admission, and later P2P availability metadata.
 
+After local `.slm` verification, TinyRustLM may save a `minimodel.local_slm_share_metadata.v0` JSON bundle. It contains a catalog-entry candidate and `minimodel.peer_offer.v0` metadata with artifact SHA256, chunk SHA256 entries, chunk-list SHA256, and Merkle root. It must keep peer transfer marked unavailable until networking is actually implemented.
+
 ## Chunk Fields
 
 Chunk fields are reserved for the later peer-transfer phase. The local-only verifier still parses and validates them when present.

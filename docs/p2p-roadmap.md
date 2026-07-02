@@ -16,6 +16,7 @@ Publish:
 - legal and takedown language
 - example manifest
 - example catalog entry
+- example local share metadata bundle
 
 ## Phase 1: Local Rust Verifier
 
@@ -57,7 +58,26 @@ Publish static catalog entries that include:
 
 Catalog entries must not include project-server artifact URLs.
 
-## Phase 3: Chunk and Merkle Proofs
+## Phase 3: Local Share Metadata
+
+Export `minimodel.local_slm_share_metadata.v0` after a verified local `.slm` import. The bundle should include:
+
+- catalog-entry candidate
+- local filename hint
+- source identity and optional Hugging Face model id
+- artifact byte count
+- artifact SHA256
+- fixed chunk size
+- chunk count
+- ordered chunk SHA256 list
+- chunk-list SHA256
+- Merkle root
+- `peer_transfer_implemented=false`
+- `network_transfer_available=false`
+
+The bundle is a review and future-transfer input, not an endorsement, model upload, or live transfer claim.
+
+## Phase 4: Chunk and Merkle Proofs
 
 Define `fixed-size-merkle-v0`:
 
@@ -70,7 +90,7 @@ Define `fixed-size-merkle-v0`:
 
 The verifier should be able to validate local chunk sets before a network exists. This keeps networking from becoming the first place chunk logic is tested.
 
-## Phase 4: Transfer Experiments
+## Phase 5: Transfer Experiments
 
 Compare transfer options.
 
@@ -144,7 +164,7 @@ Cons:
 
 Rust Hyper is ordinary HTTP infrastructure and should not be confused with Hypercore. It may be useful for docs or local HTTP plumbing, but it is not itself the P2P exchange strategy.
 
-## Phase 5: Peer App
+## Phase 6: Peer App
 
 A future peer app should provide:
 
@@ -166,7 +186,7 @@ It must not:
 - hide publisher identity or license routes
 - collapse transfer consent into execution consent
 
-## Phase 6: Public Exchange Review
+## Phase 7: Public Exchange Review
 
 Before public exchange:
 

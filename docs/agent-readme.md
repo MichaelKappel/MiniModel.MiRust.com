@@ -31,7 +31,8 @@ MiniModel is a pointer, manifest, evidence, and verification layer.
 4. Add tests for drift and rejection cases.
 5. Write receipts only after local verification passes.
 6. Add metadata-only catalog entries.
-7. Prototype P2P later.
+7. Export local share metadata only after verified `.slm` import.
+8. Prototype P2P later.
 
 ## Source-Lane Language
 
@@ -44,6 +45,8 @@ Use:
 Do not imply that Hugging Face endpoints are MiniModel execution paths.
 
 Do not imply that MiniModel P2P is already live unless it is implemented and deployed.
+
+It is accurate to say TinyRustLM can save `minimodel.local_slm_share_metadata.v0` after verified local `.slm` import when that feature is deployed. That bundle is metadata, not a model transfer.
 
 ## Manifest Safety
 

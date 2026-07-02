@@ -50,7 +50,7 @@ The first deliverable is not networking. It is a small, durable verification sta
 5. Metadata-only catalog examples.
 6. Clear legal and consent boundaries.
 
-After those are stable, peer networking can reuse the same manifest and receipt contract.
+After those are stable, TinyRustLM can export local share metadata bundles from verified `.slm` imports. Peer networking can then reuse the same manifest, chunk, Merkle, and receipt contract.
 
 ## Source Lanes
 
@@ -58,6 +58,7 @@ MiniModel has three source lanes:
 
 - User local files: the simplest and first-class route.
 - Hugging Face discovery: user-triggered external metadata and source context.
+- Local share metadata: checksum-bound JSON exported only after a verified local `.slm` import.
 - Future P2P exchange: consent-based chunk transfer verified locally before import.
 
 All source lanes converge on the same rule: the user controls the local artifact, Rust verifies it locally, and TinyRustLM loads only a user-selected local `.slm` file.
@@ -70,6 +71,7 @@ MiniModel should be understood as a pointer and evidence system:
 - A manifest binds metadata to a specific artifact checksum.
 - Evidence sidecars bind conversion, runtime-smoke, eval, and admission results.
 - A local verifier proves the artifact supplied by the user.
+- A local share metadata bundle records artifact and chunk hashes without moving model bytes.
 - A receipt records what was verified locally.
 
 None of those steps mean MiniModel endorses the model, certifies training data, or guarantees safety.
@@ -83,7 +85,7 @@ None of those steps mean MiniModel endorses the model, certifies training data, 
 - `slm-format.md`: binary file details, tokenizer sections, tensor directory, checksum, quantization, adapters, conversion and admission chain.
 - `manifest-v0.md`: MiniModel line-oriented manifest fields and rejection rules.
 - `verifier-mvp.md`: local Rust verifier plan and receipt fields.
-- `source-lanes.md`: local files, Hugging Face discovery, and future P2P.
+- `source-lanes.md`: local files, Hugging Face discovery, local share metadata, and future P2P.
 - `legal-boundary.md`: consent, liability, moderation, and takedown language.
 - `p2p-roadmap.md`: Rust-first transfer roadmap and ecosystem tradeoffs.
 - `agent-readme.md`: operating notes for AI agents and automation.
