@@ -129,7 +129,7 @@ Verification order:
 
 Receipts must contain checksums and identity fields, not model bytes or private secrets. The next gate is `user-selected-tinyrustlm-local-file-open`.
 
-Local peer pieces and direct known-peer transfer are the current P2P bridge. They create and consume local model-byte chunks plus `minimodel.peer_piece_set.v0`, can serve/fetch pieces from a consenting direct peer, and re-run full verification before TinyRustLM import. `add-peer-source` attaches a validated consenting peer URL to proof-ready catalog metadata for the next metadata-only snapshot. `write-peer-source-announcement` and `apply-peer-source-announcements` let converters send portable peer availability metadata that maintainers drift-check before publication, while `write-catalog-snapshot-with-announcements` batch-publishes many checked entries and announcements into metadata-only `models.v0.json`. `write-peer-source-announcement-feed` validates many portable announcements into one metadata-only feed, and `write-catalog-snapshot-with-announcement-feed` binds that same-origin feed route into `models.v0.json` by SHA-256. TinyRustLM can apply a local peer-source announcement JSON overlay to a loaded proof-ready snapshot, and can also verify same-origin SHA-256-bound catalog announcement feed routes before showing `P2P Import`. The chunks must not be deployed to project servers.
+Local peer pieces and direct known-peer transfer are the current P2P bridge. They create and consume local model-byte chunks plus `minimodel.peer_piece_set.v0`, can serve/fetch pieces from a consenting direct peer, and re-run full verification before TinyRustLM import. TinyRustLM's local P2P share kit is a wrapper over this bridge after verified `.slm` import: it verifies the artifact, prepares peer pieces, optionally writes announcement/feed metadata, writes metadata-only catalog snapshots, and prints the user's own `serve-peer-pieces` command. `add-peer-source` attaches a validated consenting peer URL to proof-ready catalog metadata for the next metadata-only snapshot. `write-peer-source-announcement` and `apply-peer-source-announcements` let converters send portable peer availability metadata that maintainers drift-check before publication, while `write-catalog-snapshot-with-announcements` batch-publishes many checked entries and announcements into metadata-only `models.v0.json`. `write-peer-source-announcement-feed` validates many portable announcements into one metadata-only feed, and `write-catalog-snapshot-with-announcement-feed` binds that same-origin feed route into `models.v0.json` by SHA-256. TinyRustLM can apply a local peer-source announcement JSON overlay to a loaded proof-ready snapshot, and can also verify same-origin SHA-256-bound catalog announcement feed routes before showing `P2P Import`. The chunks must not be deployed to project servers.
 
 ## Source Lanes
 
@@ -157,10 +157,13 @@ Hugging Face:
 Future P2P:
 
 - later broad discovery, relay, NAT traversal, and swarm transfer
+- optional user-run MiniModel Peer Companion for local peer identity, local piece stores, cache quotas, consent prompts, serve/fetch controls, import receipts, and TinyRustLM handoff
 - may consume local share metadata and Rust `.minimodel-peer-offer` proof, but neither artifact is a project-hosted byte claim
 - chunk/Merkle verification
 - local receipt before import
 - MiniModel.com still does not serve model bytes
+
+The optional companion must reuse shared Rust verifier crates and command contracts. Tauri v2, Iced, Slint, egui, Dioxus, Iroh/QUIC, Rust-libp2p, WebRTC, WebTransport, BitTorrent-style chunking, Pear, Bare, and Hypercore remain evaluation lanes until they preserve consent, local verification, and no-server-byte rules.
 
 ## Legal and Consent
 

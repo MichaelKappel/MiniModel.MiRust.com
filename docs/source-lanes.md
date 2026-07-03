@@ -79,10 +79,11 @@ The MiniModel path is:
 10. `minimodel write-catalog-snapshot` can publish metadata-only `models.v0.json` from proof-ready or with-peer catalog entries.
 11. `serve-peer-pieces`, `fetch-peer-pieces`, `assemble-peer-pieces`, and `import-peer-request` exercise the current direct known-peer byte path, with full Rust re-verification before local browser import.
 12. TinyRustLM may export `minimodel.local_slm_share_metadata.v0` with the verified artifact SHA256, chunk hashes, chunk-list SHA256, Merkle root, and peer-offer reference.
-13. MiniModel may publish checksum-bound metadata with `source_huggingface_model_id`, `peer_offer_route`, `peer_offer_sha256`, `peer_source_count`, `peer_sources`, and same-origin `peer_source_announcement_routes` when a consenting peer source exists or an announcement feed is bound by SHA-256.
-14. User opens the verified local `.slm` in TinyRustLM.
+13. TinyRustLM may also export a local `.minimodel-share-kit.ps1` wrapper that resolves `MINIMODEL_WORKSPACE` and `TINYRUSTLM_LOCAL_SLM`, verifies the local artifact byte count and SHA-256, runs MiniModel `prepare-peer-share`, optionally writes peer-source announcement/feed metadata when the user sets a consenting peer URL, writes metadata-only catalog snapshots, and prints the user's own `serve-peer-pieces` command.
+14. MiniModel may publish checksum-bound metadata with `source_huggingface_model_id`, `peer_offer_route`, `peer_offer_sha256`, `peer_source_count`, `peer_sources`, and same-origin `peer_source_announcement_routes` when a consenting peer source exists or an announcement feed is bound by SHA-256.
+15. User opens the verified local `.slm` in TinyRustLM.
 
-The generated conversion script must not download model bytes, call a MiniModel proxy, or use a project-owned token. It is a local convenience wrapper over Rust commands and must be edited to point at the user's local TinyRustLM workspace and local `.safetensors` file.
+The generated conversion script and local share kit must not download model bytes, call a MiniModel proxy, or use a project-owned token. They are local convenience wrappers over Rust commands and must resolve or be edited to point at the user's local workspaces and local source or `.slm` files.
 
 Until that chain exists for a model, the correct UI state is `Rust conversion required`, not compatible or runnable.
 
@@ -94,8 +95,12 @@ Broad P2P discovery is a later phase. It should reuse the manifest and verifier 
 
 The current implemented bridge is direct known-peer serve/fetch/import plus local peer-piece export and assembly. It proves that chunk files can be generated from a verified `.slm`, moved from a consenting direct peer endpoint, checked independently, reassembled, and passed back through the full verifier. A broader network transport can later move those same chunks, but it does not get to replace verification.
 
+The July 3 desktop/P2P intake points to an optional MiniModel Peer Companion as the right place for advanced peer duties. That companion would be user-run local software, not MiniModel.com infrastructure. It can hide command complexity for power users while preserving the same Rust verifier, local receipt, and no-server-byte boundary.
+
 The peer app may eventually support:
 
+- local peer identity
+- local piece stores
 - peer discovery
 - consent screens
 - local quotas
@@ -107,6 +112,7 @@ The peer app may eventually support:
 - transfer receipts
 - import receipts
 - peer-piece sidecars
+- TinyRustLM handoff after verified local import
 
 The peer app must still ensure:
 
@@ -121,6 +127,8 @@ The peer app must still ensure:
 - local import receipt after peer-piece assembly before execution
 
 MiniModel.com servers remain metadata-only even when P2P exists.
+
+Tauri v2, Iced, Slint, egui, Dioxus, Iroh/QUIC, Rust-libp2p, WebRTC, WebTransport, BitTorrent-style chunking, Pear, Bare, and Hypercore remain evaluation lanes. None of them should become a dependency until the shared Rust verifier, consent gates, and local byte handling remain intact.
 
 ## UX Mapping
 
