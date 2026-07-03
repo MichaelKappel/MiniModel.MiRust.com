@@ -26,7 +26,7 @@ Hard rules:
 - TinyRustLM.com remains browser-local.
 - Users import local `.slm` files through the browser file picker.
 - Rust owns `.slm` validation and checksum verification.
-- The first `minimodel-core` and `minimodel` verifier crates are implemented in the MiniModel.org source workspace, including local peer-piece export/reassembly, direct known-peer serve/fetch/import, metadata-only catalog snapshots, `add-peer-source` for direct late peer availability, peer-source announcement/apply commands, checksum-bound announcement-feed publication, and batch snapshot publication for maintainer-reviewed availability.
+- The first `minimodel-core` and `minimodel` verifier crates are implemented in the MiniModel.org source workspace, including local peer-piece export/reassembly, direct known-peer serve/fetch/import, metadata-only catalog snapshots, `add-peer-source` for direct late peer availability, peer-source announcement/apply commands, checksum-bound announcement-feed publication with valid empty feeds, and batch snapshot publication for maintainer-reviewed availability.
 - Long-term memory stays pointer-based and checksum-bearing.
 
 Source options:

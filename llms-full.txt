@@ -78,7 +78,7 @@ minimodel assemble-peer-pieces <manifest> <piece-dir> <output.slm>
 minimodel import-peer-request <request-json> <manifest> <output-dir>
 ```
 
-Catalog/availability commands include `write-catalog-entry`, `add-peer-source`, `write-peer-source-announcement`, `apply-peer-source-announcements`, `write-peer-source-announcement-feed`, `write-catalog-snapshot-with-announcement-feed`, `write-catalog-snapshot-with-announcements`, and `write-catalog-snapshot`.
+Catalog/availability commands include `write-catalog-entry`, `add-peer-source`, `write-peer-source-announcement`, `apply-peer-source-announcements`, `write-peer-source-announcement-feed` with zero-or-more announcements, `write-catalog-snapshot-with-announcement-feed`, `write-catalog-snapshot-with-announcements`, and `write-catalog-snapshot`.
 
 ## Source Lanes
 

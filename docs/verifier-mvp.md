@@ -35,7 +35,7 @@ minimodel add-peer-source <catalog-entry-json> <output-json> <known-peer-base-ur
 minimodel write-peer-source-announcement <catalog-entry-json> <announcement-json> <known-peer-base-url>
 minimodel apply-peer-source-announcements <catalog-entry-json> <output-json> <announcement-json>...
 minimodel write-catalog-snapshot-with-announcements <output-json> <catalog-entry-json>... --announcements <announcement-json>...
-minimodel write-peer-source-announcement-feed <output-json> <announcement-json>...
+minimodel write-peer-source-announcement-feed <output-json> [announcement-json...]
 minimodel write-catalog-snapshot-with-announcement-feed <output-json> <feed-route> <announcement-feed-json> <catalog-entry-json>...
 minimodel write-catalog-snapshot <output-json> <catalog-entry-json>...
 ```
@@ -238,6 +238,7 @@ cargo run -p minimodel -- write-peer-source-announcement .\catalog-entry.v0.json
 cargo run -p minimodel -- apply-peer-source-announcements .\catalog-entry.v0.json .\catalog-entry.announced-peer.v0.json .\catalog-entry.peer-source-announcement.v0.json
 cargo run -p minimodel -- write-catalog-snapshot-with-announcements .\models.v0.json .\catalog-entry.v0.json --announcements .\catalog-entry.peer-source-announcement.v0.json
 cargo run -p minimodel -- write-peer-source-announcement-feed .\peer-source-announcements.v0.json .\catalog-entry.peer-source-announcement.v0.json
+cargo run -p minimodel -- write-peer-source-announcement-feed .\peer-source-announcements.empty.v0.json
 cargo run -p minimodel -- write-catalog-snapshot-with-announcement-feed .\models.v0.json peer-source-announcements.v0.json .\peer-source-announcements.v0.json .\catalog-entry.v0.json
 cargo run -p minimodel -- write-catalog-snapshot .\models.v0.json .\catalog-entry.with-peer.v0.json
 ```
@@ -248,7 +249,7 @@ The receipt stores only the artifact basename as `artifact.local_path_hint`; it 
 
 `write-peer-source-announcement` is the portable late-publication step. It writes metadata-only JSON that binds the catalog entry checksum, model id, artifact identity, peer-offer proof, Merkle root, and one consenting direct peer URL. `apply-peer-source-announcements` is the maintainer merge step: it validates one or more announcements against the catalog entry, rejects drift, deduplicates peer URLs, and writes the with-peer catalog entry used by the next metadata-only snapshot. `write-catalog-snapshot-with-announcements` is the maintainer batch step: it validates many entries and announcement files together, rejects unmatched announcement model ids, and writes final `models.v0.json` directly.
 
-`write-peer-source-announcement-feed` validates many portable announcements into one metadata-only `minimodel.peer_source_announcement_catalog` feed. `write-catalog-snapshot-with-announcement-feed` validates that feed, confirms every feed model id has a matching catalog entry, rejects unsafe URL-like feed routes, computes the feed SHA-256 from the exact JSON bytes, and writes a same-origin route row into `models.v0.json`. TinyRustLM verifies that small feed before it upgrades proof-ready rows to `P2P Import`; the actual model bytes still come only from local files or consenting peers through Rust `import-peer-request`.
+`write-peer-source-announcement-feed` validates zero or more portable announcements into one metadata-only `minimodel.peer_source_announcement_catalog` feed. An empty feed is a valid "availability checked, no peer sources published yet" state and must not make any row P2P-ready. `write-catalog-snapshot-with-announcement-feed` validates that feed, confirms every feed model id has a matching catalog entry, rejects unsafe URL-like feed routes, computes the feed SHA-256 from the exact JSON bytes, and writes a same-origin route row into `models.v0.json`. TinyRustLM verifies that small feed before it upgrades proof-ready rows to `P2P Import`; the actual model bytes still come only from local files or consenting peers through Rust `import-peer-request`.
 
 ## Later Networking Boundary
 

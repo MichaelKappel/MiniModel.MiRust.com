@@ -170,7 +170,7 @@ cargo run -p minimodel -- assemble-peer-pieces examples\tiny-test-model-q8.minim
           </article>
           <article class="card">
             <span class="tag">Future P2P</span>
-            <p>Broad peer discovery comes later and must preserve the same local verifier contract. Today the bridge is direct known-peer serve/fetch/import, `minimodel.local_slm_share_metadata.v0`, Rust-generated `.minimodel-peer-offer`, metadata-only catalog snapshots, optional `peer_sources` rows, and same-origin SHA-256-bound announcement feeds that name consenting direct peers without making MiniModel.com a byte host.</p>
+            <p>Broad peer discovery comes later and must preserve the same local verifier contract. Today the bridge is direct known-peer serve/fetch/import, `minimodel.local_slm_share_metadata.v0`, Rust-generated `.minimodel-peer-offer`, metadata-only catalog snapshots, optional `peer_sources` rows, and same-origin SHA-256-bound announcement feeds that name consenting direct peers without making MiniModel.com a byte host. Empty feeds are valid no-peer-yet checks and do not make rows P2P-ready.</p>
           </article>
         </div>
         <p>Full reference: <a href="/docs/source-lanes.md">docs/source-lanes.md</a></p>
