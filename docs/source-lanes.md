@@ -75,12 +75,12 @@ The MiniModel path is:
 6. `minimodel prepare-peer-share` emits a MiniModel manifest, `.minimodel-peer-offer` text proof, local peer pieces, and catalog-entry JSON in one directory.
 7. If a consenting peer URL becomes known later, `minimodel add-peer-source` can attach one validated direct-peer source to the proof-ready entry before the next snapshot.
 8. If availability metadata needs to travel between a converter and a catalog maintainer, `minimodel write-peer-source-announcement` writes portable metadata, `minimodel apply-peer-source-announcements` validates drift before merging peer sources, and `minimodel write-catalog-snapshot-with-announcements` batch-publishes many entries plus announcements into metadata-only `models.v0.json`.
-9. `minimodel write-catalog-snapshot` can publish metadata-only `models.v0.json` from proof-ready or with-peer catalog entries.
-10. `serve-peer-pieces`, `fetch-peer-pieces`, `assemble-peer-pieces`, and `import-peer-request` exercise the current direct known-peer byte path, with full Rust re-verification before local browser import.
-11. TinyRustLM may export `minimodel.local_slm_share_metadata.v0` with the verified artifact SHA256, chunk hashes, chunk-list SHA256, Merkle root, and peer-offer reference.
-12. MiniModel may publish checksum-bound metadata with `source_huggingface_model_id`, `peer_offer_route`, `peer_offer_sha256`, `peer_source_count`, and `peer_sources` when a consenting peer source exists.
-13. A shared catalog may also publish same-origin, SHA-256-bound `peer_source_announcement_routes` so TinyRustLM can verify small availability feeds before rendering `P2P Import`.
-13. User opens the verified local `.slm` in TinyRustLM.
+9. If the maintainer wants browser-visible late availability without rewriting catalog entries, `minimodel write-peer-source-announcement-feed` validates portable announcements into a metadata-only feed and `minimodel write-catalog-snapshot-with-announcement-feed` binds that same-origin feed route into `models.v0.json` with SHA-256.
+10. `minimodel write-catalog-snapshot` can publish metadata-only `models.v0.json` from proof-ready or with-peer catalog entries.
+11. `serve-peer-pieces`, `fetch-peer-pieces`, `assemble-peer-pieces`, and `import-peer-request` exercise the current direct known-peer byte path, with full Rust re-verification before local browser import.
+12. TinyRustLM may export `minimodel.local_slm_share_metadata.v0` with the verified artifact SHA256, chunk hashes, chunk-list SHA256, Merkle root, and peer-offer reference.
+13. MiniModel may publish checksum-bound metadata with `source_huggingface_model_id`, `peer_offer_route`, `peer_offer_sha256`, `peer_source_count`, `peer_sources`, and same-origin `peer_source_announcement_routes` when a consenting peer source exists or an announcement feed is bound by SHA-256.
+14. User opens the verified local `.slm` in TinyRustLM.
 
 The generated conversion script must not download model bytes, call a MiniModel proxy, or use a project-owned token. It is a local convenience wrapper over Rust commands and must be edited to point at the user's local TinyRustLM workspace and local `.safetensors` file.
 
