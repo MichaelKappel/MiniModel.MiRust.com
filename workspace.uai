@@ -1,6 +1,6 @@
 workspace = "MiniModel.MiRust.com"
 purpose = "Developer documentation site for MiniModel.com, the .slm format, and the MiniModel model exchange architecture."
-updated_utc = "2026-07-03T09:05:00Z"
+updated_utc = "2026-07-03T12:45:00Z"
 
 boundaries = [
   "MiniModel.com project servers never run user model bytes.",
@@ -11,6 +11,7 @@ boundaries = [
   "Hugging Face rows are metadata until converted to a verified local .slm; TinyRustLM may save local conversion-request JSON and local Rust conversion-script handoffs.",
   "MiniModel currently supports direct known-peer Rust handoffs, metadata-only peer-source rows, portable peer-source announcement/apply metadata, write-peer-source-announcement-feed, write-catalog-snapshot-with-announcement-feed, same-origin checksum-bound catalog announcement feed routes, and batch write-catalog-snapshot-with-announcements publication; broad P2P discovery, relays, NAT traversal, and swarm transfer remain roadmap until implemented.",
   "An optional MiniModel Peer Companion may later manage local peer identity, local piece stores, consent prompts, cache quotas, direct serve/fetch controls, and receipts, but it remains user-run local software rather than project-hosted model-byte infrastructure.",
+  "docs/peer-companion.md is the detailed future companion design and completion gate; it is roadmap documentation, not a live companion claim.",
   "Rust owns .slm validation, checksum verification, manifest verification, and import receipts.",
   "Long-term memory stays pointer-based and checksum-bearing."
 ]

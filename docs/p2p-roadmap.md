@@ -200,6 +200,8 @@ It must not:
 - hide publisher identity or license routes
 - collapse transfer consent into execution consent
 
+The durable design target is [peer-companion.md](peer-companion.md). Treat that file as the acceptance checklist before claiming a first companion prototype.
+
 ## Phase 7: Public Exchange Review
 
 Before public exchange:

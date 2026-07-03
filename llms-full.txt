@@ -1,216 +1,23 @@
 # MiniModel.MiRust.com Full Agent Context
 
-MiniModel.MiRust.com is the developer documentation site for MiniModel.com.
+MiniModel.MiRust.com is the developer documentation site for MiniModel.com. It serves documentation, schemas, examples, metadata guidance, and agent orientation only.
 
-MiniModel.com is a Rust-first metadata and verification layer for tiny local AI model packages. It is not a model host and not an inference service.
+MiniModel.com is a Rust-first metadata and verification layer for tiny local AI model packages. It is not a model host, byte relay, or inference service.
 
-## Non-Negotiable Boundary
+## Hard Boundary
 
-Project servers never run user model bytes.
+- Project servers never run user model bytes.
+- Project servers never serve user model bytes.
+- Project servers never proxy external model-byte downloads.
+- TinyRustLM.com remains browser-local.
+- Users import local `.slm` files through the browser file picker.
+- Rust owns `.slm` validation, manifest verification, chunk verification, and import receipts.
 
-Project servers never serve user model bytes.
+MiniModel.com may publish static docs, schemas, example manifests, metadata-only catalog entries, public-key routes, signed catalog snapshots, model-card/license metadata, peer-source announcement feeds, and takedown/contact routes.
 
-Project servers never proxy external model-byte downloads.
+MiniModel.com must not publish third-party `.slm`, safetensors, GGUF, ONNX, adapter, tokenizer, or other runnable model bytes.
 
-MiniModel.com may serve:
-
-- static docs
-- schemas
-- example manifests
-- metadata-only catalog entries
-- public-key routes
-- signed catalog snapshots
-- model-card and license metadata
-- takedown/contact routes
-
-MiniModel.com must not serve:
-
-- third-party `.slm` artifacts
-- safetensors, GGUF, ONNX, adapter packages, or other model bytes
-- user tokenizer/model artifacts
-- server-side inference for user models
-- proxy routes for Hugging Face, P2P, or other model-byte downloads
-- automatic browser model-fetch instructions
-
-TinyRustLM.com remains browser-local. Users import local `.slm` files through the browser file picker. Rust/WASM validates before execution.
-
-## `.slm` Summary
-
-`.slm` v1 is TinyRustLM's local model format.
-
-Core facts:
-
-- little-endian
-- magic `SLM1`
-- version `1`
-- 108-byte minimum header
-- checksum field at bytes 100..108
-- file checksum treats bytes 100..108 as zero
-- tensor directory entries are 64 bytes
-- tensor directory and tensor data offsets are 64-byte aligned
-- tensor payload offsets are 64-byte aligned
-- supported dtypes are f32, q8_0, and q4_0
-- tokenizer sections are `BTOK` or `BPE1`
-- tied output is `flags & 1 != 0`
-
-Required tensors:
-
-- `tok_embeddings.weight`
-- `norm.weight`
-- `output.weight` unless tied output is enabled
-- per layer: attention norm, FFN norm, wq, wk, wv, wo, w1, w2, w3
-
-The `.slm` runtime parser rejects bad magic, short files, unsupported versions, zero checksums, checksum drift, zero dimensions, invalid attention shapes, offset escapes, malformed tokenizers, unsupported dtypes, payload length drift, malformed quantization scales, duplicate tensor hashes, missing tensors, and output-head contract drift.
-
-The MiniModel verifier must not treat manifest metadata as enough. It must verify a local `.slm` artifact.
-
-## Manifest v0 Summary
-
-The manifest is line-oriented `key=value` text.
-
-It binds:
-
-- manifest schema
-- model id
-- publisher identity
-- model-card route
-- license route
-- artifact kind
-- artifact byte count
-- artifact SHA256
-- source identity
-- `.slm` format version
-- model shape
-- quantization
-- tokenizer checksum
-- tensor-layout checksum
-- runtime compatibility
-- evidence routes/checksums
-- source discovery lane
-- chunk and Merkle fields
-- signature fields
-
-`artifact.project_server_url` must be `none`.
-
-The manifest is not a fetch instruction. The user must provide the local artifact.
-
-## Verifier MVP
-
-The first verifier exists before networking.
-
-Implementation:
-
-- `minimodel-core`: parser, boundary checks, SHA256, chunk/Merkle verification, TinyRustLM `.slm` validation, peer-piece export/reassembly, and receipt writing.
-- `minimodel`: CLI wrapper.
-- `examples/tiny-test-model-q8.minimodel.manifest.v0`: real q8 fixture manifest with artifact SHA256, `.slm` checksum, tokenizer checksum, tensor-layout checksum, peer-offer route, chunk-list SHA256, and Merkle root.
-
-Commands:
-
-```text
-minimodel verify-manifest <manifest>
-minimodel verify-artifact <manifest> <artifact.slm>
-minimodel write-import-receipt <manifest> <artifact.slm> <receipt.minimodel-receipt>
-minimodel export-peer-pieces <manifest> <artifact.slm> <output-dir>
-minimodel assemble-peer-pieces <manifest> <piece-dir> <output.slm>
-```
-
-Verification order:
-
-1. Parse lines and reject duplicate keys.
-2. Verify schema and boundary fields.
-3. Verify license and model-card routes.
-4. Verify source-lane fields.
-5. Verify signature fields when enabled.
-6. Verify chunk metadata when enabled.
-7. Verify local artifact byte count and SHA256.
-8. Verify `.slm` structure, custom checksum, tokenizer checksum, tensor-layout checksum, shape, and quantization.
-9. Verify supplied evidence sidecars.
-10. Write local import receipt.
-
-Receipts must contain checksums and identity fields, not model bytes or private secrets. The next gate is `user-selected-tinyrustlm-local-file-open`.
-
-Local peer pieces and direct known-peer transfer are the current P2P bridge. They create and consume local model-byte chunks plus `minimodel.peer_piece_set.v0`, can serve/fetch pieces from a consenting direct peer, and re-run full verification before TinyRustLM import. TinyRustLM's local P2P share kit is a wrapper over this bridge after verified `.slm` import: it verifies the artifact, prepares peer pieces, optionally writes announcement/feed metadata, writes metadata-only catalog snapshots, and prints the user's own `serve-peer-pieces` command. `add-peer-source` attaches a validated consenting peer URL to proof-ready catalog metadata for the next metadata-only snapshot. `write-peer-source-announcement` and `apply-peer-source-announcements` let converters send portable peer availability metadata that maintainers drift-check before publication, while `write-catalog-snapshot-with-announcements` batch-publishes many checked entries and announcements into metadata-only `models.v0.json`. `write-peer-source-announcement-feed` validates many portable announcements into one metadata-only feed, and `write-catalog-snapshot-with-announcement-feed` binds that same-origin feed route into `models.v0.json` by SHA-256. TinyRustLM can apply a local peer-source announcement JSON overlay to a loaded proof-ready snapshot, and can also verify same-origin SHA-256-bound catalog announcement feed routes before showing `P2P Import`. The chunks must not be deployed to project servers.
-
-## Source Lanes
-
-User local files:
-
-- simplest path
-- user supplies local `.slm`
-- verifier checks local file
-- TinyRustLM opens local file through file picker
-
-Hugging Face:
-
-- external metadata and user-side acquisition context
-- model cards, license routes, source revisions, file hints, and endpoint awareness
-- local `minimodel.huggingface_conversion_request.v0` handoff when no admitted `.slm` metadata exists
-- optional local `.tinyrustlm-convert.ps1` handoff that runs `convert-huggingface-request` against a saved conversion request and user-owned `.safetensors`, then MiniModel `prepare-peer-share`, optional `add-peer-source`, optional `write-peer-source-announcement`, optional TinyRustLM local announcement overlay, maintainer-side `apply-peer-source-announcements`, `write-peer-source-announcement-feed`, `write-catalog-snapshot-with-announcement-feed`, batch `write-catalog-snapshot-with-announcements`, and `write-catalog-snapshot`
-- MiniModel metadata match display only after conversion, validation, and admission evidence
-- after a verified local `.slm`, TinyRustLM may save `minimodel.local_slm_share_metadata.v0` with a catalog-entry candidate, artifact SHA256, fixed-size chunk SHA256 entries, chunk-list SHA256, and Merkle root
-- not a MiniModel server run path
-- no project-owned tokens
-- no project proxying of `/resolve/`
-- no project hosting of converted bytes
-- no generated script should download model bytes or call a project-owned token/proxy
-
-Future P2P:
-
-- later broad discovery, relay, NAT traversal, and swarm transfer
-- optional user-run MiniModel Peer Companion for local peer identity, local piece stores, cache quotas, consent prompts, serve/fetch controls, import receipts, and TinyRustLM handoff
-- may consume local share metadata and Rust `.minimodel-peer-offer` proof, but neither artifact is a project-hosted byte claim
-- chunk/Merkle verification
-- local receipt before import
-- MiniModel.com still does not serve model bytes
-
-The optional companion must reuse shared Rust verifier crates and command contracts. Tauri v2, Iced, Slint, egui, Dioxus, Iroh/QUIC, Rust-libp2p, WebRTC, WebTransport, BitTorrent-style chunking, Pear, Bare, and Hypercore remain evaluation lanes until they preserve consent, local verification, and no-server-byte rules.
-
-## Legal and Consent
-
-MiniModel listings are publisher assertions, not endorsements.
-
-MiniModel does not certify:
-
-- safety
-- legality
-- training cleanliness
-- license validity
-- fitness for purpose
-- output correctness
-
-Required consent gates:
-
-1. Transfer consent.
-2. Execution/import consent.
-
-Publish takedown/contact routes before public submissions or peer exchange.
-
-## P2P Direction
-
-Keep core verifier and transfer logic Rust-first.
-
-Research lanes:
-
-- Rust-native QUIC/blob transfer
-- Iroh
-- Rust-libp2p
-- BitTorrent-style chunking
-- Pear/Bare/Hypercore as design references
-
-Do not choose a JavaScript runtime as a core dependency unless explicitly justified later.
-
-## Agent Rules
-
-When editing:
-
-- keep docs current before deploy
-- do not expose credentials
-- do not add model-byte hosting
-- do not add automatic model fetches
-- keep long-term memory pointer-based and checksum-bearing
-- run relevant pointer audits and `git diff --check`
-
-Read order:
+## Read First
 
 1. `/docs/overview.md`
 2. `/docs/slm-format.md`
@@ -218,6 +25,109 @@ Read order:
 4. `/docs/verifier-mvp.md`
 5. `/docs/source-lanes.md`
 6. `/docs/legal-boundary.md`
-7. `/docs/p2p-roadmap.md`
-8. `/docs/agent-readme.md`
-9. `/examples/tiny-test-model-q8.minimodel.manifest.v0`
+7. `/docs/peer-companion.md`
+8. `/docs/p2p-roadmap.md`
+9. `/docs/agent-readme.md`
+10. `/examples/tiny-test-model-q8.minimodel.manifest.v0`
+11. `/examples/share-metadata.v0.json`
+12. `/docs/file-checksums.sha256`
+
+The canonical full future companion spec lives at `https://minimodel.org/docs/peer-companion.md`; this site carries a compact mirror due hosting quota.
+
+## `.slm` Summary
+
+`.slm` v1 is TinyRustLM's local model format:
+
+- little-endian
+- magic `SLM1`
+- version `1`
+- 108-byte minimum header
+- checksum field at bytes 100..108
+- file checksum treats bytes 100..108 as zero
+- 64-byte tensor directory entries
+- 64-byte aligned tensor directory and tensor payloads
+- supported dtypes: f32, q8_0, q4_0
+- tokenizer sections: `BTOK` or `BPE1`
+- tied output: `flags & 1 != 0`
+
+The parser rejects bad magic, short files, unsupported versions, zero checksums, checksum drift, zero dimensions, invalid attention shapes, offset escapes, malformed tokenizers, unsupported dtypes, payload length drift, malformed quantization scales, duplicate tensor hashes, missing tensors, and output-head contract drift.
+
+## Manifest v0
+
+The manifest is line-oriented `key=value` text. It binds model id, publisher identity, model-card route, license route, artifact kind, artifact byte count, artifact SHA256, source identity, `.slm` format version, model shape, quantization, tokenizer checksum, tensor-layout checksum, runtime compatibility, evidence routes/checksums, source lane, chunk/Merkle fields, and signature fields.
+
+`artifact.project_server_url` must be `none`. A manifest is not a fetch instruction. The user must provide local bytes or a consenting peer source.
+
+## Verifier MVP
+
+Implemented in MiniModel.org source:
+
+- `minimodel-core`: parser, boundary checks, SHA256, chunk/Merkle verification, TinyRustLM `.slm` validation, peer-piece export/reassembly, and receipt writing.
+- `minimodel`: CLI wrapper.
+
+Important commands:
+
+```text
+minimodel verify-manifest <manifest>
+minimodel verify-artifact <manifest> <artifact.slm>
+minimodel write-import-receipt <manifest> <artifact.slm> <receipt>
+minimodel prepare-peer-share <artifact.slm> <share-dir> <model-id> [source-huggingface-model-id] [known-peer-base-url]
+minimodel serve-peer-pieces <manifest> <piece-dir> <bind-addr>
+minimodel fetch-peer-pieces <manifest> <peer-base-url> <output-dir>
+minimodel assemble-peer-pieces <manifest> <piece-dir> <output.slm>
+minimodel import-peer-request <request-json> <manifest> <output-dir>
+```
+
+Catalog/availability commands include `write-catalog-entry`, `add-peer-source`, `write-peer-source-announcement`, `apply-peer-source-announcements`, `write-peer-source-announcement-feed`, `write-catalog-snapshot-with-announcement-feed`, `write-catalog-snapshot-with-announcements`, and `write-catalog-snapshot`.
+
+## Source Lanes
+
+Local files:
+
+- user supplies local `.slm`
+- verifier checks local file
+- TinyRustLM opens local file through file picker
+
+Hugging Face:
+
+- external metadata and user-side acquisition context only
+- model cards, license routes, source revisions, file hints, and endpoint awareness are allowed
+- local conversion request JSON and local `.tinyrustlm-convert.ps1` handoffs are allowed
+- scripts run `convert-huggingface-request` against user-owned local `.safetensors`
+- no project-owned tokens
+- no project proxying of `/resolve/`
+- no project hosting of converted bytes
+
+P2P:
+
+- current bridge is direct known-peer serve/fetch/import
+- peer-source rows and announcement feeds are metadata only
+- chunks are model bytes and must not be uploaded to project servers
+- Rust re-verifies before TinyRustLM import
+- local receipt comes before browser execution
+
+## Optional Peer Companion
+
+The MiniModel Peer Companion is future user-run local software for advanced peer duties: local peer identity, local piece stores, cache quotas, consent prompts, serve/fetch controls, import receipts, logs, and TinyRustLM handoff.
+
+It is roadmap only. It must reuse shared Rust verifier crates and command contracts. Tauri v2, Iced, Slint, egui, Dioxus, Iroh/QUIC, Rust-libp2p, WebRTC, WebTransport, BitTorrent-style chunking, Pear, Bare, and Hypercore remain evaluation lanes until they preserve consent, local verification, and no-server-byte rules.
+
+## Legal And Consent
+
+MiniModel listings are publisher assertions, not endorsements. MiniModel does not certify safety, legality, training cleanliness, license validity, fitness for purpose, or output correctness.
+
+Required gates:
+
+1. Transfer consent.
+2. Execution/import consent.
+
+Publish takedown/contact routes before public submissions or peer exchange.
+
+## Agent Rules
+
+- Keep docs current before deploy.
+- Do not expose credentials.
+- Do not add model-byte hosting.
+- Do not add automatic model fetches.
+- Keep long-term memory pointer-based and checksum-bearing.
+- Run relevant pointer audits and `git diff --check`.

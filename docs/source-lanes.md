@@ -97,6 +97,8 @@ The current implemented bridge is direct known-peer serve/fetch/import plus loca
 
 The July 3 desktop/P2P intake points to an optional MiniModel Peer Companion as the right place for advanced peer duties. That companion would be user-run local software, not MiniModel.com infrastructure. It can hide command complexity for power users while preserving the same Rust verifier, local receipt, and no-server-byte boundary.
 
+The detailed companion design is [peer-companion.md](peer-companion.md). It defines the future local-only boundary, source lanes, command contracts, local state, piece-store rules, consent gates, transport phases, UI requirements, tests, and completion gate.
+
 The peer app may eventually support:
 
 - local peer identity

@@ -21,6 +21,7 @@
       <a href="#verifier">Verifier</a>
       <a href="#sources">Sources</a>
       <a href="#roadmap">Roadmap</a>
+      <a href="#companion">Companion</a>
       <a href="#agent">Agents</a>
     </nav>
   </header>
@@ -191,6 +192,23 @@ cargo run -p minimodel -- assemble-peer-pieces examples\tiny-test-model-q8.minim
       <p>Full reference: <a href="/docs/p2p-roadmap.md">docs/p2p-roadmap.md</a></p>
     </section>
 
+    <section id="companion" class="band">
+      <div class="content">
+        <h2>Optional Peer Companion</h2>
+        <div class="grid">
+          <article class="card">
+            <span class="tag">Roadmap only</span>
+            <p>The MiniModel Peer Companion is a later user-run local app for advanced peer duties. It is not live, not required for TinyRustLM first use, and not project infrastructure.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Local control</span>
+            <p>The companion should wrap existing Rust verifier commands for local piece stores, serve/fetch controls, consent prompts, cache quotas, peer-source announcements, transfer logs, import receipts, and TinyRustLM handoff.</p>
+          </article>
+        </div>
+        <p>Companion mirror: <a href="/docs/peer-companion.md">docs/peer-companion.md</a></p>
+      </div>
+    </section>
+
     <section id="agent" class="band">
       <div class="content">
         <h2>Agent Reading Order</h2>
@@ -201,6 +219,7 @@ cargo run -p minimodel -- assemble-peer-pieces examples\tiny-test-model-q8.minim
           <li><a href="/docs/verifier-mvp.md">Rust verifier MVP</a></li>
           <li><a href="/docs/source-lanes.md">Local, Hugging Face, and P2P source lanes</a></li>
           <li><a href="/docs/legal-boundary.md">Legal, consent, and liability boundary</a></li>
+          <li><a href="/docs/peer-companion.md">Optional Peer Companion design</a></li>
           <li><a href="/docs/agent-readme.md">AI-agent operating notes</a></li>
           <li><a href="/examples/share-metadata.v0.json">Local share metadata example</a></li>
           <li><a href="/examples/tiny-test-model-q8.minimodel.manifest.v0">Real q8 fixture manifest</a></li>

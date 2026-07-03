@@ -9,6 +9,7 @@ Read first:
 - /docs/manifest-v0.md
 - /docs/verifier-mvp.md
 - /docs/source-lanes.md
+- /docs/peer-companion.md
 - /docs/legal-boundary.md
 - /docs/p2p-roadmap.md
 - /docs/agent-readme.md
@@ -36,3 +37,4 @@ Source options:
 - Local peer pieces: `export-peer-pieces`, `serve-peer-pieces`, `fetch-peer-pieces`, `assemble-peer-pieces`, and `import-peer-request` prove direct known-peer transfer and reassembly before broad P2P discovery exists.
 - Local share metadata: after a verified local `.slm`, TinyRustLM can save `minimodel.local_slm_share_metadata.v0` with artifact SHA256, chunk SHA256 entries, chunk-list SHA256, Merkle root, and disabled live-transfer flags.
 - Future P2P: optional user-run MiniModel Peer Companion first, then broader discovery, relays, NAT traversal, and swarm transfer after local verifier, Rust `.minimodel-peer-offer` proof, share metadata, direct known-peer receipts, and legal boundary are stable.
+- Peer Companion design: `/docs/peer-companion.md` defines the future local-only companion boundary, command contracts, local state, piece-store rules, consent gates, UI requirements, transport phases, and completion gate.

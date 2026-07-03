@@ -81,6 +81,8 @@ The optional MiniModel Peer Companion is a later user-run desktop app, not a hos
 
 The companion should reuse the same Rust verifier crates and command contracts as the CLI. Tauri v2 can be evaluated later if web UI reuse matters, but only with strict capabilities and narrow Rust commands. Pure Rust UI options and broader transports such as Iroh/QUIC, Rust-libp2p, WebRTC, WebTransport, BitTorrent-style chunking, Pear, Bare, and Hypercore remain research lanes.
 
+Detailed companion planning lives in [peer-companion.md](peer-companion.md). It is roadmap documentation, not a live companion claim.
+
 ## Trust Model
 
 MiniModel should be understood as a pointer and evidence system:
