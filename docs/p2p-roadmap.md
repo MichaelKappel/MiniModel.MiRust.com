@@ -17,7 +17,7 @@ Publish:
 - example manifest
 - example catalog entry
 - example local share metadata bundle
-- peer-source announcement, maintainer apply, announcement-feed, and batch snapshot publication command documentation
+- peer-source announcement, peer contact card, maintainer apply, announcement-feed, and batch snapshot publication command documentation
 
 ## Phase 1: Local Rust Verifier
 
@@ -61,7 +61,7 @@ Catalog entries must not include project-server artifact URLs.
 
 Late peer availability now has three metadata-only publication paths. `add-peer-source` is the direct local path when the catalog entry and consenting peer URL are in the same workflow. `write-peer-source-announcement` plus `apply-peer-source-announcements` is the maintainer path when a converter sends portable availability metadata for drift-checked merge before the next snapshot. For many entries and announcements, `write-catalog-snapshot-with-announcements` performs the drift checks and writes final metadata-only `models.v0.json` in one command. For browser-visible late availability without rewriting catalog entries, `write-peer-source-announcement-feed` writes a metadata-only announcement feed and `write-catalog-snapshot-with-announcement-feed` binds the same-origin feed route into `models.v0.json` by SHA-256.
 
-Catalog-declared peer-source announcement feeds are the first browser-visible publication convenience on top of that path. They are still metadata, must stay same-origin with the catalog, must be bound by SHA-256, and must only help TinyRustLM discover consenting peer sources for Rust `import-peer-request`. Empty feeds are valid availability checks and keep proof-ready rows at "known peer needed" until real peer-source metadata is published.
+Catalog-declared peer-source announcement feeds are the first browser-visible publication convenience on top of that path. They are still metadata, must stay same-origin with the catalog, must be bound by SHA-256, must validate as `minimodel.peer_source_announcement_catalog` envelopes with no project-server byte claims, and must only help TinyRustLM discover consenting peer sources for Rust `import-peer-request` after peer-offer route/checksum/chunk-count/Merkle matching. Empty feeds are valid availability checks and keep proof-ready rows at "known peer needed" until real peer-source metadata is published. A peer contact card is even narrower: it is a local `minimodel.peer_contact_card` URL handoff for one reviewed direct peer, not catalog publication and not model-byte availability by itself.
 
 ## Phase 3: Local Share Metadata
 
@@ -95,14 +95,23 @@ Define `fixed-size-merkle-v0`:
 - optional chunk-list metadata route
 - chunk-list metadata checksum
 
-The verifier now validates local chunk sets before a network exists:
+The verifier now validates local chunk sets and companion-readable share state before a broader network exists:
 
 ```text
 minimodel export-peer-pieces <manifest> <artifact.slm> <output-dir>
 minimodel assemble-peer-pieces <manifest> <piece-dir> <output.slm>
+minimodel write-peer-companion-state <manifest> <piece-dir> <output-json> <known-peer-base-url>
+minimodel write-peer-companion-inventory <output-json> <state-json> <manifest> <piece-dir> <receipt-ledger-json> <piece-store-quota-bytes> [contact-card-json...]
+minimodel write-peer-contact-card <output-json> <known-peer-base-url> [peer-label]
+minimodel serve-peer-companion <state-json> <manifest> <piece-dir> <bind-addr>
+minimodel check-peer-status <manifest> <known-peer-base-url> <output-json>
+minimodel inspect-peer-import-request <request-json> <manifest>
+minimodel inspect-peer-import-preflight <output.preflight> <request-json> <manifest>
+minimodel inspect-import-receipt <receipt.minimodel-receipt> <manifest> <artifact.slm>
+minimodel inspect-peer-import-receipt <receipt.minimodel-receipt> <request-json> <preflight> <manifest> <artifact.slm>
 ```
 
-`export-peer-pieces` writes `minimodel.peer_piece_set.v0` plus local piece files only after the source `.slm` passes verification. `assemble-peer-pieces` rejects piece drift, unsafe piece paths, chunk identity drift, and assembled artifact drift before writing the accepted `.slm`. This keeps networking from becoming the first place chunk logic is tested.
+`export-peer-pieces` writes `minimodel.peer_piece_set.v0` plus local piece files only after the source `.slm` passes verification. `assemble-peer-pieces` rejects piece drift, unsafe piece paths, chunk identity drift, and assembled artifact drift before writing the accepted `.slm`. `write-peer-companion-state` validates the prepared share and writes metadata-only state that a future local UI can display without touching model bytes. `write-peer-companion-inventory` binds that state to receipt-ledger, piece-store, serve-plan, and optional contact-card metadata, then rejects duplicate contact-card peer URLs before a UI can present one endpoint as multiple peers. `write-peer-contact-card` writes a smaller metadata-only reviewed known-peer URL handoff for TinyRustLM or a future companion to fill Known peer URL before Rust import. `serve-peer-companion` validates that state again before serving `minimodel.peer_status.v0.json`, the fixed companion-state route, and allow-listed piece routes, including under validated path-prefixed peer base URLs; `serve-peer-pieces` also serves the status route for piece-only peers. Receiver-side `inspect-peer-import-request`, `check-peer-status`, `preflight-peer-import-request`, and `inspect-peer-import-preflight` validate request, route, receiver-gate, status, piece-set, and advertised companion-state metadata before any piece transfer. Completed peer imports write transfer evidence into the receipt, including validated receiver-validation contract gates, piece-set SHA-256, companion-state status, peer-piece byte fetch, assembled-from-peer-pieces status, and no-project-server-byte flags; `inspect-import-receipt` and `inspect-peer-import-receipt` then bind that receipt back to the assembled artifact, request, and preflight evidence before browser import. This keeps networking from becoming the first place chunk logic, share-state logic, receiver-gate logic, or receipt semantics are tested.
 
 ## Phase 5: Transfer Experiments
 

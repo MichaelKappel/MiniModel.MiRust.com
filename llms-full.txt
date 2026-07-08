@@ -17,6 +17,12 @@ MiniModel.com may publish static docs, schemas, example manifests, metadata-only
 
 MiniModel.com must not publish third-party `.slm`, safetensors, GGUF, ONNX, adapter, tokenizer, or other runnable model bytes.
 
+The protected TinyRustLM NuGet SDK is the .NET ecosystem bridge for a narrower local workflow. It validates `.slm` files, prepares local share kits, validates metadata-bound manifests, assembles already-local manifest-declared pieces into verified `.slm` files, writes `<output.slm>.p2p-import-receipt.json` sidecars, and inspects those sidecars against caller-supplied local `.slm` outputs. It does not fetch from peers, perform peer discovery, expose private conversion/quantization/adapter/training logic, or run premium routing/model-ranking code; MiniModel CLI remains the fuller direct known-peer verifier for status, preflight, companion-state validation, receipt-chain inspection, and receipt ledgers.
+
+The protected SDK release evidence also audits matching `.snupkg` symbol package files beside the public packages. Publish plans record `symbol_publish_mode=explicit_snupkg_push_after_primary_package`, and the SHA256SUMS manifest is symbol-hash-bound so NuGet symbol packages are tied to the same audited package source.
+
+Publication status as of 2026-07-07: local package-folder feed-current and SHA256SUMS-bound package-hash verification pass for the protected source-level `TinyRustLM.Abstractions`, `TinyRustLM.Core`, `TinyRustLM.P2P`, and `TinyRustLM.Memory` lane at source version `0.1.8`, release-readiness reports expose top-level package/symbol counts plus local mismatch counts, and Browser readiness audits write `uaix-browser-nuget-release-readiness-publish-plan-dry-run.json` by default so retained `uaix-browser-nuget-publish-plan.json` post-push evidence is not overwritten. Public NuGet.org availability is currently carried by the branded `UAIX.Browser.Core.Abstractions`, `UAIX.Browser.p2pLLM.Runtime`, `UAIX.Browser.p2pRuntime.P2P`, `UAIX.Browser.Memory`, and `UAIX.Browser.p2pLLM.Conversion` package IDs, all published and post-publish verified at version `0.1.8` with feed-current plus SHA256SUMS-bound feed-hash evidence.
+
 ## Read First
 
 1. `/docs/overview.md`
@@ -71,14 +77,29 @@ Important commands:
 minimodel verify-manifest <manifest>
 minimodel verify-artifact <manifest> <artifact.slm>
 minimodel write-import-receipt <manifest> <artifact.slm> <receipt>
+minimodel inspect-import-receipt <receipt> <manifest> <artifact.slm>
+minimodel inspect-peer-import-receipt <receipt> <request-json> <preflight> <manifest> <artifact.slm>
 minimodel prepare-peer-share <artifact.slm> <share-dir> <model-id> [source-huggingface-model-id] [known-peer-base-url]
 minimodel serve-peer-pieces <manifest> <piece-dir> <bind-addr>
+minimodel serve-peer-companion <state-json> <manifest> <piece-dir> <bind-addr>
+minimodel check-peer-status <manifest> <known-peer-base-url> <output-json>
+minimodel inspect-peer-import-request <request-json> <manifest>
+minimodel preflight-peer-import-request <request-json> <manifest> <output.preflight>
+minimodel inspect-peer-import-preflight <output.preflight> <request-json> <manifest>
 minimodel fetch-peer-pieces <manifest> <peer-base-url> <output-dir>
 minimodel assemble-peer-pieces <manifest> <piece-dir> <output.slm>
 minimodel import-peer-request <request-json> <manifest> <output-dir>
+minimodel write-peer-companion-state <manifest> <piece-dir> <output-json> <known-peer-base-url>
+minimodel inspect-peer-companion-state <state-json> <manifest> <piece-dir>
+minimodel write-peer-companion-inventory <output-json> <state-json> <manifest> <piece-dir> <receipt-ledger-json> <piece-store-quota-bytes> [contact-card-json...]
+minimodel inspect-peer-companion-inventory <inventory-json>
+minimodel write-peer-contact-card <output-json> <known-peer-base-url> [peer-label]
+minimodel inspect-peer-contact-card <card-json>
 ```
 
-Catalog/availability commands include `write-catalog-entry`, `add-peer-source`, `write-peer-source-announcement`, `apply-peer-source-announcements`, `write-peer-source-announcement-feed` with zero-or-more announcements, `write-catalog-snapshot-with-announcement-feed`, `write-catalog-snapshot-with-announcements`, and `write-catalog-snapshot`.
+Catalog/availability commands include `write-catalog-entry`, `add-peer-source`, `write-peer-source-announcement`, `apply-peer-source-announcements`, `write-peer-source-announcement-feed` with zero-or-more announcements, `inspect-peer-source-announcement-feed`, `write-catalog-snapshot-with-announcement-feed`, `write-catalog-snapshot-with-announcements`, `write-catalog-snapshot`, and `inspect-catalog-snapshot`. `prepare-peer-share` validates a local `.slm` and writes the sender package in one command, and the public `minimodel` CLI integration test verifies generated manifest, peer-offer, peer-piece sidecar, catalog entry, path-prefixed URL normalization, and project-server host rejection before artifact reads; `write-peer-companion-state` validates a prepared share directory and writes metadata-only state for a future local companion UI without embedding model bytes, and the public companion-state CLI integration test verifies prepared-share state writing, path-prefixed URL normalization, metadata-only state flags, state inspection, and project/Hugging Face host rejection before manifest or piece reads; `write-peer-companion-inventory` binds that state to receipt-ledger, piece-store, serve-plan, and contact-card metadata while rejecting duplicate contact-card peer URLs; `write-peer-contact-card` writes metadata-only reviewed known-peer URL cards with no project-server byte flags and a Rust-reverify requirement, and the public card CLI integration test verifies card write/inspect output, path-prefixed URL normalization, and project/Hugging Face host rejection before output; `serve-peer-pieces` and `serve-peer-companion` serve metadata-only `minimodel.peer_status.v0.json` plus the allow-listed piece-set/chunk routes, with companion also serving `minimodel.peer_companion_state.v0.json` and honoring path-prefixed peer base URLs; the public receiver CLI smoke starts `serve-peer-companion`, runs `inspect-peer-import-request`, `check-peer-status`, `preflight-peer-import-request`, `inspect-peer-import-preflight`, `import-peer-request`, `inspect-import-receipt`, and `inspect-peer-import-receipt`, validates metadata-only status/preflight reports plus advertised companion state and receiver-validation contract gates, verifies byte-for-byte assembled `.slm` output, and checks peer-import receipt evidence. Completed peer imports append transfer evidence to the receipt: direct peer transport, validated receiver-validation contract gates, peer URL, piece-set SHA-256, companion-state status, chunk/Merkle contract, fetched peer-piece bytes, assembled-from-peer-pieces status, and no-project-server-byte flags; the final peer receipt inspection binds those fields back to the saved request and preflight evidence before browser import.
+
+MiniModel peer serving exposes browser CORS/PNA headers only for metadata routes (`minimodel.peer_status.v0.json`, `minimodel.peer_piece_set.v0`, and advertised companion-state metadata) so TinyRustLM can run `Check Peer` and future metadata preflight from the browser. Declared chunk files remain non-CORS model-byte routes and still move through Rust fetch/import verification.
 
 ## Source Lanes
 
@@ -108,7 +129,7 @@ P2P:
 
 ## Optional Peer Companion
 
-The MiniModel Peer Companion is future user-run local software for advanced peer duties: local peer identity, local piece stores, cache quotas, consent prompts, serve/fetch controls, import receipts, logs, and TinyRustLM handoff.
+The MiniModel Peer Companion is future user-run local software for advanced peer duties: local peer identity, local piece stores, companion-readable share state, cache quotas, consent prompts, serve/fetch controls, import receipts, logs, and TinyRustLM handoff.
 
 It is roadmap only. It must reuse shared Rust verifier crates and command contracts. Tauri v2, Iced, Slint, egui, Dioxus, Iroh/QUIC, Rust-libp2p, WebRTC, WebTransport, BitTorrent-style chunking, Pear, Bare, and Hypercore remain evaluation lanes until they preserve consent, local verification, and no-server-byte rules.
 
@@ -127,7 +148,7 @@ Publish takedown/contact routes before public submissions or peer exchange.
 
 - Keep docs current before deploy.
 - Do not expose credentials.
-- Do not add model-byte hosting.
-- Do not add automatic model fetches.
+- Keep the `catalog/default-demo.v0.json` / `artifacts/demo/tiny-test-model-q8.slm` default MiniModel demo as the only narrow automatic model fetch exception for TinyRustLM.com first-run runtime smoke.
+- Do not add broad model-byte hosting.
 - Keep long-term memory pointer-based and checksum-bearing.
 - Run relevant pointer audits and `git diff --check`.
