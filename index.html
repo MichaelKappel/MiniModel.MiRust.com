@@ -3,123 +3,180 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MiniModel.MiRust.com Developer Documentation</title>
-  <meta name="description" content="Developer documentation for MiniModel.com, the .slm format, local Rust verification, and metadata-only tiny model exchange architecture.">
+  <title>MiniModel Developer Documentation | Local .slm Exchange</title>
+  <meta name="description" content="Developer documentation for MiniModel.org, local .slm verification, metadata-only model discovery, receipts, and peer sharing in Rust.">
   <link rel="canonical" href="https://minimodel.mirust.com/">
+  <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
   <link rel="stylesheet" href="/styles.css">
+  <script src="/assets/site.js" defer></script>
 </head>
-<body>
+<body id="top">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
   <header class="topbar">
-    <div class="brand">
-      <strong>MiniModel.MiRust.com</strong>
-      <span>Developer docs for MiniModel.com</span>
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="MiniModel developer documentation home">
+        <span class="brand-mark" aria-hidden="true">MM</span>
+        <span class="brand-copy">
+          <strong>MiniModel</strong>
+          <small>Rust verification and exchange docs</small>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <span class="nav-toggle-label">Menu</span>
+      </button>
+      <nav id="primary-nav" class="nav" aria-label="Primary navigation">
+        <a href="#quickstart">Start</a>
+        <a href="#boundary">Boundary</a>
+        <a href="#slm">.slm</a>
+        <a href="#manifest">Manifest</a>
+        <a href="#verifier">Verifier</a>
+        <a href="#sources">Sources</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#agent">Agents</a>
+        <a class="nav-product" href="https://minimodel.org/">MiniModel.org</a>
+      </nav>
     </div>
-    <nav class="nav" aria-label="Primary">
-      <a href="#boundary">Boundary</a>
-      <a href="#slm">.slm</a>
-      <a href="#manifest">Manifest</a>
-      <a href="#verifier">Verifier</a>
-      <a href="#sources">Sources</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#companion">Companion</a>
-      <a href="#agent">Agents</a>
-    </nav>
   </header>
 
-  <main>
-    <section class="hero">
-      <div>
-        <p class="eyebrow">Rust-first tiny model exchange</p>
-        <h1>MiniModel.com developer documentation</h1>
-        <p class="lead">MiniModel is a metadata and verification layer for tiny local AI models. The first implementation layer is deliberately simple: publish schemas and documentation, verify local `.slm` files with Rust, prepare peer-share metadata and local pieces with Rust, write companion-readable peer-share state and metadata-only peer contact cards for future local UI wrappers, attach consenting peer-source metadata when available, require receiver-side request, preflight, and receipt-chain validation for direct known-peer imports, and let TinyRustLM.com load only verified user-selected local files in the browser.</p>
-        <div class="callouts" aria-label="Core boundaries">
-          <div class="callout">
-            <strong>No server model bytes</strong>
-            <p>Project servers do not host, proxy, serve, or cache user model artifacts.</p>
-          </div>
-          <div class="callout">
-            <strong>No server execution</strong>
-            <p>Project servers do not run user models or provide inference for user models.</p>
-          </div>
-          <div class="callout">
-            <strong>Local Rust proof</strong>
-            <p>Manifests, checksums, `.slm` structure, and receipts are verified locally.</p>
-          </div>
+  <main id="main-content" tabindex="-1">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">MiniModel developer portal</p>
+        <h1 id="hero-title">Verify and share local <code>.slm</code> models</h1>
+        <p class="lead">MiniModel is the metadata, provenance, and local verification layer for tiny AI models. Rust proves artifact identity before a model reaches TinyRustLM; project servers never become a model-byte relay.</p>
+        <div class="hero-actions" aria-label="Primary documentation actions">
+          <a class="button primary" href="#quickstart">Start with the verifier</a>
+          <a class="button" href="/docs/manifest-v0.md">Read the manifest contract</a>
+          <a class="text-link" href="/examples/tiny-test-model-q8.minimodel.manifest.v0">Open a real fixture <span aria-hidden="true">&rarr;</span></a>
         </div>
+        <dl class="contract-facts" aria-label="Core system constraints">
+          <div><dt>Artifact transport</dt><dd>User or peer controlled</dd></div>
+          <div><dt>Verification authority</dt><dd>Local Rust</dd></div>
+          <div><dt>Project server role</dt><dd>Metadata only</dd></div>
+        </dl>
       </div>
       <figure class="map">
-        <img src="/assets/exchange-map.svg" alt="Local files, Hugging Face discovery, and future P2P chunks converge into Rust verification, import receipts, and TinyRustLM local import.">
+        <img src="/assets/exchange-map.svg" alt="Local files, external discovery, and future peer chunks enter local Rust verification before import receipts and TinyRustLM use." width="960" height="540">
+        <figcaption>Model bytes remain outside project infrastructure. Metadata converges on one local verifier contract.</figcaption>
       </figure>
     </section>
 
-    <section id="boundary" class="band">
-      <div class="content">
-        <h2>Server Boundary</h2>
-        <ul class="rule-list">
-          <li>MiniModel.com may publish static documentation, manifest schemas, example manifests, metadata-only catalog entries, public-key routes, signed catalog snapshots, and takedown/contact routes.</li>
-          <li class="warning">MiniModel.com must not serve third-party `.slm`, safetensors, GGUF, ONNX, adapter packages, tokenizer binaries, or any other user model bytes.</li>
-          <li class="warning">MiniModel.com must not proxy Hugging Face downloads, peer transfers, or browser model fetches in a way that turns project infrastructure into a model-byte relay.</li>
-          <li>TinyRustLM.com remains browser-local. A user imports a local `.slm` file through the browser file picker. Rust/WASM validates the bytes before they can be used.</li>
-          <li>Catalog entries are publisher assertions and evidence pointers. They are not project endorsements, safety certifications, legal opinions, or training-data claims.</li>
-        </ul>
+    <nav class="page-index" aria-label="On this page">
+      <strong>On this page</strong>
+      <a href="#quickstart">Quickstart</a>
+      <a href="#boundary">Server boundary</a>
+      <a href="#slm">Format</a>
+      <a href="#manifest">Manifest</a>
+      <a href="#verifier">Verifier</a>
+      <a href="#sources">Source lanes</a>
+      <a href="#companion">Peer companion</a>
+    </nav>
+
+    <section id="quickstart" class="section content">
+      <div class="section-heading">
+        <p class="section-kicker">First verified path</p>
+        <h2>From local artifact to import receipt</h2>
+        <p>Use the narrow path first. Inspect metadata, verify the user-owned artifact, then produce a receipt that binds what Rust accepted.</p>
       </div>
+      <ol class="workflow" aria-label="Verification workflow">
+        <li><span>1</span><div><strong>Inspect</strong><p>Read the manifest as an assertion, not as trusted input.</p></div></li>
+        <li><span>2</span><div><strong>Verify</strong><p>Bind local bytes, dimensions, tokenizer, tensor layout, and checksums.</p></div></li>
+        <li><span>3</span><div><strong>Receipt</strong><p>Write local evidence only after every required gate passes.</p></div></li>
+        <li><span>4</span><div><strong>Load</strong><p>Hand the same user-selected file to TinyRustLM for Rust/WASM validation.</p></div></li>
+      </ol>
+      <div class="code-panel" data-code-label="PowerShell">
+        <pre><code>cargo run -p minimodel -- verify-manifest examples\tiny-test-model-q8.minimodel.manifest.v0
+cargo run -p minimodel -- verify-artifact examples\tiny-test-model-q8.minimodel.manifest.v0 ..\TinyRustLM.com\tinyrustlm\models\tiny-test-model-q8.slm
+cargo run -p minimodel -- prepare-peer-share examples\tiny-test-model-q8.minimodel.manifest.v0 ..\TinyRustLM.com\tinyrustlm\models\tiny-test-model-q8.slm .\prepared-share</code></pre>
+      </div>
+      <p class="support-link"><a href="/docs/verifier-mvp.md">Open the complete verifier command reference <span aria-hidden="true">&rarr;</span></a></p>
     </section>
 
-    <section id="slm" class="content">
-      <h2>The `.slm` Format</h2>
-      <div class="grid">
-        <article class="card">
-          <span class="tag">Binary contract</span>
-          <p>`.slm` v1 is a little-endian, fixed-shape, non-JSON model container for TinyRustLM. It starts with `SLM1`, carries a 108-byte v1 header, a tokenizer section, a 64-byte tensor directory entry per tensor, aligned tensor payloads, and a custom u64 checksum with bytes 100..108 treated as zero during recomputation.</p>
-          <p>The format is intentionally smaller than a general interchange standard. It is not GGUF, ONNX, safetensors, or a dynamic schema language. Those formats may be source inputs, but TinyRustLM executes `.slm` after local conversion and validation.</p>
-        </article>
-        <article class="card">
-          <span class="tag">Validation authority</span>
-          <p>Rust is the acceptance authority. JavaScript may display routes, labels, and progress, but Rust parses and rejects invalid magic, unsupported versions, checksum drift, offset escapes, tensor shape drift, malformed tokenizers, unsupported dtypes, missing scales, and missing required tensors.</p>
-          <p>The current runtime supports f32, q8_0, and q4_0 tensor payloads, `BTOK` byte-tokenizer metadata, `BPE1` custom BPE metadata, explicit output heads, and the v1 tied-output flag.</p>
-        </article>
-      </div>
-      <h3>Header Field Order</h3>
-      <table>
-        <thead><tr><th>Offset</th><th>Type</th><th>Field</th><th>Meaning</th></tr></thead>
-        <tbody>
-          <tr><td>0</td><td>4 bytes</td><td>`magic`</td><td>`SLM1`</td></tr>
-          <tr><td>4</td><td>u32</td><td>`version`</td><td>Must be `1` for the current parser.</td></tr>
-          <tr><td>8</td><td>u32</td><td>`header_length`</td><td>Minimum 108 bytes.</td></tr>
-          <tr><td>12</td><td>u32</td><td>`model_type`</td><td>Current model type id is `1`.</td></tr>
-          <tr><td>16</td><td>u32</td><td>`flags`</td><td>Bit 0 means tied output projection.</td></tr>
-          <tr><td>20..52</td><td>u32</td><td>shape fields</td><td>Vocabulary, specials, hidden size, layer count, head counts, head dim, FFN size, context.</td></tr>
-          <tr><td>56</td><td>f32</td><td>`rope_theta`</td><td>Finite positive RoPE theta.</td></tr>
-          <tr><td>60</td><td>f32</td><td>`rms_norm_epsilon`</td><td>Finite positive RMSNorm epsilon.</td></tr>
-          <tr><td>64</td><td>u64</td><td>`tokenizer_offset`</td><td>Tokenizer section start.</td></tr>
-          <tr><td>72</td><td>u64</td><td>`tokenizer_length`</td><td>Tokenizer section byte count.</td></tr>
-          <tr><td>80</td><td>u64</td><td>`tensor_directory_offset`</td><td>64-byte aligned tensor directory start.</td></tr>
-          <tr><td>88</td><td>u32</td><td>`tensor_count`</td><td>Number of 64-byte tensor entries.</td></tr>
-          <tr><td>92</td><td>u64</td><td>`tensor_data_offset`</td><td>64-byte aligned tensor payload region start.</td></tr>
-          <tr><td>100</td><td>u64</td><td>`checksum`</td><td>Nonzero custom checksum over the entire file.</td></tr>
-        </tbody>
-      </table>
-      <p>Full reference: <a href="/docs/slm-format.md">docs/slm-format.md</a></p>
-    </section>
-
-    <section id="manifest" class="band">
+    <section id="boundary" class="section band">
       <div class="content">
-        <h2>MiniModel Manifest v0</h2>
-        <div class="grid">
-          <article class="card">
-            <span class="tag">Purpose</span>
-            <p>The MiniModel manifest is a small line-oriented `key=value` document that binds metadata to a user-supplied local artifact. It is not a fetch instruction and never authorizes TinyRustLM to download model bytes from a project server.</p>
-          </article>
-          <article class="card">
-            <span class="tag">Minimum binding</span>
-            <p>A manifest binds model id, publisher identity, license route, model-card route, artifact kind, byte count, artifact SHA256, `.slm` shape, tokenizer checksum, tensor-layout checksum, evidence routes, chunk/Merkle metadata, and signature identity fields.</p>
-          </article>
+        <div class="section-heading compact">
+          <p class="section-kicker">Hard constraint</p>
+          <h2>Project servers carry metadata, never user model bytes</h2>
+          <p>This boundary keeps MiniModel a discovery and verification ecosystem instead of a hidden hosting or inference service.</p>
         </div>
-        <pre><code>manifest.version=0
+        <ul class="rule-list">
+          <li><strong>Allowed</strong><span>Static documentation, schemas, example manifests, metadata catalogs, public-key routes, signed snapshots, and contact or takedown routes.</span></li>
+          <li class="warning"><strong>Not allowed</strong><span>Third-party <code>.slm</code>, safetensors, GGUF, ONNX, adapter, tokenizer, or peer-piece payloads served from project infrastructure.</span></li>
+          <li class="warning"><strong>No proxy lane</strong><span>No Hugging Face proxy, peer-transfer relay, browser download proxy, or project-hosted user inference.</span></li>
+          <li><strong>Local authority</strong><span>TinyRustLM opens a user-selected local file. Rust/WASM validates the bytes before use.</span></li>
+          <li><strong>Claim boundary</strong><span>Catalog rows are publisher assertions and evidence pointers, not project endorsements or legal opinions.</span></li>
+        </ul>
+        <p class="support-link"><a href="/docs/catalog-boundary.md">Read the catalog boundary</a> <span aria-hidden="true">&middot;</span> <a href="/docs/legal-boundary.md">Read the legal and consent boundary</a></p>
+      </div>
+    </section>
+
+    <section id="slm" class="section content">
+      <div class="section-heading">
+        <p class="section-kicker">Binary contract</p>
+        <h2>The <code>.slm</code> v1 container</h2>
+        <p>A narrow little-endian model format gives the runtime a bounded parser, an explicit tensor inventory, and deterministic rejection behavior.</p>
+      </div>
+      <div class="grid two">
+        <article class="card">
+          <p class="card-label">Container layout</p>
+          <h3>Fixed, aligned, and checksum bound</h3>
+          <p>The file begins with <code>SLM1</code>, carries a 108-byte v1 header, tokenizer metadata, one 64-byte directory entry per tensor, aligned payloads, and a u64 checksum recomputed with bytes 100 through 108 treated as zero.</p>
+        </article>
+        <article class="card">
+          <p class="card-label">Acceptance authority</p>
+          <h3>Rust decides what can load</h3>
+          <p>JavaScript may display progress and routes. Rust rejects unsupported versions, shape drift, offset escapes, malformed tokenizers, unsupported dtypes, invalid scales, checksum drift, and missing required tensors.</p>
+        </article>
+      </div>
+      <div class="table-wrap" role="region" aria-label="SLM v1 header fields" tabindex="0">
+        <table>
+          <caption><code>.slm</code> v1 header field order</caption>
+          <thead><tr><th scope="col">Offset</th><th scope="col">Type</th><th scope="col">Field</th><th scope="col">Requirement</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>4 bytes</td><td><code>magic</code></td><td><code>SLM1</code></td></tr>
+            <tr><td>4</td><td>u32</td><td><code>version</code></td><td>Must be <code>1</code>.</td></tr>
+            <tr><td>8</td><td>u32</td><td><code>header_length</code></td><td>At least 108 bytes.</td></tr>
+            <tr><td>12</td><td>u32</td><td><code>model_type</code></td><td>Current type ID is <code>1</code>.</td></tr>
+            <tr><td>16</td><td>u32</td><td><code>flags</code></td><td>Bit 0 marks a tied output projection.</td></tr>
+            <tr><td>20-52</td><td>u32</td><td>shape fields</td><td>Vocabulary, special tokens, hidden shape, layers, heads, FFN, and context.</td></tr>
+            <tr><td>56</td><td>f32</td><td><code>rope_theta</code></td><td>Finite and positive.</td></tr>
+            <tr><td>60</td><td>f32</td><td><code>rms_norm_epsilon</code></td><td>Finite and positive.</td></tr>
+            <tr><td>64</td><td>u64</td><td><code>tokenizer_offset</code></td><td>Tokenizer section start.</td></tr>
+            <tr><td>72</td><td>u64</td><td><code>tokenizer_length</code></td><td>Tokenizer section byte count.</td></tr>
+            <tr><td>80</td><td>u64</td><td><code>tensor_directory_offset</code></td><td>64-byte aligned directory start.</td></tr>
+            <tr><td>88</td><td>u32</td><td><code>tensor_count</code></td><td>Number of directory entries.</td></tr>
+            <tr><td>92</td><td>u64</td><td><code>tensor_data_offset</code></td><td>64-byte aligned payload start.</td></tr>
+            <tr><td>100</td><td>u64</td><td><code>checksum</code></td><td>Nonzero checksum over the full file.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="support-link"><a href="/docs/slm-format.md">Open the full format reference <span aria-hidden="true">&rarr;</span></a></p>
+    </section>
+
+    <section id="manifest" class="section band">
+      <div class="content split">
+        <div>
+          <div class="section-heading compact">
+            <p class="section-kicker">Portable evidence</p>
+            <h2>MiniModel manifest v0</h2>
+            <p>The line-oriented <code>key=value</code> document binds publisher assertions and evidence to a user-supplied artifact. It never authorizes a project server to fetch model bytes.</p>
+          </div>
+          <ul class="plain-list">
+            <li><strong>Identity:</strong> model, publisher, license, and model-card routes.</li>
+            <li><strong>Artifact:</strong> kind, exact byte count, SHA-256, and no-project-server declaration.</li>
+            <li><strong>Runtime:</strong> format version, shape, quantization, tokenizer, and tensor layout.</li>
+            <li><strong>Exchange:</strong> chunking, Merkle evidence, peer sources, and signature identity.</li>
+          </ul>
+          <p class="support-link"><a href="/docs/manifest-v0.md">Read the complete schema</a></p>
+        </div>
+        <div class="code-panel" data-code-label="Manifest">
+          <pre><code>manifest.version=0
 manifest.kind=minimodel.manifest
 model.id=example-tiny-assistant-q8
 publisher.id=example-publisher
-model_card.route=https://example.invalid/models/example-tiny-assistant
+model_card.route=https://example.invalid/models/example
 license.route=https://example.invalid/licenses/example
 artifact.kind=slm
 artifact.byte_count=123456
@@ -129,29 +186,25 @@ slm.format_version=1
 slm.quantization=q8_0
 chunks.mode=none
 signature.kind=unsigned-draft</code></pre>
-        <p>Full reference: <a href="/docs/manifest-v0.md">docs/manifest-v0.md</a></p>
+        </div>
       </div>
     </section>
 
-    <section id="verifier" class="content">
-      <h2>Rust Verifier MVP</h2>
-      <div class="wide-grid">
-        <article class="card">
-          <span class="tag">Parse</span>
-          <p>Reject duplicate keys, unsupported schema versions, missing required fields, non-ASCII keys, unknown required boundary claims, and signed manifests that contain comments or non-canonical form.</p>
-        </article>
-        <article class="card">
-          <span class="tag">Prove</span>
-          <p>Open only the local artifact path supplied by the user. Verify byte count, SHA256, optional chunk list, Merkle root, `.slm` header, custom checksum, tokenizer identity, tensor layout identity, peer-piece reassembly, and runtime compatibility.</p>
-        </article>
-        <article class="card">
-          <span class="tag">Receipt</span>
-          <p>Write and inspect local import receipts after verification passes. For peer imports, Rust binds the receipt back to the saved request and preflight report, including receiver-validation gates, peer metadata routes, strict UTC ordering, transfer evidence, and no-project-server-byte flags before browser import.</p>
-        </article>
+    <section id="verifier" class="section content">
+      <div class="section-heading">
+        <p class="section-kicker">Local Rust workflow</p>
+        <h2>Parse, prove, then write a receipt</h2>
+        <p>Every workflow ends at the same authority: the receiver verifies local bytes and retains evidence that can be inspected later.</p>
       </div>
-      <pre><code>cargo run -p minimodel -- verify-manifest examples\tiny-test-model-q8.minimodel.manifest.v0
-cargo run -p minimodel -- verify-artifact examples\tiny-test-model-q8.minimodel.manifest.v0 ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm
-cargo run -p minimodel -- export-peer-pieces examples\tiny-test-model-q8.minimodel.manifest.v0 ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm .\peer-pieces\tiny-test-model-q8
+      <div class="grid three">
+        <article class="card step-card"><span>01</span><h3>Parse</h3><p>Reject duplicates, unsupported schema versions, missing fields, unsafe keys, and noncanonical signed input.</p></article>
+        <article class="card step-card"><span>02</span><h3>Prove</h3><p>Verify byte count, SHA-256, chunks, Merkle root, structure, tokenizer, tensor layout, and runtime compatibility.</p></article>
+        <article class="card step-card"><span>03</span><h3>Receipt</h3><p>Bind accepted bytes to the saved request, preflight, peer metadata, transfer evidence, and receiver validation.</p></article>
+      </div>
+      <details class="command-details">
+        <summary>Advanced peer-share and import commands</summary>
+        <div class="code-panel" data-code-label="PowerShell">
+          <pre><code>cargo run -p minimodel -- export-peer-pieces examples\tiny-test-model-q8.minimodel.manifest.v0 ..\TinyRustLM.com\tinyrustlm\models\tiny-test-model-q8.slm .\peer-pieces\tiny-test-model-q8
 cargo run -p minimodel -- assemble-peer-pieces examples\tiny-test-model-q8.minimodel.manifest.v0 .\peer-pieces\tiny-test-model-q8 .\tiny-test-model-q8.from-pieces.slm
 cargo run -p minimodel -- write-peer-companion-state .\prepared-share\tiny-test-model-q8\tiny-test-model-q8.minimodel.manifest.v0 .\prepared-share\tiny-test-model-q8\tiny-test-model-q8.peer-pieces .\prepared-share\tiny-test-model-q8\peer-companion-state.v0.json http://127.0.0.1:8123/
 cargo run -p minimodel -- write-peer-contact-card .\prepared-share\tiny-test-model-q8\peer-contact-card.v0.json http://127.0.0.1:8123/ "Local test peer"
@@ -161,89 +214,90 @@ cargo run -p minimodel -- check-peer-status examples\tiny-test-model-q8.minimode
 cargo run -p minimodel -- preflight-peer-import-request .\tiny-test-model-q8.minimodel-peer-import-request.json examples\tiny-test-model-q8.minimodel.manifest.v0 .\tiny-test-model-q8.peer-import.preflight
 cargo run -p minimodel -- inspect-peer-import-preflight .\tiny-test-model-q8.peer-import.preflight .\tiny-test-model-q8.minimodel-peer-import-request.json examples\tiny-test-model-q8.minimodel.manifest.v0
 cargo run -p minimodel -- import-peer-request .\tiny-test-model-q8.minimodel-peer-import-request.json examples\tiny-test-model-q8.minimodel.manifest.v0 .\tiny-test-model-q8-peer-import
-cargo run -p minimodel -- inspect-import-receipt .\tiny-test-model-q8-peer-import\tiny-test-model-q8.minimodel-receipt examples\tiny-test-model-q8.minimodel.manifest.v0 .\tiny-test-model-q8-peer-import\tiny-test-model-q8.slm
 cargo run -p minimodel -- inspect-peer-import-receipt .\tiny-test-model-q8-peer-import\tiny-test-model-q8.minimodel-receipt .\tiny-test-model-q8.minimodel-peer-import-request.json .\tiny-test-model-q8.peer-import.preflight examples\tiny-test-model-q8.minimodel.manifest.v0 .\tiny-test-model-q8-peer-import\tiny-test-model-q8.slm</code></pre>
-      <p>Full reference: <a href="/docs/verifier-mvp.md">docs/verifier-mvp.md</a></p>
-    </section>
-
-    <section id="sources" class="band">
-      <div class="content">
-        <h2>Source Lanes</h2>
-        <div class="wide-grid">
-          <article class="card">
-            <span class="tag">Your local files</span>
-            <p>The simplest path. Users bring a local `.slm` file and optional local manifest or evidence sidecars. The verifier proves the local file. TinyRustLM opens the same local file through the browser picker.</p>
-          </article>
-          <article class="card">
-            <span class="tag">Hugging Face</span>
-            <p>Hugging Face is an external discovery and acquisition lane. MiniModel may expose metadata awareness, model-card routes, file hints, revision identity, local conversion-request JSON, local Rust conversion-script handoffs, and admitted `.slm` metadata matches. The script runs `convert-huggingface-request` against user-owned files, then calls MiniModel `prepare-peer-share`, optional `add-peer-source`, optional `write-peer-source-announcement`, maintainer-side `apply-peer-source-announcements`, optional announcement-feed publication, batch `write-catalog-snapshot-with-announcements`, and `write-catalog-snapshot` for metadata-only reuse; it does not download bytes. Project infrastructure does not use project-owned tokens, proxy `/resolve/` URLs, host converted bytes, or turn endpoints into a MiniModel runtime path.</p>
-          </article>
-          <article class="card">
-          <span class="tag">Future P2P</span>
-            <p>Broad peer discovery comes later and must preserve the same local verifier contract. Today the bridge is direct known-peer status/serve/fetch/import, offline request and preflight inspection, final receipt-chain inspection with receiver-validation contract gates, `serve-peer-companion` for validated peer status plus companion state plus piece routes, metadata-only peer contact cards for reviewed known-peer URLs, peer companion inventories that reject duplicate contact endpoints, `minimodel.local_slm_share_metadata.v0`, Rust-generated `.minimodel-peer-offer`, metadata-only catalog snapshots, optional `peer_sources` rows, and same-origin SHA-256-bound announcement feeds that name consenting direct peers without making MiniModel.com a byte host. Empty feeds are valid no-peer-yet checks and do not make rows P2P-ready.</p>
-          </article>
         </div>
-        <p>Full reference: <a href="/docs/source-lanes.md">docs/source-lanes.md</a></p>
-      </div>
+      </details>
     </section>
 
-    <section id="roadmap" class="content">
-      <h2>Roadmap</h2>
-      <div class="grid">
-        <article class="card">
-          <span class="tag">Implement first</span>
-          <p>Schema docs, example manifests, local Rust parser, checksum drift tests, `.slm` validation calls, receipt writer, local share metadata export, and a metadata-only catalog prototype.</p>
-        </article>
-        <article class="card">
-          <span class="tag">Defer networking</span>
-          <p>Compare Rust-native QUIC/blob transfer, Iroh, Rust-libp2p, BitTorrent-style chunking, and Pear/Bare/Hypercore after the verifier is stable. Do not choose a JavaScript runtime as a core dependency without a later explicit justification.</p>
-        </article>
-      </div>
-      <p>Full reference: <a href="/docs/p2p-roadmap.md">docs/p2p-roadmap.md</a></p>
-    </section>
-
-    <section id="companion" class="band">
+    <section id="sources" class="section band">
       <div class="content">
-        <h2>Optional Peer Companion</h2>
-        <div class="grid">
-          <article class="card">
-            <span class="tag">Roadmap only</span>
-            <p>The full MiniModel Peer Companion app is later user-run local software for advanced peer duties. The current live surface is CLI-only companion state and validated companion serving; it is not project infrastructure.</p>
-          </article>
-          <article class="card">
-            <span class="tag">Local control</span>
-            <p>The companion should wrap existing Rust verifier commands for local piece stores, companion-readable share state, serve/fetch controls, consent prompts, cache quotas, peer-source announcements, transfer logs, import receipts, and TinyRustLM handoff.</p>
-          </article>
+        <div class="section-heading compact">
+          <p class="section-kicker">Acquisition boundaries</p>
+          <h2>Three source lanes, one verifier</h2>
+          <p>Discovery changes where metadata comes from. It never changes who must verify the final local bytes.</p>
         </div>
-        <p>Companion mirror: <a href="/docs/peer-companion.md">docs/peer-companion.md</a></p>
+        <div class="grid three">
+          <article class="card source-card"><p class="card-label ready">Available now</p><h3>Your local files</h3><p>Bring a local <code>.slm</code> artifact and optional sidecars. Rust verifies the local path; TinyRustLM opens the same user-selected file.</p></article>
+          <article class="card source-card"><p class="card-label external">External discovery</p><h3>Hugging Face</h3><p>Model cards and source-file hints can create local conversion handoffs. MiniModel does not proxy downloads or make source metadata runnable.</p></article>
+          <article class="card source-card"><p class="card-label roadmap">Expanding lane</p><h3>Known-peer exchange</h3><p>Direct peer status, requests, preflight, pieces, receipts, and companion metadata preserve receiver-side verification without project-hosted bytes.</p></article>
+        </div>
+        <p class="support-link"><a href="/docs/source-lanes.md">Read source-lane contracts <span aria-hidden="true">&rarr;</span></a></p>
       </div>
     </section>
 
-    <section id="agent" class="band">
-      <div class="content">
-        <h2>Agent Reading Order</h2>
-        <ol>
-          <li><a href="/docs/overview.md">Overview and boundaries</a></li>
-          <li><a href="/docs/catalog-boundary.md">Catalog boundary</a></li>
-          <li><a href="/docs/slm-format.md">`.slm` format reference</a></li>
-          <li><a href="/docs/manifest-v0.md">Manifest v0 schema draft</a></li>
-          <li><a href="/docs/verifier-mvp.md">Rust verifier MVP</a></li>
-          <li><a href="/docs/source-lanes.md">Local, Hugging Face, and P2P source lanes</a></li>
-          <li><a href="/docs/legal-boundary.md">Legal, consent, and liability boundary</a></li>
-          <li><a href="/docs/peer-companion.md">Optional Peer Companion design</a></li>
-          <li><a href="/docs/agent-readme.md">AI-agent operating notes</a></li>
-          <li><a href="/examples/share-metadata.v0.json">Local share metadata example</a></li>
-          <li><a href="/examples/tiny-test-model-q8.minimodel.manifest.v0">Real q8 fixture manifest</a></li>
-          <li><a href="/examples/tiny-test-model-q8.minimodel-peer-import-request.json">Real q8 peer-import request</a></li>
-          <li><a href="/LICENSE.txt">Project license</a></li>
-          <li><a href="/llms.txt">llms.txt</a> and <a href="/llms-full.txt">llms-full.txt</a></li>
-        </ol>
+    <section id="roadmap" class="section content">
+      <div class="section-heading">
+        <p class="section-kicker">Delivery order</p>
+        <h2>Stabilize proof before broad networking</h2>
       </div>
+      <div class="roadmap-grid">
+        <article><span>Now</span><h3>Verifier contract</h3><p>Schemas, examples, checksums, receipts, local share metadata, known-peer request chains, and metadata-only catalogs.</p></article>
+        <article><span>Next</span><h3>Companion ergonomics</h3><p>User-controlled piece stores, consent, quotas, transfer logs, receipt inspection, and direct TinyRustLM handoff.</p></article>
+        <article><span>Later</span><h3>Broader transport</h3><p>Compare Rust-native QUIC, Iroh, rust-libp2p, and chunk-distribution options only after verifier invariants remain stable.</p></article>
+      </div>
+      <p class="support-link"><a href="/docs/p2p-roadmap.md">Open the complete P2P roadmap</a></p>
+    </section>
+
+    <section id="companion" class="section band">
+      <div class="content split companion-layout">
+        <div class="section-heading compact">
+          <p class="section-kicker">Optional local software</p>
+          <h2>Peer Companion remains user controlled</h2>
+          <p>The future companion wraps existing Rust verification and serving commands for local piece stores, consent, quotas, peer-source announcements, transfer logs, receipts, and TinyRustLM handoff. It is not project infrastructure.</p>
+          <p class="support-link"><a href="/docs/peer-companion.md">Read the companion design <span aria-hidden="true">&rarr;</span></a></p>
+        </div>
+        <dl class="boundary-matrix">
+          <div><dt>Runs on</dt><dd>The user's computer</dd></div>
+          <div><dt>Controls</dt><dd>Consent, cache, serve, and fetch</dd></div>
+          <div><dt>Writes</dt><dd>Local state, logs, and receipts</dd></div>
+          <div><dt>Does not become</dt><dd>A MiniModel project byte host</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="agent" class="section content">
+      <div class="section-heading">
+        <p class="section-kicker">Human and agent reference</p>
+        <h2>Read the contracts in dependency order</h2>
+        <p>Start with boundaries, then format and verification, then source and peer workflows.</p>
+      </div>
+      <ol class="reading-list">
+        <li><a href="/docs/overview.md"><strong>Overview and boundaries</strong><span>Project role and trust model</span></a></li>
+        <li><a href="/docs/catalog-boundary.md"><strong>Catalog boundary</strong><span>Metadata-only publication rules</span></a></li>
+        <li><a href="/docs/slm-format.md"><strong><code>.slm</code> format</strong><span>Binary artifact contract</span></a></li>
+        <li><a href="/docs/manifest-v0.md"><strong>Manifest v0</strong><span>Portable identity and evidence</span></a></li>
+        <li><a href="/docs/verifier-mvp.md"><strong>Rust verifier</strong><span>Acceptance and receipt workflow</span></a></li>
+        <li><a href="/docs/source-lanes.md"><strong>Source lanes</strong><span>Local, external, and peer paths</span></a></li>
+        <li><a href="/docs/legal-boundary.md"><strong>Legal and consent</strong><span>Publisher and user responsibilities</span></a></li>
+        <li><a href="/docs/peer-companion.md"><strong>Peer Companion</strong><span>Optional local control surface</span></a></li>
+        <li><a href="/docs/agent-readme.md"><strong>Agent notes</strong><span>Machine-reader operating context</span></a></li>
+        <li><a href="/examples/share-metadata.v0.json"><strong>Share metadata example</strong><span>Local exchange handoff</span></a></li>
+        <li><a href="/examples/tiny-test-model-q8.minimodel.manifest.v0"><strong>Fixture manifest</strong><span>Real q8 test artifact metadata</span></a></li>
+        <li><a href="/examples/tiny-test-model-q8.minimodel-peer-import-request.json"><strong>Peer import request</strong><span>Receiver-side request example</span></a></li>
+      </ol>
     </section>
   </main>
 
   <footer class="footer">
-    <p>MiniModel.MiRust.com documents MiniModel.com. Project servers serve docs and metadata only. User model bytes stay outside project infrastructure and are verified locally before TinyRustLM browser import.</p>
+    <div class="footer-grid">
+      <div><strong>MiniModel</strong><p>Metadata, provenance, and local Rust verification for tiny model exchange.</p></div>
+      <nav aria-label="Footer reference links"><strong>Reference</strong><a href="/docs/overview.md">Overview</a><a href="/docs/slm-format.md">.slm format</a><a href="/docs/manifest-v0.md">Manifest</a><a href="/docs/verifier-mvp.md">Verifier</a></nav>
+      <nav aria-label="Footer project links"><strong>Project</strong><a href="https://minimodel.org/">MiniModel.org</a><a href="https://tinyrustlm.com/">TinyRustLM.com</a><a href="/llms.txt">llms.txt</a><a href="/LICENSE.txt">License</a></nav>
+      <div><strong>Infrastructure boundary</strong><p>Documentation and metadata only. User model bytes stay outside project servers.</p></div>
+    </div>
   </footer>
+
+  <button class="back-to-top" type="button" aria-label="Back to top" title="Back to top"><span aria-hidden="true">&uarr;</span></button>
+  <p class="copy-status visually-hidden" aria-live="polite"></p>
 </body>
 </html>
