@@ -4,6 +4,9 @@ Developer documentation for MiniModel.com, `.slm`, and the metadata-only tiny mo
 
 Read first:
 
+- /updates/
+- /.well-known/site-release.json
+- /.well-known/site-release-history.json
 - /docs/overview.md
 - /docs/catalog-boundary.md
 - /docs/slm-format.md

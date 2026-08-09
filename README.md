@@ -2,6 +2,10 @@
 
 Developer documentation site for MiniModel.com.
 
+The source-controlled site release is `1.0.0`, dated and last published
+`2026-08-09`. Human-readable history lives at `/updates/`; canonical current
+and append-only history records live under `/.well-known/`.
+
 This site documents:
 
 - the `.slm` binary model format used by TinyRustLM

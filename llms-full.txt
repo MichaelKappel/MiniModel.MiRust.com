@@ -2,6 +2,10 @@
 
 MiniModel.MiRust.com is the developer documentation site for MiniModel.com. It serves documentation, schemas, examples, metadata guidance, and agent orientation only.
 
+Current site release: 1.0.0, released and last published 2026-08-09.
+Release history: /updates/
+Machine-readable release records: /.well-known/site-release.json and /.well-known/site-release-history.json
+
 MiniModel.com is a Rust-first metadata and verification layer for tiny local AI model packages. It is not a model host, byte relay, or inference service.
 
 ## Hard Boundary
