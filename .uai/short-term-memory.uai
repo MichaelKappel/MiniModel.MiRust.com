@@ -1,0 +1,17 @@
+profile: minimodel-mirust.short-term-memory.v1
+updated_utc: 2026-08-09T22:06:41Z
+site: MiniModel.MiRust.com
+
+credit_window_handoff_2026_08_09:
+  current_truth: The documentation release MiniModel.MiRust.com 1.0.0 has a validated exact closure and source-controlled resumable publisher, but publication has not started and must not be claimed.
+  repository: E:\Source\Worktrees\rust-site-release-20260809\MiniModel.MiRust.com
+  head_before_handoff_commit: 06e651c53cb442facd9541b061af85b2bf267756
+  release_content_commit: a1e3959738f86bd52058a5afaa6016ae1dd74203
+  closure: 32 files; 297572 bytes; manifest SHA256 cd26d06a393ef99fde0c4b009b500905530ce76a8abfe0e282e15e20869354f5
+  start_command: '& .\tools\deploy-site.ps1 -Publish'
+  gate: Publish only from a clean pushed revision, preserve append-only attempt history, and require complete HTTPS readback before success.
+
+permanent_policy:
+  - This project is pre-public and clean-slate. Add no technical debt, compatibility shim, legacy reader, migration fallback, or knowingly weak patch.
+  - Documentation is a first-class product surface and must remain synchronized with implementation, versions, limitations, security, privacy, operations, and release evidence.
+  - Check in each healthy major change; deploy whenever every affected test and release gate passes.

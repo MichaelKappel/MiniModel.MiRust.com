@@ -1,0 +1,12 @@
+profile: minimodel-mirust.file-handoff.v1
+updated_utc: 2026-08-09T22:06:41Z
+site: MiniModel.MiRust.com
+
+credit_window_handoff_2026_08_09:
+  status: release_ready_for_publication_not_published
+  version: 1.0.0
+  release_content_commit: a1e3959738f86bd52058a5afaa6016ae1dd74203
+  manifest_sha256: cd26d06a393ef99fde0c4b009b500905530ce76a8abfe0e282e15e20869354f5
+  closure: 32 files and 297572 bytes
+  restart: From the clean release clone, verify exact origin/master state and run `& .\tools\deploy-site.ps1 -Publish`; preserve interruption history and accept publication only after authoritative transport plus public HTTPS readback.
+  warning: Reachability, a package, a source commit, or a successful local gate is not publication evidence.

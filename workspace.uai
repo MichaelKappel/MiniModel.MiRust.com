@@ -1,6 +1,6 @@
 workspace = "MiniModel.MiRust.com"
 purpose = "Developer documentation site for MiniModel.com, the .slm format, and the MiniModel model exchange architecture."
-updated_utc = "2026-07-07T20:42:00Z"
+updated_utc = "2026-08-09T22:06:41Z"
 
 boundaries = [
   "MiniModel.com project servers never run user model bytes.",
@@ -28,3 +28,25 @@ deploy_gate = [
 ]
 
 current_public_role = "MiniModel.MiRust.com is the developer documentation route for MiniModel.com."
+
+[credit_window_handoff_2026_08_09]
+authority = "Current private restart account; newer than incompatible present-tense wording in dated history."
+reason = "The user ended the available work window after the release closure and publisher were verified but before publication began."
+repository = "E:\\Source\\Worktrees\\rust-site-release-20260809\\MiniModel.MiRust.com"
+branch = "master"
+upstream = "origin/master"
+head_before_handoff_commit = "06e651c53cb442facd9541b061af85b2bf267756"
+version = "1.0.0"
+release_content_commit = "a1e3959738f86bd52058a5afaa6016ae1dd74203"
+file_count = 32
+total_bytes = 297572
+manifest_sha256 = "cd26d06a393ef99fde0c4b009b500905530ce76a8abfe0e282e15e20869354f5"
+publication_status = "not_started_not_published"
+publisher_status = "exact closure and authenticated-prefix resume implementation are source-controlled"
+start_command = "& .\\tools\\deploy-site.ps1 -Publish"
+next_actions = [
+  "Verify the repository is clean and exactly synchronized with origin/master.",
+  "Run the complete local release validation again if any release-bound byte changed.",
+  "Start the exact publisher and preserve every failed or interrupted receipt.",
+  "Require authoritative transport and public HTTPS readback before writing a success receipt or publication claim."
+]
