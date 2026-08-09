@@ -1,0 +1,222 @@
+{
+  "schema": "uaix.static_site_deployment_manifest.v1",
+  "site": "minimodel.mirust.com",
+  "origin": "https://minimodel.mirust.com",
+  "version": "1.0.0",
+  "release_date": "2026-08-09",
+  "source_commit": "a1e3959738f86bd52058a5afaa6016ae1dd74203",
+  "source_tree": "75665b04e353b02e8abc332989b67afce41191e0",
+  "transport_profile": "MiniModel.MiRust.com",
+  "files": [
+    {
+      "path": ".htaccess",
+      "bytes": 280,
+      "sha256": "8118ab0fc9d5ef58c61c9451a6ecacd36a4713e3c1e5aed9643c0d3bc2382a05",
+      "https_readback_path": null
+    },
+    {
+      "path": ".well-known/site-release-history.json",
+      "bytes": 924,
+      "sha256": "955518367791c276423e21a015790ac4f6f6b43983d40ae373e2b2aa6f921840",
+      "https_readback_path": "/.well-known/site-release-history.json"
+    },
+    {
+      "path": ".well-known/uaix-talisman.txt",
+      "bytes": 395,
+      "sha256": "e6e6dc698d2030482985ab16134487fbef2e3fa74a4e4e198dceab200682c36c",
+      "https_readback_path": "/.well-known/uaix-talisman.txt"
+    },
+    {
+      "path": "assets/exchange-map.svg",
+      "bytes": 3632,
+      "sha256": "f7593ab305b57bf3794ffd9085c783fc0ab398a3fdf467868f524a353d131ece",
+      "https_readback_path": "/assets/exchange-map.svg"
+    },
+    {
+      "path": "assets/site.js",
+      "bytes": 4438,
+      "sha256": "28ff7b2da380a8da336c6a3c48eb033daedd4283dd9874eb71a43a1454d74d21",
+      "https_readback_path": "/assets/site.js"
+    },
+    {
+      "path": "docs/agent-readme.md",
+      "bytes": 8549,
+      "sha256": "a0bea008376c7635928aa1e07a232c2feaf500bded25bacdfd11d68ca3d86d8f",
+      "https_readback_path": "/docs/agent-readme.md"
+    },
+    {
+      "path": "docs/catalog-boundary.md",
+      "bytes": 32076,
+      "sha256": "caed3d89d9bb152346dfb008656b88a534c4185c7f7c3b6a854e1f6223626544",
+      "https_readback_path": "/docs/catalog-boundary.md"
+    },
+    {
+      "path": "docs/file-checksums.sha256",
+      "bytes": 2937,
+      "sha256": "9599e51c8ba94c4d65e92e1123721c541e32a1da11c6e3e1dd1e54047c88edc0",
+      "https_readback_path": "/docs/file-checksums.sha256"
+    },
+    {
+      "path": "docs/legal-boundary.md",
+      "bytes": 3767,
+      "sha256": "8c9c2f819567fd1dd9625a15270ccf4655125d3b0dda8afa5049ec47d834d594",
+      "https_readback_path": "/docs/legal-boundary.md"
+    },
+    {
+      "path": "docs/manifest-v0.md",
+      "bytes": 28698,
+      "sha256": "9b2501f9866498015bba5a741330b7b9f48edca39730d79df825f1be5a7e1ea8",
+      "https_readback_path": "/docs/manifest-v0.md"
+    },
+    {
+      "path": "docs/overview.md",
+      "bytes": 12472,
+      "sha256": "216248bad2f9f2bda972e97c37ce54ef315892792e17c8f4193c051cb3c27cec",
+      "https_readback_path": "/docs/overview.md"
+    },
+    {
+      "path": "docs/p2p-roadmap.md",
+      "bytes": 9928,
+      "sha256": "9a4a82a6e8aeedc51f406504dc1c6b076622da964622ae09e3c2945e0a8a2230",
+      "https_readback_path": "/docs/p2p-roadmap.md"
+    },
+    {
+      "path": "docs/peer-companion.md",
+      "bytes": 33189,
+      "sha256": "443399d6f1430ffaea17f061a5d37711173b3865ca0e87dcfa6a822a41f0d1f2",
+      "https_readback_path": "/docs/peer-companion.md"
+    },
+    {
+      "path": "docs/slm-format.md",
+      "bytes": 10234,
+      "sha256": "e4fb2c7db63901e7949fb3dc3d33beda65ae9e3aa52c46259b89b7e1e6013365",
+      "https_readback_path": "/docs/slm-format.md"
+    },
+    {
+      "path": "docs/source-lanes.md",
+      "bytes": 11131,
+      "sha256": "283e97a3d1779b0cb6d03b77878e438863cec16bc6d069a751c7a57314fad6b7",
+      "https_readback_path": "/docs/source-lanes.md"
+    },
+    {
+      "path": "docs/ui-ux-25-rounds-2026-07-12.md",
+      "bytes": 3928,
+      "sha256": "f9430f00254b064f71dc4dc8c376a3c0a2a85354418e4c58e176c2279aafb032",
+      "https_readback_path": "/docs/ui-ux-25-rounds-2026-07-12.md"
+    },
+    {
+      "path": "docs/verifier-mvp.md",
+      "bytes": 41566,
+      "sha256": "14579e91c47b3331f5150fb95f764a228939022209a3eb9c09136a9b38972be6",
+      "https_readback_path": "/docs/verifier-mvp.md"
+    },
+    {
+      "path": "examples/minimodel.manifest.v0.example",
+      "bytes": 2925,
+      "sha256": "a9868d7e6dd77f100d869862d487395cb263f0bc4c0a655ff42d83680a93734d",
+      "https_readback_path": "/examples/minimodel.manifest.v0.example"
+    },
+    {
+      "path": "examples/share-metadata.v0.json",
+      "bytes": 2048,
+      "sha256": "063b425a44a81e77aeca67044155d8b113292abc8989327cc744fd05ba0e64e9",
+      "https_readback_path": "/examples/share-metadata.v0.json"
+    },
+    {
+      "path": "examples/tiny-test-model-q8.minimodel-peer-import-request.json",
+      "bytes": 3312,
+      "sha256": "f8aaab8e212689b9fefe2d13422661779fde29036c79a3982291dbb470b9a323",
+      "https_readback_path": "/examples/tiny-test-model-q8.minimodel-peer-import-request.json"
+    },
+    {
+      "path": "examples/tiny-test-model-q8.minimodel-peer-offer",
+      "bytes": 1052,
+      "sha256": "9da5ada1eb8dd9bb77b8e46cea624f380808aee82568f555b6420fd59fa8d642",
+      "https_readback_path": "/examples/tiny-test-model-q8.minimodel-peer-offer"
+    },
+    {
+      "path": "examples/tiny-test-model-q8.minimodel.manifest.v0",
+      "bytes": 2019,
+      "sha256": "d26a7e3a445f30f2c7ff3493e50f95bb7798d07546d357dae7f930ba861f5eab",
+      "https_readback_path": "/examples/tiny-test-model-q8.minimodel.manifest.v0"
+    },
+    {
+      "path": "index.html",
+      "bytes": 22541,
+      "sha256": "accc457a9586a4f617f963552c810264938cbb8160d7655e4de673609a8f952b",
+      "https_readback_path": "/index.html"
+    },
+    {
+      "path": "LICENSE.txt",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "https_readback_path": "/LICENSE.txt"
+    },
+    {
+      "path": "llms-full.txt",
+      "bytes": 12427,
+      "sha256": "ee39dd2b971bedc63c5c892c1e65bc29e412fc70a8b6fd0e704854a3e5c16565",
+      "https_readback_path": "/llms-full.txt"
+    },
+    {
+      "path": "llms.txt",
+      "bytes": 6826,
+      "sha256": "b71b3eb8581d736301caa077cd6d95352af870265e911a157136a21d8274726f",
+      "https_readback_path": "/llms.txt"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2321,
+      "sha256": "cdec1f18c7de9f2ff3d812473396a4445240aa1f35ccf8853ab1234cd791bfb8",
+      "https_readback_path": "/README.md"
+    },
+    {
+      "path": "robots.txt",
+      "bytes": 74,
+      "sha256": "1f71e0d4b8b4123ec6b0a53089e2213946ec5a31150b24d88d8f9815648effdf",
+      "https_readback_path": "/robots.txt"
+    },
+    {
+      "path": "sitemap.xml",
+      "bytes": 1730,
+      "sha256": "775c6c0f747e705d71ac4220c7f7c5de3728f795b98c94cd555e33d0bc852e7f",
+      "https_readback_path": "/sitemap.xml"
+    },
+    {
+      "path": "styles.css",
+      "bytes": 17588,
+      "sha256": "5c5b500f3348cbc1ed256f1db3b89861e33630d178cc33a85ec580ffbeacacb2",
+      "https_readback_path": "/styles.css"
+    },
+    {
+      "path": "updates/index.html",
+      "bytes": 2895,
+      "sha256": "8048539df78082297a131e5ec8598374429d94438b6dd0e5295ed6fbbc54047f",
+      "https_readback_path": "/updates/index.html"
+    },
+    {
+      "path": ".well-known/site-release.json",
+      "bytes": 313,
+      "sha256": "92fc71b2bea10887d65ee14a407f41c8e24a80126cbc94f530d6b40c3b812ce8",
+      "https_readback_path": "/.well-known/site-release.json"
+    }
+  ],
+  "route_smokes": [
+    {
+      "path": "/",
+      "contains": "Version 1.0.0"
+    },
+    {
+      "path": "/updates/",
+      "contains": "1.0.0 - 2026-08-09"
+    },
+    {
+      "path": "/docs/catalog-boundary.md",
+      "contains": "Catalog Boundary"
+    },
+    {
+      "path": "/.well-known/site-release.json",
+      "contains": "minimodel.mirust.com@1.0.0"
+    }
+  ]
+}
