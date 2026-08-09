@@ -17,6 +17,11 @@ Authorized publication:
 .\tools\deploy-site.ps1 -Publish
 ```
 
+An externally interrupted stage may be resumed with
+`-ResumeNonce <12-lowercase-hex>`. Before appending, the publisher hashes the
+complete authenticated remote prefix and the same-length canonical local
+prefix. Corrupt, empty, or oversized staging is deleted and rebuilt.
+
 Publishing requires a clean pushed checkout and the exact external FileZilla
 profile named by the manifest. The publisher uses FTPS, bounded verified
 chunks, per-file staging and rollback, authenticated byte verification, exact
