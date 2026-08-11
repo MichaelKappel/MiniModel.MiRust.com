@@ -1,15 +1,18 @@
-profile: minimodel-mirust.short-term-memory.v1
-updated_utc: 2026-08-09T22:06:41Z
+profile: minimodel-mirust.short-term-memory.v2
+updated_utc: 2026-08-11T14:53:04Z
 site: MiniModel.MiRust.com
 
-credit_window_handoff_2026_08_09:
-  current_truth: The documentation release MiniModel.MiRust.com 1.0.0 has a validated exact closure and source-controlled resumable publisher, but publication has not started and must not be claimed.
+publication_1_0_0_2026_08_11:
+  current_truth: MiniModel.MiRust.com 1.0.0 is published and exact public readback is verified.
   repository: E:\Source\Worktrees\rust-site-release-20260809\MiniModel.MiRust.com
-  head_before_handoff_commit: 06e651c53cb442facd9541b061af85b2bf267756
   release_content_commit: a1e3959738f86bd52058a5afaa6016ae1dd74203
   closure: 32 files; 297572 bytes; manifest SHA256 cd26d06a393ef99fde0c4b009b500905530ce76a8abfe0e282e15e20869354f5
-  start_command: '& .\tools\deploy-site.ps1 -Publish'
-  gate: Publish only from a clean pushed revision, preserve append-only attempt history, and require complete HTTPS readback before success.
+  failed_attempt: deploy/receipts/site-deployment-20260811T144133Z.json; SHA256 cfe1c298ea619abb3d40f8a64796854b0f9151efbece83aa23cc3e7a0939a553
+  successful_attempt: deploy/receipts/site-deployment-20260811T144605Z.json; SHA256 176abffdeaf5a8af97c1c71e036816279dace8096f8845123ffbed19039a066c
+  completed_utc: 2026-08-11T14:51:56.4363903Z
+  proof: All 32 FTPS identities, 31 exact HTTPS byte readbacks, four route smokes, the release marker, and an independent 31-file HTTPS readback passed.
+  source_control: Success receipt is pushed in commit a7c7da0dd3d5d89a65ced337e634681cdb10d3d4.
+  next_action: Do not replay this terminal release. Continue with MiniModel.org 1.0.0.
 
 permanent_policy:
   - This project is pre-public and clean-slate. Add no technical debt, compatibility shim, legacy reader, migration fallback, or knowingly weak patch.

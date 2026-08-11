@@ -1,6 +1,6 @@
 workspace = "MiniModel.MiRust.com"
 purpose = "Developer documentation site for MiniModel.com, the .slm format, and the MiniModel model exchange architecture."
-updated_utc = "2026-08-09T22:06:41Z"
+updated_utc = "2026-08-11T14:53:04Z"
 
 boundaries = [
   "MiniModel.com project servers never run user model bytes.",
@@ -29,24 +29,28 @@ deploy_gate = [
 
 current_public_role = "MiniModel.MiRust.com is the developer documentation route for MiniModel.com."
 
-[credit_window_handoff_2026_08_09]
-authority = "Current private restart account; newer than incompatible present-tense wording in dated history."
-reason = "The user ended the available work window after the release closure and publisher were verified but before publication began."
+[publication_1_0_0_2026_08_11]
+authority = "Current private restart account; supersedes the prior unpublished handoff."
 repository = "E:\\Source\\Worktrees\\rust-site-release-20260809\\MiniModel.MiRust.com"
 branch = "master"
 upstream = "origin/master"
-head_before_handoff_commit = "06e651c53cb442facd9541b061af85b2bf267756"
 version = "1.0.0"
 release_content_commit = "a1e3959738f86bd52058a5afaa6016ae1dd74203"
 file_count = 32
 total_bytes = 297572
 manifest_sha256 = "cd26d06a393ef99fde0c4b009b500905530ce76a8abfe0e282e15e20869354f5"
-publication_status = "not_started_not_published"
-publisher_status = "exact closure and authenticated-prefix resume implementation are source-controlled"
-start_command = "& .\\tools\\deploy-site.ps1 -Publish"
+publication_status = "published_and_readback_verified"
+completed_utc = "2026-08-11T14:51:56.4363903Z"
+publisher_commit = "e9dc50ad83f4ef713dae275de4f3fdb02edc0727"
+failed_receipt = "deploy/receipts/site-deployment-20260811T144133Z.json"
+failed_receipt_sha256 = "cfe1c298ea619abb3d40f8a64796854b0f9151efbece83aa23cc3e7a0939a553"
+success_receipt = "deploy/receipts/site-deployment-20260811T144605Z.json"
+success_receipt_sha256 = "176abffdeaf5a8af97c1c71e036816279dace8096f8845123ffbed19039a066c"
+success_receipt_commit = "a7c7da0dd3d5d89a65ced337e634681cdb10d3d4"
+publication_evidence = "All 32 authenticated transport identities, all 31 public HTTPS file identities, and all four route smokes passed. An independent second HTTPS pass matched all 31 public files."
 next_actions = [
-  "Verify the repository is clean and exactly synchronized with origin/master.",
-  "Run the complete local release validation again if any release-bound byte changed.",
-  "Start the exact publisher and preserve every failed or interrupted receipt.",
-  "Require authoritative transport and public HTTPS readback before writing a success receipt or publication claim."
+  "Do not replay this terminal publication as an ordinary resume operation.",
+  "Preserve both the failed and successful receipts as immutable history.",
+  "Create a new versioned closure and complete all gates before any future site-byte change.",
+  "Continue the coordinated release sequence with MiniModel.org 1.0.0."
 ]
