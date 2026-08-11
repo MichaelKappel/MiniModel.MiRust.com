@@ -1,0 +1,61 @@
+{
+    "schema":  "uaix.site_deployment_receipt.v1",
+    "site":  "minimodel.mirust.com",
+    "origin":  "https://minimodel.mirust.com",
+    "version":  "1.0.0",
+    "source_commit":  "a1e3959738f86bd52058a5afaa6016ae1dd74203",
+    "source_tree":  "75665b04e353b02e8abc332989b67afce41191e0",
+    "publisher_commit":  "cb18263ac739b64af717aa6c5568b65b05af9962",
+    "manifest_sha256":  "cd26d06a393ef99fde0c4b009b500905530ce76a8abfe0e282e15e20869354f5",
+    "operation_nonce":  "7c960d08e053",
+    "started_utc":  "2026-08-11T14:41:33.8482925Z",
+    "completed_utc":  "2026-08-11T14:42:44.2189176Z",
+    "status":  "failed",
+    "failure_code":  "System.Net.WebException/ServerProtocolViolation/ftp-230",
+    "current_path":  "docs/file-checksums.sha256",
+    "completed_file_count":  7,
+    "files":  [
+                  {
+                      "path":  ".htaccess",
+                      "status":  "already-current",
+                      "bytes":  280,
+                      "sha256":  "8118ab0fc9d5ef58c61c9451a6ecacd36a4713e3c1e5aed9643c0d3bc2382a05"
+                  },
+                  {
+                      "path":  ".well-known/site-release-history.json",
+                      "status":  "published",
+                      "bytes":  924,
+                      "sha256":  "955518367791c276423e21a015790ac4f6f6b43983d40ae373e2b2aa6f921840"
+                  },
+                  {
+                      "path":  ".well-known/uaix-talisman.txt",
+                      "status":  "already-current",
+                      "bytes":  395,
+                      "sha256":  "e6e6dc698d2030482985ab16134487fbef2e3fa74a4e4e198dceab200682c36c"
+                  },
+                  {
+                      "path":  "assets/exchange-map.svg",
+                      "status":  "already-current",
+                      "bytes":  3632,
+                      "sha256":  "f7593ab305b57bf3794ffd9085c783fc0ab398a3fdf467868f524a353d131ece"
+                  },
+                  {
+                      "path":  "assets/site.js",
+                      "status":  "already-current",
+                      "bytes":  4438,
+                      "sha256":  "28ff7b2da380a8da336c6a3c48eb033daedd4283dd9874eb71a43a1454d74d21"
+                  },
+                  {
+                      "path":  "docs/agent-readme.md",
+                      "status":  "published",
+                      "bytes":  8549,
+                      "sha256":  "a0bea008376c7635928aa1e07a232c2feaf500bded25bacdfd11d68ca3d86d8f"
+                  },
+                  {
+                      "path":  "docs/catalog-boundary.md",
+                      "status":  "published",
+                      "bytes":  32076,
+                      "sha256":  "caed3d89d9bb152346dfb008656b88a534c4185c7f7c3b6a854e1f6223626544"
+                  }
+              ]
+}
