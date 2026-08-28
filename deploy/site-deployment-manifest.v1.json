@@ -2,34 +2,34 @@
   "schema": "uaix.static_site_deployment_manifest.v1",
   "site": "minimodel.mirust.com",
   "origin": "https://minimodel.mirust.com",
-  "version": "1.0.0",
-  "release_date": "2026-08-09",
-  "source_commit": "a1e3959738f86bd52058a5afaa6016ae1dd74203",
-  "source_tree": "75665b04e353b02e8abc332989b67afce41191e0",
+  "version": "1.1.0",
+  "release_date": "2026-08-28",
+  "source_commit": "659a9ed7fe30a33b672c0fa1686c60ded96f0240",
+  "source_tree": "7dd91895a984fa7705ee0e6f049f3e1d7a07ebfa",
   "transport_profile": "MiniModel.MiRust.com",
   "files": [
     {
       "path": ".htaccess",
-      "bytes": 280,
-      "sha256": "8118ab0fc9d5ef58c61c9451a6ecacd36a4713e3c1e5aed9643c0d3bc2382a05",
+      "bytes": 519,
+      "sha256": "86a7c2f2b6d3efdeb17b6c7cf2fb03c0b3cc21acdcf49e35674f24e3ece1eea4",
       "https_readback_path": null
     },
     {
       "path": ".well-known/site-release-history.json",
-      "bytes": 924,
-      "sha256": "955518367791c276423e21a015790ac4f6f6b43983d40ae373e2b2aa6f921840",
+      "bytes": 1776,
+      "sha256": "29f2bc1b19b177fe60fa29a0e49a9ba934b62810c4a9434702c1e5cb0153f988",
       "https_readback_path": "/.well-known/site-release-history.json"
     },
     {
       "path": ".well-known/uaix-talisman.txt",
-      "bytes": 395,
-      "sha256": "e6e6dc698d2030482985ab16134487fbef2e3fa74a4e4e198dceab200682c36c",
+      "bytes": 903,
+      "sha256": "c7a9143add14602f2caa6093587aef2e4936665c82191698e104c13d68836d81",
       "https_readback_path": "/.well-known/uaix-talisman.txt"
     },
     {
       "path": "assets/exchange-map.svg",
-      "bytes": 3632,
-      "sha256": "f7593ab305b57bf3794ffd9085c783fc0ab398a3fdf467868f524a353d131ece",
+      "bytes": 3628,
+      "sha256": "2c6468c59654c22401e422cd8732a045119fe0f7bb01a43f46778708472fca98",
       "https_readback_path": "/assets/exchange-map.svg"
     },
     {
@@ -39,111 +39,81 @@
       "https_readback_path": "/assets/site.js"
     },
     {
+      "path": "docs/acquisition-contract.md",
+      "bytes": 1658,
+      "sha256": "54bac628a819cf6cee0eefec624bb84909666a634dddf61073e471177b6f1cf3",
+      "https_readback_path": "/docs/acquisition-contract.md"
+    },
+    {
       "path": "docs/agent-readme.md",
-      "bytes": 8549,
-      "sha256": "a0bea008376c7635928aa1e07a232c2feaf500bded25bacdfd11d68ca3d86d8f",
+      "bytes": 1369,
+      "sha256": "2a524bbf307b7b78229e4ba038d9f59ee7039f90e389deb5860862c74eb18ca1",
       "https_readback_path": "/docs/agent-readme.md"
     },
     {
       "path": "docs/catalog-boundary.md",
-      "bytes": 32076,
-      "sha256": "caed3d89d9bb152346dfb008656b88a534c4185c7f7c3b6a854e1f6223626544",
+      "bytes": 2897,
+      "sha256": "a1cc17496b900f8b21f055d55c1d77c88751e806f1c7e0d5d431f28131c8b3da",
       "https_readback_path": "/docs/catalog-boundary.md"
     },
     {
+      "path": "docs/evidence-boundary.md",
+      "bytes": 1077,
+      "sha256": "36e49a4eb71ab0d1dd14af52212d3d009944398e4674b87b80d956c0b8155420",
+      "https_readback_path": "/docs/evidence-boundary.md"
+    },
+    {
       "path": "docs/file-checksums.sha256",
-      "bytes": 2937,
-      "sha256": "9599e51c8ba94c4d65e92e1123721c541e32a1da11c6e3e1dd1e54047c88edc0",
+      "bytes": 2506,
+      "sha256": "09249ca5d5bdbe5ac3d7bbb6533da1f6004154b47a0ce0c1d8cd077d217fe6f0",
       "https_readback_path": "/docs/file-checksums.sha256"
     },
     {
       "path": "docs/legal-boundary.md",
-      "bytes": 3767,
-      "sha256": "8c9c2f819567fd1dd9625a15270ccf4655125d3b0dda8afa5049ec47d834d594",
+      "bytes": 1847,
+      "sha256": "9d3b41a89de27eb58bd17720dca21732fb6cf87797fa3c69d529821a154ef0b2",
       "https_readback_path": "/docs/legal-boundary.md"
     },
     {
-      "path": "docs/manifest-v0.md",
-      "bytes": 28698,
-      "sha256": "9b2501f9866498015bba5a741330b7b9f48edca39730d79df825f1be5a7e1ea8",
-      "https_readback_path": "/docs/manifest-v0.md"
+      "path": "docs/memory-endpoints.md",
+      "bytes": 1338,
+      "sha256": "cb1f4dadc515647960c8b6de984c319f8fadf10e52f9625e9a9b1dce76777181",
+      "https_readback_path": "/docs/memory-endpoints.md"
     },
     {
       "path": "docs/overview.md",
-      "bytes": 12472,
-      "sha256": "216248bad2f9f2bda972e97c37ce54ef315892792e17c8f4193c051cb3c27cec",
+      "bytes": 2664,
+      "sha256": "1a1c52931513f5d869da29c7765d8e52e49d05974b355cf772df380d0c038f06",
       "https_readback_path": "/docs/overview.md"
     },
     {
       "path": "docs/p2p-roadmap.md",
-      "bytes": 9928,
-      "sha256": "9a4a82a6e8aeedc51f406504dc1c6b076622da964622ae09e3c2945e0a8a2230",
+      "bytes": 1310,
+      "sha256": "246c73a97603e0176b675990f4e185e9c305124894868b371cee596d16381129",
       "https_readback_path": "/docs/p2p-roadmap.md"
     },
     {
       "path": "docs/peer-companion.md",
-      "bytes": 33189,
-      "sha256": "443399d6f1430ffaea17f061a5d37711173b3865ca0e87dcfa6a822a41f0d1f2",
+      "bytes": 1744,
+      "sha256": "59a91855dac5cde78779ac468a7279f669ed3eca064b6bcbfa941470095d3f69",
       "https_readback_path": "/docs/peer-companion.md"
     },
     {
-      "path": "docs/slm-format.md",
-      "bytes": 10234,
-      "sha256": "e4fb2c7db63901e7949fb3dc3d33beda65ae9e3aa52c46259b89b7e1e6013365",
-      "https_readback_path": "/docs/slm-format.md"
+      "path": "docs/slm2-composition.md",
+      "bytes": 837,
+      "sha256": "2818a400f7cc4ada50f17f15ea6f687b417ec3fc303641cc6b818aa1781ed80c",
+      "https_readback_path": "/docs/slm2-composition.md"
     },
     {
       "path": "docs/source-lanes.md",
-      "bytes": 11131,
-      "sha256": "283e97a3d1779b0cb6d03b77878e438863cec16bc6d069a751c7a57314fad6b7",
+      "bytes": 1495,
+      "sha256": "07d6f3aa3383fdf92245460a741f9748d8d3a3660507fe09f0697d3c94249cb0",
       "https_readback_path": "/docs/source-lanes.md"
     },
     {
-      "path": "docs/ui-ux-25-rounds-2026-07-12.md",
-      "bytes": 3928,
-      "sha256": "f9430f00254b064f71dc4dc8c376a3c0a2a85354418e4c58e176c2279aafb032",
-      "https_readback_path": "/docs/ui-ux-25-rounds-2026-07-12.md"
-    },
-    {
-      "path": "docs/verifier-mvp.md",
-      "bytes": 41566,
-      "sha256": "14579e91c47b3331f5150fb95f764a228939022209a3eb9c09136a9b38972be6",
-      "https_readback_path": "/docs/verifier-mvp.md"
-    },
-    {
-      "path": "examples/minimodel.manifest.v0.example",
-      "bytes": 2925,
-      "sha256": "a9868d7e6dd77f100d869862d487395cb263f0bc4c0a655ff42d83680a93734d",
-      "https_readback_path": "/examples/minimodel.manifest.v0.example"
-    },
-    {
-      "path": "examples/share-metadata.v0.json",
-      "bytes": 2048,
-      "sha256": "063b425a44a81e77aeca67044155d8b113292abc8989327cc744fd05ba0e64e9",
-      "https_readback_path": "/examples/share-metadata.v0.json"
-    },
-    {
-      "path": "examples/tiny-test-model-q8.minimodel-peer-import-request.json",
-      "bytes": 3312,
-      "sha256": "f8aaab8e212689b9fefe2d13422661779fde29036c79a3982291dbb470b9a323",
-      "https_readback_path": "/examples/tiny-test-model-q8.minimodel-peer-import-request.json"
-    },
-    {
-      "path": "examples/tiny-test-model-q8.minimodel-peer-offer",
-      "bytes": 1052,
-      "sha256": "9da5ada1eb8dd9bb77b8e46cea624f380808aee82568f555b6420fd59fa8d642",
-      "https_readback_path": "/examples/tiny-test-model-q8.minimodel-peer-offer"
-    },
-    {
-      "path": "examples/tiny-test-model-q8.minimodel.manifest.v0",
-      "bytes": 2019,
-      "sha256": "d26a7e3a445f30f2c7ff3493e50f95bb7798d07546d357dae7f930ba861f5eab",
-      "https_readback_path": "/examples/tiny-test-model-q8.minimodel.manifest.v0"
-    },
-    {
       "path": "index.html",
-      "bytes": 22541,
-      "sha256": "accc457a9586a4f617f963552c810264938cbb8160d7655e4de673609a8f952b",
+      "bytes": 12933,
+      "sha256": "41c320be817abfcede0fbd2e596b19f069f6b575be80e69903c718f2afbd7eb2",
       "https_readback_path": "/index.html"
     },
     {
@@ -154,20 +124,20 @@
     },
     {
       "path": "llms-full.txt",
-      "bytes": 12427,
-      "sha256": "ee39dd2b971bedc63c5c892c1e65bc29e412fc70a8b6fd0e704854a3e5c16565",
+      "bytes": 3605,
+      "sha256": "9b32765a07470bea4a7ee0fe96392301eca8c53bed08dd7094ffe7913b48946c",
       "https_readback_path": "/llms-full.txt"
     },
     {
       "path": "llms.txt",
-      "bytes": 6826,
-      "sha256": "b71b3eb8581d736301caa077cd6d95352af870265e911a157136a21d8274726f",
+      "bytes": 1487,
+      "sha256": "ef57a31808268a9f2ad7077d75d31990daf7b42cba625de750f2acbdc58816fd",
       "https_readback_path": "/llms.txt"
     },
     {
       "path": "README.md",
-      "bytes": 2321,
-      "sha256": "cdec1f18c7de9f2ff3d812473396a4445240aa1f35ccf8853ab1234cd791bfb8",
+      "bytes": 2819,
+      "sha256": "ffdb456c20d9474a94f5425a95bb6701722b66aff1dc1f8ec83e0b1d88e4f558",
       "https_readback_path": "/README.md"
     },
     {
@@ -178,8 +148,8 @@
     },
     {
       "path": "sitemap.xml",
-      "bytes": 1730,
-      "sha256": "775c6c0f747e705d71ac4220c7f7c5de3728f795b98c94cd555e33d0bc852e7f",
+      "bytes": 1782,
+      "sha256": "753e0fd93b7276c00bdafdd9abd73674b0ce2f107d2c1b156553977959771159",
       "https_readback_path": "/sitemap.xml"
     },
     {
@@ -190,33 +160,48 @@
     },
     {
       "path": "updates/index.html",
-      "bytes": 2895,
-      "sha256": "8048539df78082297a131e5ec8598374429d94438b6dd0e5295ed6fbbc54047f",
+      "bytes": 3460,
+      "sha256": "5ab84425ddf7de6ed7a62b1a5cc87e797e280164331b6a09499bf99eac7a9b0b",
       "https_readback_path": "/updates/index.html"
     },
     {
       "path": ".well-known/site-release.json",
       "bytes": 313,
-      "sha256": "92fc71b2bea10887d65ee14a407f41c8e24a80126cbc94f530d6b40c3b812ce8",
+      "sha256": "779a9e73ad94960e912207cd965ec8e54cffa5d2e69fa9600688968ce3926683",
       "https_readback_path": "/.well-known/site-release.json"
     }
+  ],
+  "retired_paths": [
+    "docs/manifest-v0.md",
+    "docs/slm-format.md",
+    "docs/ui-ux-25-rounds-2026-07-12.md",
+    "docs/verifier-mvp.md",
+    "examples/minimodel.manifest.v0.example",
+    "examples/share-metadata.v0.json",
+    "examples/tiny-test-model-q8.minimodel-peer-import-request.json",
+    "examples/tiny-test-model-q8.minimodel-peer-offer",
+    "examples/tiny-test-model-q8.minimodel.manifest.v0"
   ],
   "route_smokes": [
     {
       "path": "/",
-      "contains": "Version 1.0.0"
+      "contains": "Version 1.1.0"
     },
     {
       "path": "/updates/",
-      "contains": "1.0.0 - 2026-08-09"
+      "contains": "1.1.0 - 2026-08-28"
     },
     {
       "path": "/docs/catalog-boundary.md",
       "contains": "Catalog Boundary"
     },
     {
+      "path": "/docs/memory-endpoints.md",
+      "contains": "exactly two separate authorized ecosystem uses"
+    },
+    {
       "path": "/.well-known/site-release.json",
-      "contains": "minimodel.mirust.com@1.0.0"
+      "contains": "minimodel.mirust.com@1.1.0"
     }
   ]
 }
