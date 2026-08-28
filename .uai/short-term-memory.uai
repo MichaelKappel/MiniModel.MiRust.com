@@ -1,32 +1,46 @@
-profile: minimodel-mirust.short-term-memory.current.v1
-updated_utc: 2026-08-28T00:00:00Z
+profile: minimodel-mirust.short-term-memory.current.v2
+updated_utc: 2026-08-28T21:19:58Z
 site: MiniModel.MiRust.com
+status: published_and_readback_verified
 
-current_candidate:
+current_publication:
   version: 1.1.0
-  status: source_candidate_green_not_published
   release_date: 2026-08-28
-  scope: Current SLM2 catalog, direct-peer, pinned-source conversion, evidence-boundary, and two-use MemoryEndpoints documentation.
-  retired_source: Obsolete .slm, manifest-v0, verifier-MVP, fixture, and instruction-handoff routes are absent from the current source closure and registered for exact retirement at deployment.
-  verification: JSON and XML parsing, Node syntax, PowerShell parsing, desktop and mobile real-Chromium smoke, responsive overflow checks, and ecosystem memory-policy checks passed. PHP CLI is unavailable locally and is not claimed.
-  publication_rule: Source, deterministic checksums, final deployment manifest, clean pushed commit, authenticated transport, retired-route checks, and exact HTTPS readback must all pass before 1.1.0 is called published.
+  source_commit: e52df2cf0c5d77519a870211f1e63c5b77b90705
+  source_tree: 74709870d789c1fb1b2430715dcc9fce773d15f4
+  publisher_commit: d50d2d9c8c4c4d494d78dd6fcd5e028124a934ab
+  manifest_sha256: aa5fafa793be79bcfb0bd473b12580f8f8c945a7c730477e496e6b1889bd36f5
+  success_receipt: deploy/receipts/site-deployment-20260828T211816Z.json
+  success_receipt_sha256: d761ebc0a828594103e82b8e4aad3c64888a73dd8fbcf023e59496e69c9141d5
+  receipt_commit: b34e8772bf4e46e481fb74f6de8bf67c8b112566
+  closure: 27 files, 87424 bytes, zero model artifacts
+  transport: 27 already current after the preserved first attempt had uploaded the exact closure
+  retired_routes: 9 exact obsolete routes verified as 404 or 410
+  proof: Five current route smokes and every manifest-bound HTTPS readback passed.
+  scope: Current SLM2 acquisition and catalog protocol documentation, exact route retirements, and two-use MemoryEndpoints authority.
+
+preserved_failed_publication_check:
+  receipt: deploy/receipts/site-deployment-20260828T210322Z.json
+  receipt_sha256: 2283970d048a1ccaee26a7c70bf78f26cb32010e45ae51c3a5402f7e314473cf
+  status: failed
+  cause: The route-smoke expectation used a shortened heading that did not match the actual current page heading.
+  treatment: Preserved as immutable failure evidence. The expectation was corrected explicitly; the record was not overwritten or relabeled.
 
 memory_endpoints:
-  - Direct ecosystem agents use MemoryEndpoints.com for agent-to-agent long-term memory, meetings, handoffs, and coordination.
-  - Separately, a TinyRustLM.com Connect user signs in through its plugin and selects MemoryEndpoints.com as TinyRustLM.com Connect long-term memory.
-  - Keep identities, credentials, consent, scopes, provenance, idempotency, and receipts separate.
-  - Synchronized prelaunch memory copies elsewhere are allowed for resilience; keep every maintained copy current, secret-safe, provenance-labeled, and noncontradictory.
+  direct_agent_lane: Ecosystem agents use MemoryEndpoints.com directly for agent-to-agent long-term memory, meetings, handoffs, and coordination across every maintained site.
+  user_plugin_lane: A TinyRustLM.com Connect user signs in to MemoryEndpoints.com and explicitly selects its plugin as TinyRustLM.com Connect long-term memory.
+  separation: Keep identities, credentials, consent, scopes, provenance, idempotency, and receipts separate. Neither lane silently acts for the other.
+  resilient_prelaunch_duplication: Additional .uai, wiki, public-safe note, and approved private-store copies are allowed for resilience only while all maintained copies remain current, secret-safe, provenance-labeled, and noncontradictory.
+  evidence_boundary: Authorization, source, configuration, or reachability is not proof of a live MemoryEndpoints meeting or user round.
 
-historical_publication_1_0_0:
-  status: published_and_readback_verified
-  release_content_commit: a1e3959738f86bd52058a5afaa6016ae1dd74203
-  successful_receipt: deploy/receipts/site-deployment-20260811T144605Z.json
-  successful_receipt_sha256: 176abffdeaf5a8af97c1c71e036816279dace8096f8845123ffbed19039a066c
-  receipt_commit: a7c7da0dd3d5d89a65ced337e634681cdb10d3d4
-  note: Preserve this immutable evidence. It does not make the current 1.1.0 candidate published.
+clean_slate:
+  - One current SLM2 documentation and acquisition contract only.
+  - No .slm compatibility route, fixture authority, instruction handoff, model-byte proxy, remote-inference fallback, hidden retry, or unsupported live claim.
+  - Historical 1.0.0 and failed 1.1.0 receipts remain evidence only.
 
-next_action:
-  - Commit the 1.1.0 content basis.
-  - Generate and verify deterministic public checksums from that immutable commit.
-  - Commit and push the checksum closure, build the final deployment manifest, run its dry gate, and publish only with the exact authorized profile.
-  - Preserve honest zero campaign counters and do not infer model quality, public peer reachability, live MemoryEndpoints use, or campaign progress.
+campaign_counters:
+  qualified_models: 0/20
+  clean_browser_rounds: 0/50
+  live_memory_rounds: 0/25
+  externally_proven_p2p_lanes: 0/40
+  catalog_announcements: 0/20

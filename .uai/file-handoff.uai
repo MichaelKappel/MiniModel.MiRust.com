@@ -1,19 +1,25 @@
-profile: minimodel-mirust.file-handoff.current.v1
-updated_utc: 2026-08-28T00:00:00Z
+profile: minimodel-mirust.file-handoff.current.v2
+updated_utc: 2026-08-28T21:19:58Z
 site: MiniModel.MiRust.com
 
-candidate_handoff_2026_08_28:
+publication_handoff_2026_08_28:
   version: 1.1.0
-  status: source_candidate_green_not_published
-  content: Current SLM2 acquisition and catalog documentation, exact route retirements, two-use MemoryEndpoints policy, and deterministic checksum/deployment generators.
-  remaining: Content-basis commit, generated checksum commit, push, final manifest, dry deployment validation, authenticated publication, retired-route checks, and exact HTTPS readback.
-  warning: Do not claim publication, model qualification, public P2P reachability, live MemoryEndpoints use, or campaign progress before matching receipts exist.
-
-historical_publication_2026_08_11:
-  version: 1.0.0
   status: published_and_readback_verified
-  release_content_commit: a1e3959738f86bd52058a5afaa6016ae1dd74203
-  success_receipt: deploy/receipts/site-deployment-20260811T144605Z.json
-  success_receipt_sha256: 176abffdeaf5a8af97c1c71e036816279dace8096f8845123ffbed19039a066c
-  success_receipt_commit: a7c7da0dd3d5d89a65ced337e634681cdb10d3d4
-  preservation: Immutable historical evidence; never relabel it as proof of 1.1.0.
+  source_commit: e52df2cf0c5d77519a870211f1e63c5b77b90705
+  publisher_commit: d50d2d9c8c4c4d494d78dd6fcd5e028124a934ab
+  manifest_sha256: aa5fafa793be79bcfb0bd473b12580f8f8c945a7c730477e496e6b1889bd36f5
+  closure: 27 files, 87424 bytes, zero model artifacts
+  success_receipt: deploy/receipts/site-deployment-20260828T211816Z.json
+  success_receipt_sha256: d761ebc0a828594103e82b8e4aad3c64888a73dd8fbcf023e59496e69c9141d5
+  proof: Exact HTTPS bytes, five current routes, and nine retired-route 404/410 checks passed.
+  restart: Treat 1.1.0 as terminally published; a future public-byte change requires a new complete versioned closure and receipt.
+
+memory_endpoints:
+  direct_agent_lane: Agents use MemoryEndpoints.com directly for ecosystem long-term memory, meetings, handoffs, and coordination.
+  user_plugin_lane: A TinyRustLM.com Connect user explicitly signs in and selects the MemoryEndpoints.com plugin for TinyRustLM.com Connect long-term memory.
+  duplicate_memory: Additional prelaunch copies are permitted for resilience only while synchronized, secret-safe, provenance-labeled, and noncontradictory.
+
+historical_evidence:
+  failed_1_1_0_receipt: deploy/receipts/site-deployment-20260828T210322Z.json
+  published_1_0_0_receipt: deploy/receipts/site-deployment-20260811T144605Z.json
+  rule: Preserve both records; neither overrides the current successful 1.1.0 receipt.
