@@ -4,7 +4,7 @@ type: taboo
 title: "MiniModel.MiRust.com Hard No-Go Boundaries"
 project: "MiniModel.MiRust.com"
 created: "2026-07-29"
-updated: "2026-07-29"
+updated: "2026-08-28"
 status: active
 ---
 
@@ -18,3 +18,11 @@ Policy ID: `pre-publication-clean-slate-v1`.
 - Do not preserve obsolete routes, schemas, behavior, or code merely because a dogfood client used them. Update every dogfood client to the verified current design and remove the obsolete path.
 - Do not deploy from a dirty, partially validated, or ambiguous release closure. A reachable dogfood or development surface is not evidence of a public release.
 - Do not call work complete while known in-scope correctness, security, accessibility, test, documentation, or cleanup defects remain.
+
+## MemoryEndpoints Prohibitions
+
+- Do not describe MemoryEndpoints.com as unauthorized, disconnected, or outside the ecosystem product plan.
+- Do not conflate direct agent coordination with the TinyRustLM.com Connect user plugin, share credentials across lanes, or let either lane silently act for the other.
+- Do not silently upload prompts, transcripts, local memory, meetings, credentials, or private payloads; user plugin use requires explicit sign-in, consent, scope, and truthful status.
+- Do not claim live communication, account correctness, restore, deletion, continuity, or synchronization from configuration, reachability, source, mocks, or fixtures.
+- Do not permit redundant prelaunch memory stores to drift or contradict one another.

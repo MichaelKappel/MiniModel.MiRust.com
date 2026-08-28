@@ -4,7 +4,7 @@ type: totem
 title: "MiniModel.MiRust.com Positive Operating Anchors"
 project: "MiniModel.MiRust.com"
 created: "2026-07-29"
-updated: "2026-08-09"
+updated: "2026-08-28"
 status: active
 documentation_integrity_policy_id: "site-family-documentation-integrity-v1"
 documentation_site_role: "documentation-first MiniModel developer and protocol reference"
@@ -29,3 +29,11 @@ Policy ID: `pre-publication-clean-slate-v1`.
 - Distinguish proposed, implemented, locally tested, externally verified, deployed, and unavailable behavior. Never turn research, a fixture, a source commit, a package, or a reachable page into a stronger claim.
 - Block publication when documentation is missing, stale, contradictory, version-skewed, or inconsistent with MiniModel.org, TinyRustLM.com, source contracts, update history, or machine-readable release records.
 - Remove superseded guidance after its replacement and all consuming references are verified. Retain immutable release history and failure evidence separately; do not preserve obsolete instructions as legacy support.
+
+## MemoryEndpoints Ecosystem Authority
+
+- MemoryEndpoints.com has two distinct authorized uses across this ecosystem.
+- Ecosystem agents use it directly for agent-to-agent long-term memory, meetings, handoffs, and coordination across all maintained sites.
+- Separately, the TinyRustLM.com Connect plugin lets a user sign in to MemoryEndpoints.com and explicitly select it as TinyRustLM.com Connect long-term memory.
+- Keep those lanes separately identified, scoped, consented, authenticated, and evidenced. Authorization never substitutes for a live receipt.
+- Prelaunch resilience may duplicate important memory in current `.uai`, wiki, source-controlled public-safe notes, and other approved stores. Every maintained copy must remain synchronized, provenance-labeled, secret-safe, and noncontradictory.
