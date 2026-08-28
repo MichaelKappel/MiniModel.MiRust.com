@@ -4,8 +4,8 @@
   "origin": "https://minimodel.mirust.com",
   "version": "1.1.0",
   "release_date": "2026-08-28",
-  "source_commit": "659a9ed7fe30a33b672c0fa1686c60ded96f0240",
-  "source_tree": "7dd91895a984fa7705ee0e6f049f3e1d7a07ebfa",
+  "source_commit": "e52df2cf0c5d77519a870211f1e63c5b77b90705",
+  "source_tree": "74709870d789c1fb1b2430715dcc9fce773d15f4",
   "transport_profile": "MiniModel.MiRust.com",
   "files": [
     {
@@ -193,7 +193,7 @@
     },
     {
       "path": "/docs/catalog-boundary.md",
-      "contains": "Catalog Boundary"
+      "contains": "MiniModel Catalog And P2P Boundary"
     },
     {
       "path": "/docs/memory-endpoints.md",
