@@ -1,0 +1,220 @@
+{
+    "schema":  "uaix.site_deployment_receipt.v1",
+    "site":  "minimodel.mirust.com",
+    "origin":  "https://minimodel.mirust.com",
+    "version":  "1.1.0",
+    "source_commit":  "659a9ed7fe30a33b672c0fa1686c60ded96f0240",
+    "source_tree":  "7dd91895a984fa7705ee0e6f049f3e1d7a07ebfa",
+    "publisher_commit":  "ff9e6de5d97da380b3c1bf550515e4b8adcb5835",
+    "manifest_sha256":  "910dbc029c6130192766e925e5709c37fc61f176b0ea87d2e2f99981235c9241",
+    "operation_nonce":  "0ebc8bd6da3f",
+    "started_utc":  "2026-08-28T21:03:22.5277303Z",
+    "completed_utc":  "2026-08-28T21:12:10.5839693Z",
+    "status":  "failed",
+    "failure_code":  "System.Management.Automation.RuntimeException",
+    "current_path":  "examples/tiny-test-model-q8.minimodel.manifest.v0",
+    "completed_file_count":  27,
+    "files":  [
+                  {
+                      "path":  ".htaccess",
+                      "status":  "published",
+                      "bytes":  519,
+                      "sha256":  "86a7c2f2b6d3efdeb17b6c7cf2fb03c0b3cc21acdcf49e35674f24e3ece1eea4"
+                  },
+                  {
+                      "path":  ".well-known/site-release-history.json",
+                      "status":  "published",
+                      "bytes":  1776,
+                      "sha256":  "29f2bc1b19b177fe60fa29a0e49a9ba934b62810c4a9434702c1e5cb0153f988"
+                  },
+                  {
+                      "path":  ".well-known/uaix-talisman.txt",
+                      "status":  "published",
+                      "bytes":  903,
+                      "sha256":  "c7a9143add14602f2caa6093587aef2e4936665c82191698e104c13d68836d81"
+                  },
+                  {
+                      "path":  "assets/exchange-map.svg",
+                      "status":  "published",
+                      "bytes":  3628,
+                      "sha256":  "2c6468c59654c22401e422cd8732a045119fe0f7bb01a43f46778708472fca98"
+                  },
+                  {
+                      "path":  "assets/site.js",
+                      "status":  "already-current",
+                      "bytes":  4438,
+                      "sha256":  "28ff7b2da380a8da336c6a3c48eb033daedd4283dd9874eb71a43a1454d74d21"
+                  },
+                  {
+                      "path":  "docs/acquisition-contract.md",
+                      "status":  "published",
+                      "bytes":  1658,
+                      "sha256":  "54bac628a819cf6cee0eefec624bb84909666a634dddf61073e471177b6f1cf3"
+                  },
+                  {
+                      "path":  "docs/agent-readme.md",
+                      "status":  "published",
+                      "bytes":  1369,
+                      "sha256":  "2a524bbf307b7b78229e4ba038d9f59ee7039f90e389deb5860862c74eb18ca1"
+                  },
+                  {
+                      "path":  "docs/catalog-boundary.md",
+                      "status":  "published",
+                      "bytes":  2897,
+                      "sha256":  "a1cc17496b900f8b21f055d55c1d77c88751e806f1c7e0d5d431f28131c8b3da"
+                  },
+                  {
+                      "path":  "docs/evidence-boundary.md",
+                      "status":  "published",
+                      "bytes":  1077,
+                      "sha256":  "36e49a4eb71ab0d1dd14af52212d3d009944398e4674b87b80d956c0b8155420"
+                  },
+                  {
+                      "path":  "docs/file-checksums.sha256",
+                      "status":  "published",
+                      "bytes":  2506,
+                      "sha256":  "09249ca5d5bdbe5ac3d7bbb6533da1f6004154b47a0ce0c1d8cd077d217fe6f0"
+                  },
+                  {
+                      "path":  "docs/legal-boundary.md",
+                      "status":  "published",
+                      "bytes":  1847,
+                      "sha256":  "9d3b41a89de27eb58bd17720dca21732fb6cf87797fa3c69d529821a154ef0b2"
+                  },
+                  {
+                      "path":  "docs/memory-endpoints.md",
+                      "status":  "published",
+                      "bytes":  1338,
+                      "sha256":  "cb1f4dadc515647960c8b6de984c319f8fadf10e52f9625e9a9b1dce76777181"
+                  },
+                  {
+                      "path":  "docs/overview.md",
+                      "status":  "published",
+                      "bytes":  2664,
+                      "sha256":  "1a1c52931513f5d869da29c7765d8e52e49d05974b355cf772df380d0c038f06"
+                  },
+                  {
+                      "path":  "docs/p2p-roadmap.md",
+                      "status":  "published",
+                      "bytes":  1310,
+                      "sha256":  "246c73a97603e0176b675990f4e185e9c305124894868b371cee596d16381129"
+                  },
+                  {
+                      "path":  "docs/peer-companion.md",
+                      "status":  "published",
+                      "bytes":  1744,
+                      "sha256":  "59a91855dac5cde78779ac468a7279f669ed3eca064b6bcbfa941470095d3f69"
+                  },
+                  {
+                      "path":  "docs/slm2-composition.md",
+                      "status":  "published",
+                      "bytes":  837,
+                      "sha256":  "2818a400f7cc4ada50f17f15ea6f687b417ec3fc303641cc6b818aa1781ed80c"
+                  },
+                  {
+                      "path":  "docs/source-lanes.md",
+                      "status":  "published",
+                      "bytes":  1495,
+                      "sha256":  "07d6f3aa3383fdf92245460a741f9748d8d3a3660507fe09f0697d3c94249cb0"
+                  },
+                  {
+                      "path":  "index.html",
+                      "status":  "published",
+                      "bytes":  12933,
+                      "sha256":  "41c320be817abfcede0fbd2e596b19f069f6b575be80e69903c718f2afbd7eb2"
+                  },
+                  {
+                      "path":  "LICENSE.txt",
+                      "status":  "already-current",
+                      "bytes":  11357,
+                      "sha256":  "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+                  },
+                  {
+                      "path":  "llms-full.txt",
+                      "status":  "published",
+                      "bytes":  3605,
+                      "sha256":  "9b32765a07470bea4a7ee0fe96392301eca8c53bed08dd7094ffe7913b48946c"
+                  },
+                  {
+                      "path":  "llms.txt",
+                      "status":  "published",
+                      "bytes":  1487,
+                      "sha256":  "ef57a31808268a9f2ad7077d75d31990daf7b42cba625de750f2acbdc58816fd"
+                  },
+                  {
+                      "path":  "README.md",
+                      "status":  "published",
+                      "bytes":  2819,
+                      "sha256":  "ffdb456c20d9474a94f5425a95bb6701722b66aff1dc1f8ec83e0b1d88e4f558"
+                  },
+                  {
+                      "path":  "robots.txt",
+                      "status":  "already-current",
+                      "bytes":  74,
+                      "sha256":  "1f71e0d4b8b4123ec6b0a53089e2213946ec5a31150b24d88d8f9815648effdf"
+                  },
+                  {
+                      "path":  "sitemap.xml",
+                      "status":  "published",
+                      "bytes":  1782,
+                      "sha256":  "753e0fd93b7276c00bdafdd9abd73674b0ce2f107d2c1b156553977959771159"
+                  },
+                  {
+                      "path":  "styles.css",
+                      "status":  "already-current",
+                      "bytes":  17588,
+                      "sha256":  "5c5b500f3348cbc1ed256f1db3b89861e33630d178cc33a85ec580ffbeacacb2"
+                  },
+                  {
+                      "path":  "updates/index.html",
+                      "status":  "published",
+                      "bytes":  3460,
+                      "sha256":  "5ab84425ddf7de6ed7a62b1a5cc87e797e280164331b6a09499bf99eac7a9b0b"
+                  },
+                  {
+                      "path":  ".well-known/site-release.json",
+                      "status":  "published",
+                      "bytes":  313,
+                      "sha256":  "779a9e73ad94960e912207cd965ec8e54cffa5d2e69fa9600688968ce3926683"
+                  }
+              ],
+    "completed_retired_count":  9,
+    "retired_paths":  [
+                          {
+                              "path":  "docs/manifest-v0.md",
+                              "status":  "retired"
+                          },
+                          {
+                              "path":  "docs/slm-format.md",
+                              "status":  "retired"
+                          },
+                          {
+                              "path":  "docs/ui-ux-25-rounds-2026-07-12.md",
+                              "status":  "retired"
+                          },
+                          {
+                              "path":  "docs/verifier-mvp.md",
+                              "status":  "retired"
+                          },
+                          {
+                              "path":  "examples/minimodel.manifest.v0.example",
+                              "status":  "retired"
+                          },
+                          {
+                              "path":  "examples/share-metadata.v0.json",
+                              "status":  "retired"
+                          },
+                          {
+                              "path":  "examples/tiny-test-model-q8.minimodel-peer-import-request.json",
+                              "status":  "retired"
+                          },
+                          {
+                              "path":  "examples/tiny-test-model-q8.minimodel-peer-offer",
+                              "status":  "retired"
+                          },
+                          {
+                              "path":  "examples/tiny-test-model-q8.minimodel.manifest.v0",
+                              "status":  "retired"
+                          }
+                      ]
+}
