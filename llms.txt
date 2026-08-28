@@ -1,49 +1,31 @@
 # MiniModel.MiRust.com
 
-Developer documentation for MiniModel.com, `.slm`, and the metadata-only tiny model exchange architecture.
+Role: prelaunch MiniModel developer and protocol documentation.
+Catalog: https://MiniModel.org/
 
-Read first:
+MiniModel.org publishes metadata for direct P2P discovery. It does not proxy model bytes.
+Exact qualified SLM2 compositions move directly between
+consenting peers; otherwise an installed local companion may perform an
+explicit pinned local conversion.
 
-- /updates/
-- /.well-known/site-release.json
-- /.well-known/site-release-history.json
-- /docs/overview.md
-- /docs/catalog-boundary.md
-- /docs/slm-format.md
-- /docs/manifest-v0.md
-- /docs/verifier-mvp.md
-- /docs/source-lanes.md
-- /docs/peer-companion.md
-- /docs/legal-boundary.md
-- /docs/p2p-roadmap.md
-- /docs/agent-readme.md
-- /examples/minimodel.manifest.v0.example
-- /examples/tiny-test-model-q8.minimodel.manifest.v0
-- /examples/share-metadata.v0.json
-- /examples/tiny-test-model-q8.minimodel-peer-import-request.json
-- /LICENSE.txt
+Catalog identities, cryptographic piece/manifests, source and license binding,
+qualification, current peer availability, outside-network proof, browser
+activation, and publication are separate claims. Local or mocked evidence does
+not prove a public lane.
 
-Hard rules:
+MemoryEndpoints.com has two separate ecosystem uses: direct agent-to-agent
+long-term memory, meetings, handoffs, and coordination across maintained sites;
+and, separately, an explicit TinyRustLM.com Connect user plugin through which a
+user signs in and selects MemoryEndpoints.com as TinyRustLM.com Connect
+long-term memory. The lanes keep identities, credentials, consent, scopes,
+provenance, and receipts separate.
 
-- Project servers never run user model bytes.
-- Project servers never serve user model bytes.
-- Project servers never proxy external model-byte downloads.
-- MiniModel.com may serve docs, schemas, metadata, public-key routes, examples, and takedown/contact routes only.
-- TinyRustLM.com remains browser-local.
-- Users import local `.slm` files through the browser file picker.
-- Rust owns `.slm` validation and checksum verification.
-- The first `minimodel-core` and `minimodel` verifier crates are implemented in the MiniModel.org source workspace, including local peer-piece export/reassembly, direct known-peer status/serve/fetch/import with public CLI integration coverage that starts `serve-peer-companion` and then runs `inspect-peer-import-request`, `check-peer-status`, `preflight-peer-import-request`, `inspect-peer-import-preflight`, `import-peer-request`, `inspect-import-receipt`, and `inspect-peer-import-receipt`, peer-import receipts with direct transport, receiver-validation contract gates, piece-set, companion, fetched-piece, and assembled-artifact evidence, `prepare-peer-share` for one-command sender packaging with public CLI integration coverage for manifest/peer-offer/piece/catalog output and project-host rejection, `write-peer-companion-state` for metadata-only companion-readable share state with public CLI integration coverage for prepared-share state writing and project-host rejection, `write-peer-companion-inventory` / `inspect-peer-companion-inventory` for metadata-only inventory with duplicate contact-card peer URL rejection, `write-peer-contact-card` / `inspect-peer-contact-card` for metadata-only known-peer URL cards with public CLI integration coverage for write/inspect and project-host rejection, `serve-peer-companion` for validated status+state+piece serving, `check-peer-status` for metadata-only peer readiness reports, metadata-only catalog snapshots, `add-peer-source` for direct late peer availability, peer-source announcement/apply commands, checksum-bound announcement-feed publication with valid empty feeds, and batch snapshot publication for maintainer-reviewed availability.
-- Long-term memory stays pointer-based and checksum-bearing.
+Prelaunch memory may also be duplicated in current .uai, wiki, public-safe
+source notes, and approved private stores when every maintained copy remains
+current, secret-safe, provenance-labeled, and noncontradictory.
 
-Source options:
-
-- User local files: simplest path.
-- Hugging Face: metadata discovery, local conversion-request JSON, optional local `.tinyrustlm-convert.ps1` script, `convert-huggingface-request`, MiniModel `prepare-peer-share`, optional `write-peer-contact-card`, optional `add-peer-source`, optional `write-peer-source-announcement`, TinyRustLM local P2P share kit export after verified `.slm` import, optional TinyRustLM local peer-source announcement overlay, same-origin checksum-bound catalog announcement feeds via `write-peer-source-announcement-feed` and `write-catalog-snapshot-with-announcement-feed`, maintainer-side `apply-peer-source-announcements`, batch `write-catalog-snapshot-with-announcements`, metadata-only `write-catalog-snapshot`, and user-side acquisition context only; no Hub result is runnable until an admitted `.slm` exists.
-- Local verifier: `cargo run -p minimodel -- verify-manifest`, `verify-artifact`, and `write-import-receipt` prove local `.slm` artifacts before TinyRustLM import.
-- Local peer pieces: `export-peer-pieces`, `serve-peer-pieces`, `serve-peer-companion`, `inspect-peer-import-request`, `check-peer-status`, `preflight-peer-import-request`, `inspect-peer-import-preflight`, `fetch-peer-pieces`, `assemble-peer-pieces`, `import-peer-request`, `inspect-import-receipt`, `inspect-peer-import-receipt`, `write-peer-companion-state`, `write-peer-companion-inventory`, and metadata-only `write-peer-contact-card` prove direct known-peer transfer, reassembly, companion-readable state and inventory, reviewed peer URL handoff with duplicate endpoint rejection, validated peer-status/companion-state serving including path-prefixed peer base URLs, receiver-side advertised-state and receiver-validation gate validation, and final peer-transfer receipt-chain evidence before broad P2P discovery exists.
-- NuGet interop: protected TinyRustLM packages expose a smaller metadata-bound .NET path that prepares local share kits, validates manifests, assembles already-local manifest-declared pieces into verified `.slm` files, and writes plus inspects `<output.slm>.p2p-import-receipt.json` sidecars without network fetches, peer discovery, private routing, conversion, or model-ranking logic.
-- NuGet publication status as of 2026-07-07: the protected source-level `TinyRustLM.Abstractions`, `TinyRustLM.Core`, `TinyRustLM.P2P`, and `TinyRustLM.Memory` lane is verified locally at source version `0.1.8`; public NuGet.org availability is currently carried by the branded `UAIX.Browser.Core.Abstractions`, `UAIX.Browser.p2pLLM.Runtime`, `UAIX.Browser.p2pRuntime.P2P`, `UAIX.Browser.Memory`, and `UAIX.Browser.p2pLLM.Conversion` package IDs, all published and post-publish verified at version `0.1.8` with SHA256SUMS-bound feed-hash evidence. Browser readiness audits write `uaix-browser-nuget-release-readiness-publish-plan-dry-run.json` by default so retained `uaix-browser-nuget-publish-plan.json` post-push evidence is not overwritten.
-- NuGet symbol status: matching `.snupkg` symbol package files are audited beside the protected SDK packages, publish plans record `symbol_publish_mode=explicit_snupkg_push_after_primary_package`, and the SHA256SUMS manifest is symbol-hash-bound.
-- Local share metadata: after a verified local `.slm`, TinyRustLM can save `minimodel.local_slm_share_metadata.v0` with artifact SHA256, chunk SHA256 entries, chunk-list SHA256, Merkle root, and disabled live-transfer flags.
-- Future P2P: optional user-run MiniModel Peer Companion first, then broader discovery, relays, NAT traversal, and swarm transfer after local verifier, Rust `.minimodel-peer-offer` proof, share metadata, direct known-peer receipts, and legal boundary are stable.
-- Peer Companion design: `/docs/peer-companion.md` defines the future local-only companion boundary, command contracts, local state, piece-store rules, consent gates, UI requirements, transport phases, and completion gate.
+Last published: 1.1.0.
+Release date: 2026-08-28.
+Update: current direct P2P, cryptographic SLM2, privacy, evidence, and exact
+two-use MemoryEndpoints boundaries published; obsolete .slm and manifest-v0
+authority retired.

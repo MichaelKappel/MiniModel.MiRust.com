@@ -1,6 +1,14 @@
 Options -Indexes
 DirectoryIndex index.html
 
+<IfModule mod_alias.c>
+  Redirect gone /docs/manifest-v0.md
+  Redirect gone /docs/slm-format.md
+  Redirect gone /docs/ui-ux-25-rounds-2026-07-12.md
+  Redirect gone /docs/verifier-mvp.md
+  RedirectMatch 410 "^/examples(?:/|$)"
+</IfModule>
+
 <FilesMatch "^(\.git|\.uai|workspace\.uai|ftp\.txt)">
   Require all denied
 </FilesMatch>

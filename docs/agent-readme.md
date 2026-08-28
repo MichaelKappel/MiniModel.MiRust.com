@@ -1,123 +1,33 @@
-# AI Agent Readme
+# MiniModel Agent Reading Order
 
-This file is written for AI coding agents and documentation agents working on MiniModel.com, MiniModel.MiRust.com, TinyRustLM.com, or related Rust workspaces.
+Read these current authority files before changing MiniModel ecosystem claims
+or protocols:
 
-## Non-Negotiable Rules
+1. `workspace.uai`
+2. `.uai/totem.uai`
+3. `.uai/taboo.uai`
+4. `README.md`
+5. `docs/catalog-boundary.md`
+6. `docs/acquisition-contract.md`
+7. `docs/evidence-boundary.md`
+8. `docs/memory-endpoints.md`
 
-- Project servers never run user model bytes.
-- Project servers never serve user model bytes.
-- Project servers never proxy external model-byte downloads.
-- MiniModel docs and catalogs are metadata-only.
-- TinyRustLM remains browser-local.
-- Users import local `.slm` files through the browser file picker.
-- Rust owns `.slm` validation and checksum verification.
-- Long-term memory remains pointer-based and checksum-bearing.
+## Nonnegotiable Boundaries
 
-## Correct Mental Model
+- MiniModel.org publishes metadata; project sites do not proxy model bytes.
+- The sole current model path is the exact six-member SLM2 composition.
+- Acquisition uses one explicit exact-peer route or one explicit pinned local
+  conversion route. There is no hidden route retry or instruction-file
+  handoff.
+- Catalog, qualification, peer availability, transfer, browser activation,
+  deployment, publication, and campaign progress are separate claims.
+- MemoryEndpoints.com has exactly two uses: direct ecosystem-agent
+  coordination and the separately authenticated TinyRustLM.com Connect user
+  plugin.
+- Prelaunch redundant memory is allowed only while every maintained copy stays
+  current, secret-safe, provenance-labeled, and noncontradictory.
+- Never expose prompts, transcripts, model bytes, credentials, invitation
+  URLs, local paths, or raw private evidence in public records.
 
-MiniModel is not a model CDN.
-
-MiniModel is not an inference service.
-
-MiniModel is not a safety certifier.
-
-MiniModel is a pointer, manifest, evidence, and verification layer.
-
-## Preferred Implementation Order
-
-1. Keep documentation current.
-2. Keep manifest schemas explicit.
-3. Build local verification before networking.
-4. Add tests for drift and rejection cases.
-5. Write receipts only after local verification passes.
-6. Add metadata-only catalog entries.
-7. Export local share metadata only after verified `.slm` import.
-8. Prototype P2P later.
-
-## Source-Lane Language
-
-Use:
-
-- Your Local Files
-- Hugging Face
-- P2P Exchange
-
-Do not imply that Hugging Face endpoints are MiniModel execution paths.
-
-Do say that Hugging Face rows are external metadata until an admitted `.slm` exists. TinyRustLM may save a conversion-request JSON and a local `.tinyrustlm-convert.ps1` script, but the user must obtain and review source bytes outside project infrastructure, then Rust must convert and validate the local `.slm` and write/validate a `.minimodel-peer-offer` proof.
-
-Do not imply that broad MiniModel P2P discovery, relays, or swarm networking are already live unless they are implemented and deployed. It is accurate to describe the current direct known-peer Rust bridge: `prepare-peer-share`, `serve-peer-pieces`, `serve-peer-companion`, offline `inspect-peer-import-request`, metadata-only `check-peer-status`, `preflight-peer-import-request`, offline `inspect-peer-import-preflight`, companion-state-aware `fetch-peer-pieces`, `assemble-peer-pieces`, `import-peer-request` receipts with peer-transfer and receiver-validation evidence, `inspect-import-receipt`, `inspect-peer-import-receipt`, `write-peer-companion-state`, `inspect-peer-companion-state`, metadata-only `write-peer-companion-inventory` / `inspect-peer-companion-inventory` with duplicate contact-card peer URL rejection, metadata-only `write-peer-contact-card` / `inspect-peer-contact-card` URL handoffs, `add-peer-source`, `write-peer-source-announcement`, `apply-peer-source-announcements`, `write-catalog-snapshot-with-announcements`, `write-peer-source-announcement-feed`, `inspect-peer-source-announcement-feed`, `write-catalog-snapshot-with-announcement-feed`, `write-catalog-snapshot`, and `inspect-catalog-snapshot`.
-
-It is accurate to say TinyRustLM can save `minimodel.local_slm_share_metadata.v0` after verified local `.slm` import when that feature is deployed. That bundle is metadata, not a model transfer.
-
-## Current Verifier Surface
-
-The first verifier crates are implemented in the MiniModel.org source workspace:
-
-- `minimodel-core`
-- `minimodel`
-
-Use the q8 fixture manifest for smoke checks:
-
-```powershell
-cargo run -p minimodel -- verify-manifest examples\tiny-test-model-q8.minimodel.manifest.v0
-cargo run -p minimodel -- verify-artifact examples\tiny-test-model-q8.minimodel.manifest.v0 ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm
-cargo run -p minimodel -- export-peer-pieces examples\tiny-test-model-q8.minimodel.manifest.v0 ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm .\peer-pieces\tiny-test-model-q8
-cargo run -p minimodel -- prepare-peer-share ..\SLMComposer.com\tinyrustlm\models\tiny-test-model-q8.slm .\prepared-share\tiny-test-model-q8 tinyrustlm/prepared-tiny-test-model-q8 tinyrustlm/tiny-test-model-q8
-cargo run -p minimodel -- write-peer-companion-state .\prepared-share\tiny-test-model-q8\tiny-test-model-q8.minimodel.manifest.v0 .\prepared-share\tiny-test-model-q8\tiny-test-model-q8.peer-pieces .\prepared-share\tiny-test-model-q8\peer-companion-state.v0.json http://127.0.0.1:8123/
-cargo run -p minimodel -- write-peer-contact-card .\prepared-share\tiny-test-model-q8\peer-contact-card.v0.json http://127.0.0.1:8123/ "Local test peer"
-cargo run -p minimodel -- inspect-peer-contact-card .\prepared-share\tiny-test-model-q8\peer-contact-card.v0.json
-cargo run -p minimodel -- serve-peer-companion .\prepared-share\tiny-test-model-q8\peer-companion-state.v0.json .\prepared-share\tiny-test-model-q8\tiny-test-model-q8.minimodel.manifest.v0 .\prepared-share\tiny-test-model-q8\tiny-test-model-q8.peer-pieces 127.0.0.1:8123
-cargo run -p minimodel -- inspect-peer-import-request .\tiny-test-model-q8.minimodel-peer-import-request.json examples\tiny-test-model-q8.minimodel.manifest.v0
-cargo run -p minimodel -- check-peer-status examples\tiny-test-model-q8.minimodel.manifest.v0 http://127.0.0.1:8123/ .\tiny-test-model-q8.peer-status-check.v0.json
-cargo run -p minimodel -- preflight-peer-import-request .\tiny-test-model-q8.minimodel-peer-import-request.json examples\tiny-test-model-q8.minimodel.manifest.v0 .\tiny-test-model-q8.peer-import.preflight
-cargo run -p minimodel -- inspect-peer-import-preflight .\tiny-test-model-q8.peer-import.preflight .\tiny-test-model-q8.minimodel-peer-import-request.json examples\tiny-test-model-q8.minimodel.manifest.v0
-cargo run -p minimodel -- import-peer-request .\tiny-test-model-q8.minimodel-peer-import-request.json examples\tiny-test-model-q8.minimodel.manifest.v0 .\tiny-test-model-q8-peer-import
-cargo run -p minimodel -- inspect-import-receipt .\tiny-test-model-q8-peer-import\tiny-test-model-q8.minimodel-receipt examples\tiny-test-model-q8.minimodel.manifest.v0 .\tiny-test-model-q8-peer-import\tiny-test-model-q8.slm
-cargo run -p minimodel -- inspect-peer-import-receipt .\tiny-test-model-q8-peer-import\tiny-test-model-q8.minimodel-receipt .\tiny-test-model-q8.minimodel-peer-import-request.json .\tiny-test-model-q8.peer-import.preflight examples\tiny-test-model-q8.minimodel.manifest.v0 .\tiny-test-model-q8-peer-import\tiny-test-model-q8.slm
-cargo run -p minimodel -- add-peer-source .\catalog-entry.v0.json .\catalog-entry.with-peer.v0.json http://127.0.0.1:8123/
-cargo run -p minimodel -- write-peer-source-announcement .\catalog-entry.v0.json .\catalog-entry.peer-source-announcement.v0.json http://127.0.0.1:8123/
-cargo run -p minimodel -- apply-peer-source-announcements .\catalog-entry.v0.json .\catalog-entry.announced-peer.v0.json .\catalog-entry.peer-source-announcement.v0.json
-cargo run -p minimodel -- write-catalog-snapshot-with-announcements .\models.v0.json .\catalog-entry.v0.json --announcements .\catalog-entry.peer-source-announcement.v0.json
-cargo run -p minimodel -- write-peer-source-announcement-feed .\peer-source-announcements.v0.json .\catalog-entry.peer-source-announcement.v0.json
-cargo run -p minimodel -- write-catalog-snapshot-with-announcement-feed .\models.v0.json peer-source-announcements.v0.json .\peer-source-announcements.v0.json .\catalog-entry.v0.json
-cargo run -p minimodel -- assemble-peer-pieces examples\tiny-test-model-q8.minimodel.manifest.v0 .\peer-pieces\tiny-test-model-q8 .\tiny-test-model-q8.from-pieces.slm
-```
-
-Peer piece files are model bytes. Do not commit them and do not deploy them to docs or project servers.
-
-## Manifest Safety
-
-Never add fields that cause automatic model-byte fetches by project servers or browsers.
-
-Reject:
-
-- install commands
-- scripts
-- post-load callbacks
-- project-hosted artifact URLs
-- project-owned external tokens
-- server inference requirements
-
-## `.slm` Safety
-
-Do not parse `.slm` bytes in ad hoc JavaScript when Rust validation is available.
-
-Do not treat SHA256 alone as enough for runtime acceptance. The TinyRustLM `.slm` validator also checks header shape, custom checksum, tokenizer, tensor layout, dtype payloads, quantization scales, and required tensors.
-
-## Documentation Deploy Rule
-
-Before deploying any public site, ensure documentation sites that describe the behavior are updated first. After edits, run relevant pointer audits and `git diff --check`.
-
-## Credential Rule
-
-Do not write FTP passwords, API keys, tokens, or private credentials into:
-
-- docs
-- commits
-- manifests
-- logs
-- final answers
-- workspace memory
-
-Use existing local credential stores without exposing plaintext.
+Source, configuration, fixtures, mocks, and reachability are not live proof.
+Bind every allowed claim to its exact receipt.

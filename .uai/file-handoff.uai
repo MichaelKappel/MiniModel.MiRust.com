@@ -1,18 +1,19 @@
-profile: minimodel-mirust.file-handoff.v2
-updated_utc: 2026-08-11T14:53:04Z
+profile: minimodel-mirust.file-handoff.current.v1
+updated_utc: 2026-08-28T00:00:00Z
 site: MiniModel.MiRust.com
 
-publication_handoff_2026_08_11:
-  status: published_and_readback_verified
+candidate_handoff_2026_08_28:
+  version: 1.1.0
+  status: source_candidate_green_not_published
+  content: Current SLM2 acquisition and catalog documentation, exact route retirements, two-use MemoryEndpoints policy, and deterministic checksum/deployment generators.
+  remaining: Content-basis commit, generated checksum commit, push, final manifest, dry deployment validation, authenticated publication, retired-route checks, and exact HTTPS readback.
+  warning: Do not claim publication, model qualification, public P2P reachability, live MemoryEndpoints use, or campaign progress before matching receipts exist.
+
+historical_publication_2026_08_11:
   version: 1.0.0
+  status: published_and_readback_verified
   release_content_commit: a1e3959738f86bd52058a5afaa6016ae1dd74203
-  manifest_sha256: cd26d06a393ef99fde0c4b009b500905530ce76a8abfe0e282e15e20869354f5
-  closure: 32 files and 297572 bytes
-  failed_receipt: deploy/receipts/site-deployment-20260811T144133Z.json
-  failed_receipt_sha256: cfe1c298ea619abb3d40f8a64796854b0f9151efbece83aa23cc3e7a0939a553
   success_receipt: deploy/receipts/site-deployment-20260811T144605Z.json
   success_receipt_sha256: 176abffdeaf5a8af97c1c71e036816279dace8096f8845123ffbed19039a066c
   success_receipt_commit: a7c7da0dd3d5d89a65ced337e634681cdb10d3d4
-  proof: Authenticated transport, exact public HTTPS readback, route smokes, release marker, and independent second readback all passed.
-  restart: Treat 1.0.0 as terminally published. Continue with MiniModel.org; use a new complete versioned closure for any future MiniModel.MiRust.com byte change.
-  warning: This site publication does not prove model quality, P2P reachability, MemoryEndpoints continuity, or campaign completion.
+  preservation: Immutable historical evidence; never relabel it as proof of 1.1.0.

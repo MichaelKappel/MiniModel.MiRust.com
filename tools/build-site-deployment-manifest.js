@@ -12,8 +12,19 @@ const outputPath = path.resolve(
   repositoryRoot,
   process.argv[3] || "deploy/site-deployment-manifest.v1.json",
 );
-const version = "1.0.0";
+const version = "1.1.0";
 const stagingRoot = path.join(repositoryRoot, "deploy", "staging", version);
+const retiredPaths = [
+  "docs/manifest-v0.md",
+  "docs/slm-format.md",
+  "docs/ui-ux-25-rounds-2026-07-12.md",
+  "docs/verifier-mvp.md",
+  "examples/minimodel.manifest.v0.example",
+  "examples/share-metadata.v0.json",
+  "examples/tiny-test-model-q8.minimodel-peer-import-request.json",
+  "examples/tiny-test-model-q8.minimodel-peer-offer",
+  "examples/tiny-test-model-q8.minimodel.manifest.v0",
+];
 
 if (!/^[0-9a-f]{40}$/.test(contentCommit || "")) {
   throw new Error("Usage: node tools/build-site-deployment-manifest.js <40-character-content-commit> [output]");
@@ -44,7 +55,6 @@ function isPublicPath(relativePath) {
     relativePath.startsWith(".well-known/") ||
     relativePath.startsWith("assets/") ||
     relativePath.startsWith("docs/") ||
-    relativePath.startsWith("examples/") ||
     relativePath.startsWith("updates/")
   ) && !relativePath.endsWith("/.gitkeep");
 }
@@ -74,7 +84,7 @@ const files = ordered.map((relativePath) => {
   };
 });
 
-if (files.length < 30 || files.length > 60 || files.at(-1)?.path !== marker) {
+if (files.length < 20 || files.length > 45 || files.at(-1)?.path !== marker) {
   throw new Error(`Unexpected public deployment closure: ${files.length} files`);
 }
 
@@ -83,16 +93,18 @@ const manifest = {
   site: "minimodel.mirust.com",
   origin: "https://minimodel.mirust.com",
   version,
-  release_date: "2026-08-09",
+  release_date: "2026-08-28",
   source_commit: contentCommit,
   source_tree: sourceTree,
   transport_profile: "MiniModel.MiRust.com",
   files,
+  retired_paths: retiredPaths,
   route_smokes: [
-    { path: "/", contains: "Version 1.0.0" },
-    { path: "/updates/", contains: "1.0.0 - 2026-08-09" },
+    { path: "/", contains: "Version 1.1.0" },
+    { path: "/updates/", contains: "1.1.0 - 2026-08-28" },
     { path: "/docs/catalog-boundary.md", contains: "Catalog Boundary" },
-    { path: "/.well-known/site-release.json", contains: "minimodel.mirust.com@1.0.0" },
+    { path: "/docs/memory-endpoints.md", contains: "exactly two separate authorized ecosystem uses" },
+    { path: "/.well-known/site-release.json", contains: "minimodel.mirust.com@1.1.0" },
   ],
 };
 

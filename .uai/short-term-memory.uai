@@ -1,20 +1,32 @@
-profile: minimodel-mirust.short-term-memory.v2
-updated_utc: 2026-08-11T14:53:04Z
+profile: minimodel-mirust.short-term-memory.current.v1
+updated_utc: 2026-08-28T00:00:00Z
 site: MiniModel.MiRust.com
 
-publication_1_0_0_2026_08_11:
-  current_truth: MiniModel.MiRust.com 1.0.0 is published and exact public readback is verified.
-  repository: E:\Source\Worktrees\rust-site-release-20260809\MiniModel.MiRust.com
-  release_content_commit: a1e3959738f86bd52058a5afaa6016ae1dd74203
-  closure: 32 files; 297572 bytes; manifest SHA256 cd26d06a393ef99fde0c4b009b500905530ce76a8abfe0e282e15e20869354f5
-  failed_attempt: deploy/receipts/site-deployment-20260811T144133Z.json; SHA256 cfe1c298ea619abb3d40f8a64796854b0f9151efbece83aa23cc3e7a0939a553
-  successful_attempt: deploy/receipts/site-deployment-20260811T144605Z.json; SHA256 176abffdeaf5a8af97c1c71e036816279dace8096f8845123ffbed19039a066c
-  completed_utc: 2026-08-11T14:51:56.4363903Z
-  proof: All 32 FTPS identities, 31 exact HTTPS byte readbacks, four route smokes, the release marker, and an independent 31-file HTTPS readback passed.
-  source_control: Success receipt is pushed in commit a7c7da0dd3d5d89a65ced337e634681cdb10d3d4.
-  next_action: Do not replay this terminal release. Continue with MiniModel.org 1.0.0.
+current_candidate:
+  version: 1.1.0
+  status: source_candidate_green_not_published
+  release_date: 2026-08-28
+  scope: Current SLM2 catalog, direct-peer, pinned-source conversion, evidence-boundary, and two-use MemoryEndpoints documentation.
+  retired_source: Obsolete .slm, manifest-v0, verifier-MVP, fixture, and instruction-handoff routes are absent from the current source closure and registered for exact retirement at deployment.
+  verification: JSON and XML parsing, Node syntax, PowerShell parsing, desktop and mobile real-Chromium smoke, responsive overflow checks, and ecosystem memory-policy checks passed. PHP CLI is unavailable locally and is not claimed.
+  publication_rule: Source, deterministic checksums, final deployment manifest, clean pushed commit, authenticated transport, retired-route checks, and exact HTTPS readback must all pass before 1.1.0 is called published.
 
-permanent_policy:
-  - This project is pre-public and clean-slate. Add no technical debt, compatibility shim, legacy reader, migration fallback, or knowingly weak patch.
-  - Documentation is a first-class product surface and must remain synchronized with implementation, versions, limitations, security, privacy, operations, and release evidence.
-  - Check in each healthy major change; deploy whenever every affected test and release gate passes.
+memory_endpoints:
+  - Direct ecosystem agents use MemoryEndpoints.com for agent-to-agent long-term memory, meetings, handoffs, and coordination.
+  - Separately, a TinyRustLM.com Connect user signs in through its plugin and selects MemoryEndpoints.com as TinyRustLM.com Connect long-term memory.
+  - Keep identities, credentials, consent, scopes, provenance, idempotency, and receipts separate.
+  - Synchronized prelaunch memory copies elsewhere are allowed for resilience; keep every maintained copy current, secret-safe, provenance-labeled, and noncontradictory.
+
+historical_publication_1_0_0:
+  status: published_and_readback_verified
+  release_content_commit: a1e3959738f86bd52058a5afaa6016ae1dd74203
+  successful_receipt: deploy/receipts/site-deployment-20260811T144605Z.json
+  successful_receipt_sha256: 176abffdeaf5a8af97c1c71e036816279dace8096f8845123ffbed19039a066c
+  receipt_commit: a7c7da0dd3d5d89a65ced337e634681cdb10d3d4
+  note: Preserve this immutable evidence. It does not make the current 1.1.0 candidate published.
+
+next_action:
+  - Commit the 1.1.0 content basis.
+  - Generate and verify deterministic public checksums from that immutable commit.
+  - Commit and push the checksum closure, build the final deployment manifest, run its dry gate, and publish only with the exact authorized profile.
+  - Preserve honest zero campaign counters and do not infer model quality, public peer reachability, live MemoryEndpoints use, or campaign progress.

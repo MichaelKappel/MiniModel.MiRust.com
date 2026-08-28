@@ -2,8 +2,21 @@
   "schema": "uaix.site_release_history.v1",
   "site_id": "minimodel.mirust.com",
   "origin": "https://minimodel.mirust.com",
-  "current_release_id": "minimodel.mirust.com@1.0.0",
+  "current_release_id": "minimodel.mirust.com@1.1.0",
   "releases": [
+    {
+      "release_id": "minimodel.mirust.com@1.1.0",
+      "version": "1.1.0",
+      "release_date": "2026-08-28",
+      "last_publish_date": "2026-08-28",
+      "summary": "Replaces superseded .slm documentation with the sole clean-slate SLM2 catalog and acquisition contract.",
+      "changes": [
+        "Published exact qualified-composition identity, direct consenting-peer transfer, and explicit pinned local conversion contracts.",
+        "Retired .slm, manifest-v0, verifier-MVP, script-handoff, and old fixture routes from current public authority.",
+        "Published the two separate MemoryEndpoints.com uses and their identity, credential, consent, scope, provenance, idempotency, and receipt separation.",
+        "Kept all live model, browser, memory, P2P, catalog, deployment, and publication claims evidence-bound."
+      ]
+    },
     {
       "release_id": "minimodel.mirust.com@1.0.0",
       "version": "1.0.0",

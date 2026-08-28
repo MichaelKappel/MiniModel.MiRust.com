@@ -1,28 +1,19 @@
----
-uai: "1.0"
-type: taboo
-title: "MiniModel.MiRust.com Hard No-Go Boundaries"
-project: "MiniModel.MiRust.com"
-created: "2026-07-29"
-updated: "2026-08-28"
-status: active
----
+profile: minimodel-mirust.taboo.current.v1
+updated_utc: 2026-08-28T00:00:00Z
+site: MiniModel.MiRust.com
+role: prohibited directions
 
-# Taboo
+memory_endpoints_two_use_context:
+  - Direct use: ecosystem agents use MemoryEndpoints.com for agent-to-agent long-term memory, meetings, handoffs, and coordination across all sites.
+  - Separate plugin use: a TinyRustLM.com Connect user signs in to MemoryEndpoints.com and explicitly selects it as TinyRustLM.com Connect long-term memory.
+  - Lane boundary: keep identity, credentials, consent, scopes, provenance, idempotency, and receipts separate; neither lane silently acts for the other.
 
-## Pre-Publication No-Debt Prohibitions
-
-Policy ID: `pre-publication-clean-slate-v1`.
-
-- Until the human explicitly removes this prohibition, do not add or retain technical debt, legacy or backward-compatibility support, compatibility shims, deprecated aliases, dual contracts, migration branches, fallback paths for superseded code, low-quality patches, knowingly temporary architecture, or deferred cleanup.
-- Do not preserve obsolete routes, schemas, behavior, or code merely because a dogfood client used them. Update every dogfood client to the verified current design and remove the obsolete path.
-- Do not deploy from a dirty, partially validated, or ambiguous release closure. A reachable dogfood or development surface is not evidence of a public release.
-- Do not call work complete while known in-scope correctness, security, accessibility, test, documentation, or cleanup defects remain.
-
-## MemoryEndpoints Prohibitions
-
-- Do not describe MemoryEndpoints.com as unauthorized, disconnected, or outside the ecosystem product plan.
-- Do not conflate direct agent coordination with the TinyRustLM.com Connect user plugin, share credentials across lanes, or let either lane silently act for the other.
-- Do not silently upload prompts, transcripts, local memory, meetings, credentials, or private payloads; user plugin use requires explicit sign-in, consent, scope, and truthful status.
-- Do not claim live communication, account correctness, restore, deletion, continuity, or synchronization from configuration, reachability, source, mocks, or fixtures.
-- Do not permit redundant prelaunch memory stores to drift or contradict one another.
+prohibitions:
+  - Do not describe MiniModel.org as a model host, inference service, conversion service, model-byte proxy, or quality authority.
+  - Do not infer current peer availability, public reachability, qualification, deployment, or publication from metadata, source, local probes, fixtures, or mocks.
+  - Do not retain obsolete formats, compatibility paths, aliases, fallback, hidden retry, or text handoffs as acquisition.
+  - Do not describe MemoryEndpoints.com as unauthorized, disconnected, or outside the ecosystem plan.
+  - Do not conflate the direct agent lane with the user plugin lane, share credentials or consent across lanes, or let either lane silently act for the other.
+  - Do not silently upload prompts, transcripts, local memory, meeting content, credentials, invitation URLs, tokens, model bytes, or raw hosted-memory payloads.
+  - Do not let redundant prelaunch memory copies drift or contradict one another; keep every maintained copy current, secret-safe, and provenance-labeled.
+  - Do not deploy from dirty, partially tested, ambiguous, stale, or undocumented source.
