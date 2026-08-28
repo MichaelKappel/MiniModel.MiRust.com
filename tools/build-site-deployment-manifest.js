@@ -102,7 +102,7 @@ const manifest = {
   route_smokes: [
     { path: "/", contains: "Version 1.1.0" },
     { path: "/updates/", contains: "1.1.0 - 2026-08-28" },
-    { path: "/docs/catalog-boundary.md", contains: "Catalog Boundary" },
+    { path: "/docs/catalog-boundary.md", contains: "MiniModel Catalog And P2P Boundary" },
     { path: "/docs/memory-endpoints.md", contains: "exactly two separate authorized ecosystem uses" },
     { path: "/.well-known/site-release.json", contains: "minimodel.mirust.com@1.1.0" },
   ],
