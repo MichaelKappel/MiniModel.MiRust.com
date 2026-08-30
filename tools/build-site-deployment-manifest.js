@@ -61,6 +61,12 @@ function isPublicPath(relativePath) {
 
 git(["cat-file", "-e", `${contentCommit}^{commit}`]);
 const sourceTree = git(["rev-parse", `${contentCommit}^{tree}`]).trim();
+const taboo = git(["show", `${contentCommit}:.uai/taboo.uai`]);
+if (!taboo.includes(
+  "Any committed change to a declared public artifact invalidates deployed-current status",
+)) {
+  throw new Error("The committed anti-drift source-authority policy is missing.");
+}
 const tracked = git(["ls-tree", "-r", "--name-only", contentCommit])
   .split(/\r?\n/)
   .filter(Boolean)
