@@ -34,7 +34,7 @@ ecosystem_source_root_prohibitions:
   - Any committed change to a declared public artifact invalidates deployed-current status until a strictly newer release is published from one clean canonical commit, every declared readable file passes byte-for-byte HTTPS readback, every retired route is absent, and the public release records agree. Never mask drift with stale metadata, a partial upload, an overwrite under an old version, or source-only success.
 
 prohibitions:
-  - Do not describe MiniModel.org as a model host, inference service, conversion service, model-byte proxy, or quality authority.
+  - The owner authorizes MiniModel.org as the initial server seed for current verified SLM2 models stored in D:\LLMs\TinyRustLM. Do not reinstate the superseded blanket no-hosting prohibition. MiniModel.org remains outside remote inference, server conversion, arbitrary model-byte proxying, or independent quality certification. Hosting authorization is not evidence of a qualified model or live deployment.
   - Do not infer current peer availability, public reachability, qualification, deployment, or publication from metadata, source, local probes, fixtures, or mocks.
   - Do not retain obsolete formats, compatibility paths, aliases, fallback, hidden retry, or text handoffs as acquisition.
   - Do not describe MemoryEndpoints.com as unauthorized, disconnected, or outside the ecosystem plan.
@@ -52,3 +52,8 @@ prohibitions:
 # When a verified new version replaces an old version, retain only the current copy and remove the superseded bytes.
 # Preserve useful unique work in the canonical source or model root before deleting duplicates; keep receipts, not junk copies.
 # This explicit user directive supersedes older instructions allowing TinyRustLM source/model sprawl or forbidding the designated D: model store.
+
+# User directive 2026-09-12: retain experiment lessons, not obsolete copies
+# Before retiring an experiment, record its purpose, inputs/operation identity, observed outcome, useful lessons, uncertainty, and applicable current tests or code in the owning canonical repository.
+# Preserve compact evidence identities and Git references for failed as well as successful experiments; do not preserve copied source trees or superseded models merely as a substitute for recording what was learned.
+# Reviewed TinyRustLM and retired-Runtime findings begin at E:\Source\Rust\TinyRustLM.com\wiki\runtime-mirust\reports\ecosystem-experiment-lessons-2026-09-12.md; this is a growing review, not blanket proof that every experiment has been assessed.
