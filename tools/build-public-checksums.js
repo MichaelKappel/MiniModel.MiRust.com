@@ -23,26 +23,7 @@ function git(args, encoding = "utf8") {
   });
 }
 
-function isPublicPath(relativePath) {
-  const rootFiles = new Set([
-    ".htaccess",
-    "LICENSE.txt",
-    "README.md",
-    "index.html",
-    "llms-full.txt",
-    "llms.txt",
-    "robots.txt",
-    "sitemap.xml",
-    "styles.css",
-  ]);
-  return (
-    rootFiles.has(relativePath) ||
-    relativePath.startsWith(".well-known/") ||
-    relativePath.startsWith("assets/") ||
-    relativePath.startsWith("docs/") ||
-    relativePath.startsWith("updates/")
-  ) && !relativePath.endsWith("/.gitkeep");
-}
+const { isPublicPath } = require("./public-artifact-policy.js");
 
 git(["cat-file", "-e", `${contentCommit}^{commit}`]);
 const sourceTree = git(["rev-parse", `${contentCommit}^{tree}`]).trim();

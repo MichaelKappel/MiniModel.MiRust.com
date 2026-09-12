@@ -6,3 +6,4 @@ Thumbs.db
 agent-file-handoff/
 ftp.txt
 deploy/staging/
+artifacts/
