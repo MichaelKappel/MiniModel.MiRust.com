@@ -1,10 +1,10 @@
 profile: minimodel-mirust.short-term-memory.current.v2
 updated_utc: 2026-09-12T00:00:00Z
 site: MiniModel.MiRust.com
-status: published_and_readback_verified
+status: prepared_source_1.1.1_not_published
 
 ecosystem_cleanup:
-  state: active; public 1.1.0 content and historical publication receipts unchanged in this tooling checkpoint
+  state: active; public source prepares 1.1.1 dated 2026-09-12 for authorized initial server seeds, cached/default startup and Advanced acquisition controls. Historical publication receipts remain unchanged.
   fixed: Preview server now serves only explicitly declared readable public artifacts; private repository files, source tools, traversal, links, unexpected hosts and unsupported methods are refused.
   consolidation: tools/public-artifact-policy.js is the single path policy for preview, checksum generation and manifest generation; duplicated broad directory-prefix publication rules were removed.
   verification: Seven real-HTTP/policy tests passed; preview line coverage 96.39 percent and policy coverage 100 percent. No new browser installation, source checkout or model copy was created.
@@ -12,9 +12,12 @@ ecosystem_cleanup:
   publication_tests: Fourteen tests passed, including 30 actual PowerShell checks with in-memory transport. Route-smoke headings are checked against committed bytes before publication. Historical source, publication and failure receipts remain unchanged.
   stage_retirement: All 27 files under deploy/staging/1.1.0 match the closed historical manifest exactly (87,424 logical bytes). Automatic approval review rejected physical deletion with reason blocked by policy; the stage still exists. tools/remove-reviewed-stage.ps1 provides an exact-hash user-run retirement; no space recovery is claimed.
   stage_review: artifacts/ecosystem-cleanup-20260912/stage-retirement.json; SHA-256 f8cddffc1516e1ec88558b62442f1ae8b95a675ed537f8a0b30ab40ee32f9d22
-  remaining: Reconcile server-seeding documentation with the owner's latest direction, review publication custody, and complete the wider ecosystem goal. No new publication or live-model claim.
+  prepared_source_verification: All 14 tooling/HTTP tests passed after the documentation changes. Actual Edge checked home and updates at 1440 and 390 pixels; prepared labels were correct, no horizontal overflow or page errors occurred, and diagram text stayed within its SVG bounds. The owned browser profile was removed.
+  canonical_byte_lesson: Windows autocrlf expanded public checkout bytes despite LF Git objects. Explicit public-path LF attributes and canonical LF files now keep preview/upload bytes identical to committed digests. The new direct-source publisher refuses drift instead of relying on a copied Git-export stage.
+  metadata_workflow: Commit reviewed public content first; write checksum stdout only to canonical docs/file-checksums.sha256 and commit it; then write manifest stdout only to canonical deploy/site-deployment-manifest.v1.json from that checksum-inclusive commit. Validate all canonical public bytes before transport. Never recreate deploy/staging.
+  remaining: Complete publication custody review and the wider ecosystem goal; physically retire the policy-blocked stage, establish a qualified starter and prove live server seeding. No new publication or live-model claim.
 
-current_publication:
+last_verified_publication:
   version: 1.1.0
   release_date: 2026-08-28
   source_commit: e52df2cf0c5d77519a870211f1e63c5b77b90705

@@ -2,8 +2,23 @@
   "schema": "uaix.site_release_history.v1",
   "site_id": "minimodel.mirust.com",
   "origin": "https://minimodel.mirust.com",
-  "current_release_id": "minimodel.mirust.com@1.1.0",
+  "current_release_id": "minimodel.mirust.com@1.1.1",
   "releases": [
+    {
+      "release_id": "minimodel.mirust.com@1.1.1",
+      "version": "1.1.1",
+      "release_date": "2026-09-12",
+      "last_publish_date": null,
+      "status": "prepared",
+      "summary": "Documents the authorized initial MiniModel.org seed and simple cached or automatic startup.",
+      "changes": [
+        "Initial verified SLM2 compositions may be seeded directly by MiniModel.org.",
+        "TinyRustLM should restore a usable cache or acquire a small qualified starter automatically.",
+        "Local files, Hugging Face, conversion and manual peer/IP controls belong in Advanced.",
+        "Preserve useful experiment lessons and remove verified superseded models; keep source history in Git.",
+        "A qualified starter and live server seed have not yet been established."
+      ]
+    },
     {
       "release_id": "minimodel.mirust.com@1.1.0",
       "version": "1.1.0",

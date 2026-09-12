@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MiniModel | Qualified SLM2 Discovery And Direct P2P Protocol</title>
   <meta name="description" content="Current prelaunch protocol documentation for qualified SLM2 discovery, direct peer transfer, explicit local conversion, and evidence boundaries.">
-  <meta name="application-version" content="1.1.0">
+  <meta name="application-version" content="1.1.1">
   <link rel="canonical" href="https://minimodel.mirust.com/">
   <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
   <link rel="stylesheet" href="/styles.css">
@@ -42,20 +42,20 @@
       <div class="hero-copy">
         <p class="eyebrow">Prelaunch developer protocol</p>
         <h1 id="hero-title">MiniModel</h1>
-        <p class="lead">Discovery metadata for exact qualified SLM2 compositions, direct transfer between consenting peers, and an explicit local-conversion route when no matching peer is available.</p>
+        <p class="lead">Verified SLM2 discovery and direct peer transfer, with MiniModel.org authorized to seed a small starter so TinyRustLM can work from first use.</p>
         <div class="hero-actions" aria-label="Primary documentation actions">
           <a class="button primary" href="/docs/catalog-boundary.md">Read the catalog contract</a>
           <a class="button" href="/docs/acquisition-contract.md">Read acquisition rules</a>
           <a class="text-link" href="#evidence">See current proof status <span aria-hidden="true">&rarr;</span></a>
         </div>
         <dl class="contract-facts" aria-label="Core protocol facts">
-          <div><dt>Project sites</dt><dd>Metadata only</dd></div>
-          <div><dt>Model bytes</dt><dd>Direct peer or local source</dd></div>
+          <div><dt>MiniModel.org</dt><dd>Catalog and initial seed</dd></div>
+          <div><dt>Startup</dt><dd>Usable cache or small starter</dd></div>
           <div><dt>Activation</dt><dd>Exact independent verification</dd></div>
         </dl>
       </div>
       <figure class="map">
-        <img src="/assets/exchange-map.svg" alt="Catalog discovery selects either an exact qualified peer composition or explicit local conversion, followed by independent verification and atomic activation." width="1100" height="520">
+        <img src="/assets/exchange-map.svg" alt="A MiniModel.org seed supplies a qualified starter, followed by independent verification and atomic activation. Local conversion remains an advanced option." width="1100" height="520">
         <figcaption>Metadata can identify a route. Only exact verified bytes and receipts can prove one.</figcaption>
       </figure>
     </section>
@@ -74,12 +74,12 @@
       <div class="section-heading">
         <p class="section-kicker">Current authority</p>
         <h2>One clean-slate SLM2 acquisition contract</h2>
-        <p>MiniModel.org publishes bounded catalog and peer-announcement metadata. It does not host or proxy model bytes, run inference, perform server-side conversion, or certify model quality.</p>
+        <p>MiniModel.org publishes bounded catalog and peer-announcement metadata and is authorized to provide initial verified SLM2 seeds. It does not proxy arbitrary model downloads, run inference, perform server-side conversion, or certify model quality.</p>
       </div>
       <ul class="rule-list">
         <li><strong>Catalog</strong><span>Identifies one exact source, composition, qualification claim, runtime requirement, and piece set.</span></li>
-        <li><strong>Transfer</strong><span>Moves exact composition bytes directly between consenting peers with bounded, verified pieces.</span></li>
-        <li><strong>Conversion</strong><span>Uses an installed local companion, an immutable public source revision, and an explicit one-shot operation.</span></li>
+        <li><strong>Transfer</strong><span>Moves exact composition bytes from the initial server seed or other consenting peers with bounded, verified pieces.</span></li>
+        <li><strong>Advanced</strong><span>Keeps local files, Hugging Face, conversion and manual peer/IP settings available without requiring them for first use.</span></li>
         <li><strong>Activation</strong><span>Occurs only after complete member verification and independent acceptance.</span></li>
         <li class="warning"><strong>No compatibility lane</strong><span>Old `.slm`, manifest-v0, script handoff, alias, fallback, and migration material is retired from current public authority.</span></li>
       </ul>
@@ -103,12 +103,12 @@
     <section id="routes" class="section content">
       <div class="section-heading">
         <p class="section-kicker">Deterministic selection</p>
-        <h2>Exact peer first, otherwise explicit local conversion</h2>
-        <p>The user sees which route is running. A failed peer route does not silently change peers, begin conversion, invoke remote inference, or download an instruction file.</p>
+        <h2>A working cache or a small starter by default</h2>
+        <p>First use should need no model file, Hugging Face account or peer address. Progress and cancellation stay visible. Local files, conversion and manual settings remain in Advanced.</p>
       </div>
       <ol class="workflow" aria-label="Acquisition workflow">
-        <li><span>1</span><div><strong>Select</strong><p>Resolve one catalog identity and disclose storage, network, and runtime requirements.</p></div></li>
-        <li><span>2</span><div><strong>Route</strong><p>Choose one exact qualified peer offer or one explicit pinned-source local conversion.</p></div></li>
+        <li><span>1</span><div><strong>Restore</strong><p>Open a usable cached composition when one is already installed.</p></div></li>
+        <li><span>2</span><div><strong>Acquire</strong><p>Otherwise select a small qualified starter from the current catalog and MiniModel.org server seed.</p></div></li>
         <li><span>3</span><div><strong>Verify</strong><p>Check every piece, completed member, manifest binding, provenance, and qualification reference.</p></div></li>
         <li><span>4</span><div><strong>Activate</strong><p>Atomically install only the complete accepted composition, then open it in TinyRustLM.com.</p></div></li>
       </ol>
@@ -120,12 +120,12 @@
         <div>
           <div class="section-heading compact">
             <p class="section-kicker">Network boundary</p>
-            <h2>Project sites never receive prompts or model bytes</h2>
+            <h2>Seed bytes arrive; prompts stay local</h2>
           </div>
           <ul class="plain-list">
-            <li><strong>Allowed:</strong> catalog metadata, public source metadata, qualification references, and expiring peer announcements.</li>
-            <li><strong>Direct only:</strong> model pieces move between consenting peers or from the explicitly selected public source to the local companion.</li>
-            <li><strong>Excluded:</strong> prompts, transcripts, credentials, invitation URLs, local paths, raw private evidence, and hidden telemetry.</li>
+            <li><strong>Allowed:</strong> catalog metadata, qualification references, expiring peer announcements, and verified compositions on the authorized initial seed.</li>
+            <li><strong>Direct transfer:</strong> model pieces arrive from the MiniModel.org seed or another consenting peer. Advanced conversion uses an explicitly selected public source.</li>
+            <li><strong>Excluded from public records:</strong> prompts, transcripts, credentials, invitation URLs, local paths, raw private evidence, and hidden telemetry.</li>
           </ul>
         </div>
         <div>
@@ -158,6 +158,7 @@
         <div class="section-heading compact">
           <p class="section-kicker">Truthful prelaunch status</p>
           <h2>No live lane is inferred from source or reachability</h2>
+          <p>A qualified starter and live MiniModel.org server seed have not yet been established.</p>
           <p>Configuration, fixtures, local probes, mocks, a catalog row, or a reachable endpoint do not prove qualification, public P2P availability, a live MemoryEndpoints operation, browser activation, deployment, or publication.</p>
         </div>
         <div class="table-wrap" role="region" aria-label="Current evidence counters" tabindex="0">
@@ -180,7 +181,7 @@
 
   <footer class="footer">
     <div class="footer-grid">
-      <div><strong>Site release</strong><p>Version 1.1.0<br>Released 2026-08-28<br>Last published 2026-08-28</p></div>
+      <div><strong>Prepared site release</strong><p>Version 1.1.1<br>Prepared 2026-09-12<br>Last published 2026-08-28</p></div>
       <nav aria-label="Developer routes"><strong>Developer routes</strong><a href="/docs/catalog-boundary.md">Catalog contract</a><a href="/llms.txt">Agent summary</a><a href="/updates/">Updates</a></nav>
       <div><strong>Evidence boundary</strong><p>Publication requires the exact release commit, deployment receipt, and HTTPS byte readback.</p></div>
     </div>

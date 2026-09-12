@@ -14,11 +14,15 @@ or protocols:
 
 ## Nonnegotiable Boundaries
 
-- MiniModel.org publishes metadata; project sites do not proxy model bytes.
+- MiniModel.org publishes metadata and is authorized to serve the initial
+  verified SLM2 seed compositions. It does not proxy arbitrary model downloads.
 - The sole current model path is the exact six-member SLM2 composition.
-- Acquisition uses one explicit exact-peer route or one explicit pinned local
-  conversion route. There is no hidden route retry or instruction-file
-  handoff.
+- Restore a usable cache or automatically acquire a small qualified starter
+  from a MiniModel.org seed. Local files, Hugging Face, conversion and manual
+  peer/IP configuration belong in Advanced. There is no hidden route retry or
+  instruction-file handoff.
+- Record useful experiment outcomes and limitations before retiring their
+  files. Keep source history in Git, and remove verified superseded models.
 - Catalog, qualification, peer availability, transfer, browser activation,
   deployment, publication, and campaign progress are separate claims.
 - MemoryEndpoints.com has exactly two uses: direct ecosystem-agent

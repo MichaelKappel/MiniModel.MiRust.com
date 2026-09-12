@@ -1,8 +1,10 @@
 # MiniModel Local Companion Boundary
 
 The installed local companion performs the user's requested acquisition when a
-browser cannot safely do so alone. It does not turn project sites into model
-hosts, remote inference services, or arbitrary local command launchers.
+browser cannot safely do so alone. MiniModel.org may provide the initial
+verified SLM2 seed; the companion does not provide remote inference or
+arbitrary local command execution. Manual companion configuration and
+conversion belong in Advanced.
 
 ## Session
 
@@ -21,7 +23,7 @@ They do not expose arbitrary shell commands, local paths, or unrestricted URLs.
 
 One request chooses one route:
 
-- exact qualified peer composition; or
+- exact qualified peer composition, including the MiniModel.org initial seed; or
 - explicit pinned public source and one registered local conversion.
 
 A timeout, refusal, corrupt piece, source drift, conversion rejection, crash,

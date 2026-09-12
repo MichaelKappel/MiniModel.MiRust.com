@@ -7,11 +7,13 @@ host, remote-inference fallback, hidden retry, or ambiguous alias is current.
 
 ## Catalog And Byte Flow
 
-MiniModel.org is a metadata catalog. It supports direct P2P discovery but does not proxy model bytes.
-Exact qualified SLM2 composition bytes may move directly
-between consenting peers. When no exact qualified peer exists, an installed
-local companion may acquire a pinned source and perform an explicit local
-conversion. The user sees which route is active.
+MiniModel.org is a metadata catalog and is authorized to provide initial
+verified SLM2 seeds. It does not proxy arbitrary downloads or run inference.
+TinyRustLM restores a usable cached model or automatically acquires a small
+qualified starter from the MiniModel.org seed. A new user needs neither a local
+file nor Hugging Face knowledge. Progress and cancellation remain visible.
+Local files, Hugging Face, conversion and manual peer/IP controls belong in
+Advanced. Local conversion uses an explicitly selected pinned source.
 
 A catalog entry binds exact source and license provenance, composition and
 profile identity, member names/sizes/digests, qualification claims, runtime
@@ -32,7 +34,7 @@ conversion, independent inspection, and qualification evidence before
 installation. Acquisition must perform the requested operation rather than
 produce a text handoff.
 
-Project sites receive no prompts or model bytes. Logs and public receipts omit
+MiniModel.org serves approved seed bytes; prompts stay local. Logs and public receipts omit
 credentials, invitation URLs, local paths, raw private evidence, and user
 content.
 
@@ -62,11 +64,10 @@ claims require matching receipts.
 
 ## Publication Record
 
-Last published: 1.1.0.
-Release date: 2026-08-28.
-Update: published current direct P2P, SLM2, cryptographic identity, privacy,
-evidence, and exact two-use MemoryEndpoints authority; retired obsolete .slm,
-manifest-v0, verifier-MVP, fixture, and instruction-handoff authority.
+Prepared: 1.1.1, dated 2026-09-12; initial seeds, cached/default startup and
+Advanced acquisition controls are documented.
+Last published: 1.1.0, on 2026-08-28.
+A qualified starter and live server seed have not yet been established.
 
 Public release requires a clean committed revision, complete tests and
 documentation, deployment from that revision, and exact HTTPS readback. Site

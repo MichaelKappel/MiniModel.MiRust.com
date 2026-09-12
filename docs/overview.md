@@ -4,19 +4,21 @@ MiniModel.org is the metadata catalog and discovery surface for exact qualified
 SLM2 compositions. MiniModel.MiRust.com is its prelaunch developer and protocol
 documentation site.
 
-Project sites do not host, proxy, convert, or execute model bytes. They do not
+MiniModel.org is authorized to host the initial verified SLM2 seed compositions.
+It does not proxy arbitrary model downloads, convert models, run inference or
 receive prompts. Catalog metadata can identify a candidate route, but cannot by
 itself prove qualification, current peer availability, transfer, installation,
 browser execution, publication, or campaign progress.
 
 ## Current Acquisition Contract
 
-1. Resolve one exact catalog identity.
-2. Prefer one exact currently qualified composition offered by a consenting
-   peer.
-3. If that exact route is unavailable, require explicit user approval for an
-   installed local companion to acquire one immutable public source revision
-   and perform one registered conversion.
+1. Restore a usable cached composition when available.
+2. Otherwise automatically select a small qualified starter from the current
+   MiniModel.org catalog and an authorized server seed, with visible progress
+   and cancellation. No local file or Hugging Face knowledge is required.
+3. Keep local import, Hugging Face, local conversion and manual peer/IP
+   configuration in Advanced. A user may explicitly request an installed
+   companion to convert one immutable public source revision.
 4. Independently verify source, license, provenance, composition closure,
    member identities, qualification references, and runtime profile.
 5. Atomically install only the complete accepted six-member composition.
@@ -62,3 +64,6 @@ current, secret-safe, provenance-labeled, and noncontradictory.
 Configuration, fixtures, mocks, local probes, and reachable endpoints are not
 live proof. Campaign counters remain `0/20`, `0/50`, `0/25`, `0/40`, and
 `0/20` until exact matching receipts exist.
+
+The initial seed is authorized; a qualified starter and live server seed have
+not yet been established. Source preparation does not change those claims.

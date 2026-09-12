@@ -2,15 +2,21 @@
 
 MiniModel.MiRust.com is the prelaunch developer and protocol documentation site
 for MiniModel.org. MiniModel is a metadata catalog and direct P2P discovery
-system for locally verified SLM2 compositions. It is not a hosted model,
-conversion, relay, or inference service.
+system for locally verified SLM2 compositions. MiniModel.org is also authorized
+to provide the initial server seeds. Conversion and inference run locally.
 
 ## Current Boundary
 
-MiniModel.org publishes bounded catalog and peer-announcement metadata. It does not proxy model bytes.
-Exact qualified bytes move directly between consenting
-peers; when no exact qualified peer is available, an installed local companion
-may perform an explicit conversion from a pinned and verified public source.
+MiniModel.org publishes bounded catalog and peer-announcement metadata and may
+serve exact verified SLM2 compositions as the initial seed peer. It does not
+proxy arbitrary model downloads or certify model quality.
+
+TinyRustLM restores a usable cached composition or automatically acquires a
+small qualified starter from a MiniModel.org seed. A new user needs neither a
+local model file nor a Hugging Face account. Progress and cancellation remain
+visible. Local import, Hugging Face, conversion and manual peer/IP settings
+belong in Advanced. An installed local companion may perform an explicitly
+requested conversion from a pinned and verified public source.
 
 Catalog rows bind cryptographic identities and evidence references. They do
 not by themselves prove model quality, current peer availability,
@@ -45,11 +51,11 @@ copy remains current, secret-safe, provenance-labeled, and noncontradictory.
 
 ## Publication
 
+- Prepared: `1.1.1`, dated `2026-09-12`; authorized initial server seeding,
+  cached/default startup and Advanced acquisition controls are documented.
 - Last published: `1.1.0`.
-- Release date: `2026-08-28`.
-- Update: retired obsolete `.slm`, manifest-v0, verifier-MVP, fixture, and
-  instruction-handoff authority; published the current direct P2P, SLM2,
-  privacy, evidence, and two-use MemoryEndpoints contracts.
+- Last publication date: `2026-08-28`.
+- A qualified starter and live server seed have not yet been established.
 
 Public readback requires a clean committed source revision, complete site
 gates, deployment from that revision, and exact HTTPS verification. A source

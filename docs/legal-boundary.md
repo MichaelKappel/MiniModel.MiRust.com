@@ -19,15 +19,16 @@ an unrelated byte request.
 
 ## Privacy
 
-Project sites do not receive prompts or model bytes. Public records exclude:
+MiniModel.org may serve verified initial seed compositions. Prompts stay local,
+and serving a seed does not authorize uploading user content. Public records exclude:
 
 - prompts, transcripts, generated text, and private memory payloads;
 - passwords, session tokens, invitation URLs, and account identifiers;
 - local filesystem paths and machine-specific details; and
 - raw private qualification, conversion, browser, or hosted-memory evidence.
 
-Model bytes move only from an explicitly selected public source to the local
-companion or directly between consenting peers.
+Model bytes arrive from the authorized MiniModel.org seed or another consenting
+peer. Advanced local conversion acquires an explicitly selected public source.
 
 ## Companion Authority
 

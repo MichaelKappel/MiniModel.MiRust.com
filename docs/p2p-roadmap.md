@@ -13,8 +13,10 @@ This is a prelaunch proof sequence, not a claim that a public P2P lane exists.
    presence and no arbitrary commands, paths, or URLs.
 6. Run one real pinned local conversion and preserve its exact private and
    public-safe evidence.
-7. Run one direct sender-to-receiver transfer across an independently observed
-   outside-network lane.
+7. Establish a qualified small starter on the authorized MiniModel.org server
+   seed and prove its transfer across an independently observed outside-network
+   lane. Verify automatic first use and cached startup without local files,
+   Hugging Face setup or manual peer/IP configuration.
 8. Activate the exact composition in a real browser and complete the required
    numerical, privacy, cancellation, and clean-profile gates.
 9. Publish only from a clean pushed revision, then verify exact public HTTPS

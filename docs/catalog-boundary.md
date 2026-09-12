@@ -1,8 +1,9 @@
 # MiniModel Catalog And P2P Boundary
 
 MiniModel.org publishes bounded discovery metadata for direct P2P exchange of
-qualified SLM2 compositions. It does not proxy model bytes, run inference,
-perform server-side conversion, or certify model quality.
+qualified SLM2 compositions and is authorized to provide their initial server
+seeds. It does not proxy arbitrary model downloads, run inference, perform
+server-side conversion, or certify model quality.
 
 ## Required Identities
 
@@ -22,9 +23,11 @@ execution, and publication remain separate claims.
 
 ## Deterministic Route
 
-Prefer an exact currently qualified peer composition. Bytes move directly
-between consenting peers. If that exact route is unavailable, use an installed
-local companion for an explicit pinned local conversion. Do not hide route
+Restore a usable cached composition or automatically acquire a small qualified
+starter from a MiniModel.org server seed. Bytes use the same exact identity and
+verification rules as any consenting peer. Keep local-file import, Hugging
+Face, local conversion and manual peer/IP configuration in Advanced. An
+installed companion performs pinned conversion only when requested. Do not hide route
 changes, silently retry alternate peers, use remote inference, or substitute an
 instruction-file download.
 
@@ -34,7 +37,7 @@ completed members, and activates only after the entire composition passes.
 
 ## Privacy And Evidence
 
-Project sites do not receive prompts or model bytes. Public metadata and
+MiniModel.org serves approved seed bytes; prompts stay local. Public metadata and
 receipts exclude credentials, invitation URLs, local paths, and raw private
 evidence. Local, loopback, LAN, fixture, mocked, and configured states are not
 outside-network proof.
@@ -56,11 +59,10 @@ noncontradictory.
 
 ## Publication
 
-- Last published: `1.1.0`.
-- Release date: `2026-08-28`.
-- Update: direct P2P, cryptographic SLM2, local-conversion, privacy, evidence,
-  and the exact two-use MemoryEndpoints boundary synchronized; obsolete active
-  format, fixture, verifier, and handoff routes retired.
+- Prepared: `1.1.1`, dated `2026-09-12`; initial server seeds, cached/default
+  startup and Advanced acquisition controls are documented.
+- Last published: `1.1.0`, on `2026-08-28`.
+- A qualified starter and live server seed have not yet been established.
 
 Exact public readback is required before this source change may be described as
 deployed or published.

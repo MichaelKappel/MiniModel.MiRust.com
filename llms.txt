@@ -3,10 +3,11 @@
 Role: prelaunch MiniModel developer and protocol documentation.
 Catalog: https://MiniModel.org/
 
-MiniModel.org publishes metadata for direct P2P discovery. It does not proxy model bytes.
-Exact qualified SLM2 compositions move directly between
-consenting peers; otherwise an installed local companion may perform an
-explicit pinned local conversion.
+MiniModel.org publishes metadata for direct P2P discovery and is authorized to
+provide initial verified SLM2 seeds. It does not proxy arbitrary downloads or
+run inference. TinyRustLM restores a usable cached model or automatically
+acquires a small qualified starter from this seed. Local files, Hugging Face,
+conversion and manual peer/IP settings belong in Advanced.
 
 Catalog identities, cryptographic piece/manifests, source and license binding,
 qualification, current peer availability, outside-network proof, browser
@@ -24,8 +25,6 @@ Prelaunch memory may also be duplicated in current .uai, wiki, public-safe
 source notes, and approved private stores when every maintained copy remains
 current, secret-safe, provenance-labeled, and noncontradictory.
 
-Last published: 1.1.0.
-Release date: 2026-08-28.
-Update: current direct P2P, cryptographic SLM2, privacy, evidence, and exact
-two-use MemoryEndpoints boundaries published; obsolete .slm and manifest-v0
-authority retired.
+Prepared: 1.1.1, dated 2026-09-12; initial seeds and simple startup documented.
+Last published: 1.1.0, on 2026-08-28.
+A qualified starter and live server seed have not yet been established.
