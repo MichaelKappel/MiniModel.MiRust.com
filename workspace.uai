@@ -5,6 +5,8 @@ status: prelaunch-documentation-authority
 current_authority:
   - MiniModel.MiRust.com documents the current MiniModel.org catalog and direct-P2P protocol boundary.
   - MiniModel.org does not proxy model bytes; exact qualified SLM2 bytes move directly between consenting peers or are converted explicitly by an installed local companion.
+  - The owner's 2026-09-12 direction authorizes MiniModel.org to provide initial verified SLM2 seeds from D:\LLMs\TinyRustLM. TinyRustLM should restore a usable cached model or automatically acquire a small qualified starter; local files, Hugging Face, conversion, and manual peer/IP controls belong in Advanced.
+  - Current public documentation still needs a new prepared release to reflect this direction. Source authorization and tests do not prove model quality, live seeding, or publication.
   - Read .uai/totem.uai and .uai/taboo.uai before changing contracts or claims.
   - Read README.md, llms.txt, llms-full.txt, and docs/catalog-boundary.md for current public-safe documentation.
 

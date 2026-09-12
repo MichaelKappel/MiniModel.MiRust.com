@@ -1,5 +1,4 @@
 param(
-    [string]$ManifestPath = (Join-Path (Split-Path -Parent $PSScriptRoot) "deploy\site-deployment-manifest.v1.json"),
     [string]$FileZillaProfilePath = (Join-Path $env:APPDATA "FileZilla\sitemanager.xml"),
     [string]$ReportPath = (Join-Path (Split-Path -Parent $PSScriptRoot) ("deploy\receipts\site-deployment-{0}.json" -f (Get-Date).ToUniversalTime().ToString("yyyyMMddTHHmmssZ"))),
     [string]$ResumeNonce,
@@ -10,10 +9,32 @@ $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName System.Net.Http
 
 $repositoryRoot = [IO.Path]::GetFullPath((Split-Path -Parent $PSScriptRoot))
+$ManifestPath = Join-Path $repositoryRoot 'deploy\site-deployment-manifest.v1.json'
 $script:credential = $null
 $script:ftpHost = $null
 $script:ftpPort = 0
-$script:stagingRoot = $null
+
+# Bind each transport input to the single canonical source tree and refuse links.
+function Get-CanonicalPublicPath {
+    param([Parameter(Mandatory)][string]$RelativePath)
+
+    $relative = Assert-RelativePath -Path $RelativePath
+    $resolved = [IO.Path]::GetFullPath((Join-Path $repositoryRoot ($relative -replace '/', '\')))
+    if (-not $resolved.StartsWith($repositoryRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
+        throw 'Public input escaped the canonical repository.'
+    }
+    $cursor = $resolved
+    while ($cursor) {
+        $item = Get-Item -LiteralPath $cursor -Force
+        if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
+            ($cursor -eq $resolved -and ($item.PSIsContainer -or $item.Length -gt 2097152)) -or
+            ($cursor -ne $resolved -and -not $item.PSIsContainer)) {
+            throw 'Canonical public input ancestry or size is unsafe.'
+        }
+        $cursor = Split-Path -Parent $cursor
+    }
+    return $resolved
+}
 
 function Get-FileSha256 {
     param([Parameter(Mandatory)][string]$Path)
@@ -36,7 +57,7 @@ function Assert-RelativePath {
         $Path.StartsWith("/") -or
         $Path.StartsWith("\") -or
         $Path.Contains("\") -or
-        $Path -match "(^|/)\.\.(/|$)" -or
+        $Path -match "(^|/)\.{1,2}(/|$)" -or
         $Path -notmatch "^[A-Za-z0-9._/-]+$" -or
         $Path -match "//") {
         throw "Deployment manifest contains an unsafe relative path."
@@ -188,7 +209,7 @@ function Get-LocalPrefixSha256 {
         while ($remaining -gt 0) {
             $requested = [int][Math]::Min([int64]$buffer.Length, $remaining)
             $read = $stream.Read($buffer, 0, $requested)
-            if ($read -ne $requested) { throw "Unexpected end of staged deployment file." }
+            if ($read -ne $requested) { throw "Unexpected end of canonical deployment file." }
             $sha.TransformBlock($buffer, 0, $read, $buffer, 0) | Out-Null
             $remaining -= $read
         }
@@ -298,12 +319,19 @@ function Write-RemoteChunk {
 }
 
 function Send-RemoteFile {
-    param([string]$LocalPath, [string]$RemotePath)
+    param([string]$LocalPath, [string]$RemotePath, [int64]$ExpectedBytes, [string]$ExpectedSha256)
 
-    $expectedBytes = (Get-Item -LiteralPath $LocalPath).Length
     $input = [IO.File]::OpenRead($LocalPath)
     $offset = [int64]0
     try {
+        # Hash the same read-locked stream that supplies transport, before any remote write.
+        $sha = [Security.Cryptography.SHA256]::Create()
+        try { $actualHash = ([BitConverter]::ToString($sha.ComputeHash($input))).Replace('-', '').ToLowerInvariant() }
+        finally { $sha.Dispose() }
+        if ($input.Length -ne $ExpectedBytes -or $actualHash -cne $ExpectedSha256) {
+            throw 'Canonical input changed after publication preflight.'
+        }
+        $input.Position = 0
         $remoteBytes = Get-RemoteSize -RemotePath $RemotePath
         if ($remoteBytes -gt $expectedBytes -or $remoteBytes -eq 0) {
             Remove-RemoteFileIfPresent -RemotePath $RemotePath
@@ -326,7 +354,7 @@ function Send-RemoteFile {
             $count = [int][Math]::Min([int64]8192, $expectedBytes - $offset)
             $chunk = New-Object byte[] $count
             $read = $input.Read($chunk, 0, $count)
-            if ($read -ne $count) { throw "Unexpected end of staged deployment file." }
+            if ($read -ne $count) { throw "Unexpected end of canonical deployment file." }
             $intendedSize = $offset + $count
             $committed = $false
             for ($attempt = 1; $attempt -le 6; $attempt++) {
@@ -370,10 +398,7 @@ function Publish-File {
     param([pscustomobject]$File, [string]$Nonce)
 
     $relative = [string]$File.path
-    $localPath = [IO.Path]::GetFullPath((Join-Path $script:stagingRoot ($relative -replace "/", "\")))
-    if (-not $localPath.StartsWith($script:stagingRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
-        throw "Staged deployment path escaped the staging root."
-    }
+    $localPath = Get-CanonicalPublicPath -RelativePath $relative
     if (Test-RemoteIdentity -RemotePath $relative -Bytes ([int64]$File.bytes) -Sha256 ([string]$File.sha256)) {
         Write-Host "SKIP $relative"
         return "already-current"
@@ -391,7 +416,7 @@ function Publish-File {
     $backupPath = "$parent$backupLeaf"
     Remove-RemoteFileIfPresent -RemotePath $backupPath
     try {
-        Send-RemoteFile -LocalPath $localPath -RemotePath $stagePath
+        Send-RemoteFile -LocalPath $localPath -RemotePath $stagePath -ExpectedBytes ([int64]$File.bytes) -ExpectedSha256 ([string]$File.sha256)
         if (-not (Test-RemoteIdentity -RemotePath $stagePath -Bytes ([int64]$File.bytes) -Sha256 ([string]$File.sha256))) {
             throw "Staged remote identity mismatch for $relative"
         }
@@ -434,6 +459,9 @@ function Write-Receipt {
     Move-Item -LiteralPath $temporary -Destination $resolved
 }
 
+# The Node verifier binds exact paths, route checks, version, commit and all public bytes.
+node (Join-Path $PSScriptRoot 'validate-publication-inputs.js')
+if ($LASTEXITCODE -ne 0) { throw 'Canonical publication input validation failed.' }
 $manifestItem = Get-Item -LiteralPath $ManifestPath
 if ($manifestItem.Length -lt 1 -or $manifestItem.Length -gt 2097152) { throw "Deployment manifest size is invalid." }
 $manifestSha256 = Get-FileSha256 -Path $manifestItem.FullName
@@ -458,7 +486,6 @@ if (-not [Uri]::TryCreate([string]$manifest.origin, [UriKind]::Absolute, [ref]$o
 
 $seen = @{}
 $totalBytes = [int64]0
-$script:stagingRoot = [IO.Path]::GetFullPath((Join-Path $repositoryRoot ("deploy\staging\{0}" -f [string]$manifest.version)))
 foreach ($file in @($manifest.files)) {
     $relative = Assert-RelativePath -Path ([string]$file.path)
     if ($seen.ContainsKey($relative)) { throw "Deployment manifest contains a duplicate path." }
@@ -468,7 +495,7 @@ foreach ($file in @($manifest.files)) {
         throw "Deployment manifest contains an invalid file identity."
     }
     $totalBytes += $bytes
-    $localPath = [IO.Path]::GetFullPath((Join-Path $script:stagingRoot ($relative -replace "/", "\")))
+    $localPath = Get-CanonicalPublicPath -RelativePath $relative
     if (-not (Test-Path -LiteralPath $localPath -PathType Leaf) -or
         (Get-Item -LiteralPath $localPath).Length -ne $bytes -or
         (Get-FileSha256 -Path $localPath) -cne [string]$file.sha256) {
@@ -498,6 +525,11 @@ if ($LASTEXITCODE -ne 0 -or $actualSourceTree.Trim() -cne [string]$manifest.sour
 
 Write-Host ("VALID {0} files, {1} bytes, manifest {2}" -f @($manifest.files).Count, $totalBytes, $manifestSha256)
 if (-not $Publish) { exit 0 }
+
+node (Join-Path (Split-Path -Parent $repositoryRoot) 'TinyRustLM.com\tinyrustlm\tools\verify-single-source-authority.js') --require-clean --require-remote-exact
+if ($LASTEXITCODE -ne 0) { throw 'Clean remote-exact ecosystem authority is required before transport.' }
+$release = Get-Content -LiteralPath (Join-Path $repositoryRoot '.well-known\site-release.json') -Raw | ConvertFrom-Json
+if ($release.status -cne 'published') { throw 'Prepared source is not a publication record.' }
 
 $startedUtc = (Get-Date).ToUniversalTime().ToString("o")
 $nonce = if ([string]::IsNullOrEmpty($ResumeNonce)) {

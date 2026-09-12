@@ -8,6 +8,10 @@ ecosystem_cleanup:
   fixed: Preview server now serves only explicitly declared readable public artifacts; private repository files, source tools, traversal, links, unexpected hosts and unsupported methods are refused.
   consolidation: tools/public-artifact-policy.js is the single path policy for preview, checksum generation and manifest generation; duplicated broad directory-prefix publication rules were removed.
   verification: Seven real-HTTP/policy tests passed; preview line coverage 96.39 percent and policy coverage 100 percent. No new browser installation, source checkout or model copy was created.
+  publication_inputs: Metadata builders now read one full policy-bound canonical Git commit and emit only stdout; no copied stage, hardcoded version or output-path override. The publisher reads canonical files, validates the exact manifest and whole public closure, then hashes the read-locked upload stream before any remote write. Prepared source is refused by transport.
+  publication_tests: Fourteen tests passed, including 30 actual PowerShell checks with in-memory transport. Route-smoke headings are checked against committed bytes before publication. Historical source, publication and failure receipts remain unchanged.
+  stage_retirement: All 27 files under deploy/staging/1.1.0 match the closed historical manifest exactly (87,424 logical bytes). Automatic approval review rejected physical deletion with reason blocked by policy; the stage still exists. tools/remove-reviewed-stage.ps1 provides an exact-hash user-run retirement; no space recovery is claimed.
+  stage_review: artifacts/ecosystem-cleanup-20260912/stage-retirement.json; SHA-256 f8cddffc1516e1ec88558b62442f1ae8b95a675ed537f8a0b30ab40ee32f9d22
   remaining: Reconcile server-seeding documentation with the owner's latest direction, review publication custody, and complete the wider ecosystem goal. No new publication or live-model claim.
 
 current_publication:
@@ -32,6 +36,7 @@ preserved_failed_publication_check:
   status: failed
   cause: The route-smoke expectation used a shortened heading that did not match the actual current page heading.
   treatment: Preserved as immutable failure evidence. The expectation was corrected explicitly; the record was not overwritten or relabeled.
+  lesson_applied: tools/publication-metadata.js now checks every route-smoke expectation against the exact committed public artifact before generating publication metadata. A dedicated failure-path test reproduces the heading mismatch. An upload succeeding alone never proves publication succeeded.
 
 memory_endpoints:
   direct_agent_lane: Ecosystem agents use MemoryEndpoints.com directly for agent-to-agent long-term memory, meetings, handoffs, and coordination across every maintained site.
