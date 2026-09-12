@@ -2,10 +2,10 @@
   "schema": "uaix.static_site_deployment_manifest.v1",
   "site": "minimodel.mirust.com",
   "origin": "https://minimodel.mirust.com",
-  "version": "1.1.0",
-  "release_date": "2026-08-28",
-  "source_commit": "e52df2cf0c5d77519a870211f1e63c5b77b90705",
-  "source_tree": "74709870d789c1fb1b2430715dcc9fce773d15f4",
+  "version": "1.1.1",
+  "release_date": "2026-09-12",
+  "source_commit": "cf1cc5c807c2e71a72db9083765df8521e9dc020",
+  "source_tree": "f1f79dfafe7786f3a196d1870038eaba73942b30",
   "transport_profile": "MiniModel.MiRust.com",
   "files": [
     {
@@ -16,20 +16,20 @@
     },
     {
       "path": ".well-known/site-release-history.json",
-      "bytes": 1776,
-      "sha256": "29f2bc1b19b177fe60fa29a0e49a9ba934b62810c4a9434702c1e5cb0153f988",
+      "bytes": 2584,
+      "sha256": "c4dab9bf271409dbbd17562cd68e47bebb2159b5724fce579955598ae748e3b4",
       "https_readback_path": "/.well-known/site-release-history.json"
     },
     {
       "path": ".well-known/uaix-talisman.txt",
-      "bytes": 903,
-      "sha256": "c7a9143add14602f2caa6093587aef2e4936665c82191698e104c13d68836d81",
+      "bytes": 967,
+      "sha256": "7b6b2c429de7b8bc20995c157afb6ac25b92e1e2a4a0fe553256dfbd558668ce",
       "https_readback_path": "/.well-known/uaix-talisman.txt"
     },
     {
       "path": "assets/exchange-map.svg",
-      "bytes": 3628,
-      "sha256": "2c6468c59654c22401e422cd8732a045119fe0f7bb01a43f46778708472fca98",
+      "bytes": 3649,
+      "sha256": "3ea6661e9cfe8a67eccfeff26b0efa5a5813e41adff3e59edcd94fdea7672698",
       "https_readback_path": "/assets/exchange-map.svg"
     },
     {
@@ -40,20 +40,20 @@
     },
     {
       "path": "docs/acquisition-contract.md",
-      "bytes": 1658,
-      "sha256": "54bac628a819cf6cee0eefec624bb84909666a634dddf61073e471177b6f1cf3",
+      "bytes": 2218,
+      "sha256": "9d5866215f3abdd2edf47ce8aa7035bb5aa3fd375e6f83840b960c7502469007",
       "https_readback_path": "/docs/acquisition-contract.md"
     },
     {
       "path": "docs/agent-readme.md",
-      "bytes": 1369,
-      "sha256": "2a524bbf307b7b78229e4ba038d9f59ee7039f90e389deb5860862c74eb18ca1",
+      "bytes": 1697,
+      "sha256": "ae8a7c29c2450b96157427d96ff73a6748555ee4750e09d254e06dd11cd0537b",
       "https_readback_path": "/docs/agent-readme.md"
     },
     {
       "path": "docs/catalog-boundary.md",
-      "bytes": 2897,
-      "sha256": "a1cc17496b900f8b21f055d55c1d77c88751e806f1c7e0d5d431f28131c8b3da",
+      "bytes": 3124,
+      "sha256": "66f0bccdb38990df03429212ddf0978e07ca3202ab3fb930f7d722964f51f84e",
       "https_readback_path": "/docs/catalog-boundary.md"
     },
     {
@@ -65,13 +65,13 @@
     {
       "path": "docs/file-checksums.sha256",
       "bytes": 2506,
-      "sha256": "09249ca5d5bdbe5ac3d7bbb6533da1f6004154b47a0ce0c1d8cd077d217fe6f0",
+      "sha256": "3042fe0a6ddc70519db0701132c344f6def3eca1e276b96e768c6cf00aad0d60",
       "https_readback_path": "/docs/file-checksums.sha256"
     },
     {
       "path": "docs/legal-boundary.md",
-      "bytes": 1847,
-      "sha256": "9d3b41a89de27eb58bd17720dca21732fb6cf87797fa3c69d529821a154ef0b2",
+      "bytes": 1970,
+      "sha256": "0fda4245029f59cfae445d52ce2864f17e464711dd896b1dcf31d9a7ee0c1e92",
       "https_readback_path": "/docs/legal-boundary.md"
     },
     {
@@ -82,20 +82,20 @@
     },
     {
       "path": "docs/overview.md",
-      "bytes": 2664,
-      "sha256": "1a1c52931513f5d869da29c7765d8e52e49d05974b355cf772df380d0c038f06",
+      "bytes": 3069,
+      "sha256": "a020e76b267df4b9f358dba60f72581cf9a84428df71c46697d1b21a7df9674c",
       "https_readback_path": "/docs/overview.md"
     },
     {
       "path": "docs/p2p-roadmap.md",
-      "bytes": 1310,
-      "sha256": "246c73a97603e0176b675990f4e185e9c305124894868b371cee596d16381129",
+      "bytes": 1495,
+      "sha256": "e05815b4f1294e882161b2098683d642e71ca01482e118b81b763da6bdf78983",
       "https_readback_path": "/docs/p2p-roadmap.md"
     },
     {
       "path": "docs/peer-companion.md",
-      "bytes": 1744,
-      "sha256": "59a91855dac5cde78779ac468a7279f669ed3eca064b6bcbfa941470095d3f69",
+      "bytes": 1882,
+      "sha256": "e67e9e017380ef60be1caebc241502e81db9d7083212165f4fa5a9c9cfa4089c",
       "https_readback_path": "/docs/peer-companion.md"
     },
     {
@@ -106,14 +106,14 @@
     },
     {
       "path": "docs/source-lanes.md",
-      "bytes": 1495,
-      "sha256": "07d6f3aa3383fdf92245460a741f9748d8d3a3660507fe09f0697d3c94249cb0",
+      "bytes": 2020,
+      "sha256": "e2a7cd8b92edbce44820830d73ebaf7ec20af7b4433f061672c6f1f007187bd3",
       "https_readback_path": "/docs/source-lanes.md"
     },
     {
       "path": "index.html",
-      "bytes": 12933,
-      "sha256": "41c320be817abfcede0fbd2e596b19f069f6b575be80e69903c718f2afbd7eb2",
+      "bytes": 13179,
+      "sha256": "5f5e194c7a71e7a8055e089714f68edb0c55f1adecd9a586fb2300579b37fb27",
       "https_readback_path": "/index.html"
     },
     {
@@ -124,20 +124,20 @@
     },
     {
       "path": "llms-full.txt",
-      "bytes": 3605,
-      "sha256": "9b32765a07470bea4a7ee0fe96392301eca8c53bed08dd7094ffe7913b48946c",
+      "bytes": 3745,
+      "sha256": "cdb7297aee5a791e2ea41cc34e567646d3789a87e10246e8ed9bcd5aa2055cf5",
       "https_readback_path": "/llms-full.txt"
     },
     {
       "path": "llms.txt",
-      "bytes": 1487,
-      "sha256": "ef57a31808268a9f2ad7077d75d31990daf7b42cba625de750f2acbdc58816fd",
+      "bytes": 1572,
+      "sha256": "117abddc3b4078238dddfefd16af92b437484162d872487922cb98966c4fad01",
       "https_readback_path": "/llms.txt"
     },
     {
       "path": "README.md",
-      "bytes": 2819,
-      "sha256": "ffdb456c20d9474a94f5425a95bb6701722b66aff1dc1f8ec83e0b1d88e4f558",
+      "bytes": 3233,
+      "sha256": "b9c83fb1571404a571628bbcf462da981d7fa6afe3a8153e5240ad9f1093a62d",
       "https_readback_path": "/README.md"
     },
     {
@@ -149,7 +149,7 @@
     {
       "path": "sitemap.xml",
       "bytes": 1782,
-      "sha256": "753e0fd93b7276c00bdafdd9abd73674b0ce2f107d2c1b156553977959771159",
+      "sha256": "27059576ee6a0f225d4417f2cdb5f0ab7e25cb35bd5e27cb8a8a52bed4caebab",
       "https_readback_path": "/sitemap.xml"
     },
     {
@@ -160,14 +160,14 @@
     },
     {
       "path": "updates/index.html",
-      "bytes": 3460,
-      "sha256": "5ab84425ddf7de6ed7a62b1a5cc87e797e280164331b6a09499bf99eac7a9b0b",
+      "bytes": 4323,
+      "sha256": "b4ef078c1c4472efa3cc996b60e36bc6a7b506631cca21a148db390e6d71f1af",
       "https_readback_path": "/updates/index.html"
     },
     {
       "path": ".well-known/site-release.json",
-      "bytes": 313,
-      "sha256": "779a9e73ad94960e912207cd965ec8e54cffa5d2e69fa9600688968ce3926683",
+      "bytes": 312,
+      "sha256": "1dc794a92897071fdaee43b6257d9fec5fd10390c0da12b556bf71c866502d01",
       "https_readback_path": "/.well-known/site-release.json"
     }
   ],
@@ -185,11 +185,11 @@
   "route_smokes": [
     {
       "path": "/",
-      "contains": "Version 1.1.0"
+      "contains": "Version 1.1.1"
     },
     {
       "path": "/updates/",
-      "contains": "1.1.0 - 2026-08-28"
+      "contains": "1.1.1 - 2026-09-12"
     },
     {
       "path": "/docs/catalog-boundary.md",
@@ -201,7 +201,7 @@
     },
     {
       "path": "/.well-known/site-release.json",
-      "contains": "minimodel.mirust.com@1.1.0"
+      "contains": "minimodel.mirust.com@1.1.1"
     }
   ]
 }

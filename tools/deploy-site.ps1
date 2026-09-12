@@ -514,11 +514,11 @@ foreach ($retiredPathValue in $retiredPaths) {
 }
 if ($totalBytes -gt 67108864) { throw "Deployment closure exceeds the total byte budget." }
 
-$gitStatus = @(git -C $repositoryRoot status --porcelain --untracked-files=all)
+$gitStatus = @(git -c "safe.directory=$repositoryRoot" -C $repositoryRoot status --porcelain --untracked-files=all)
 if ($LASTEXITCODE -ne 0 -or $gitStatus.Count -ne 0) { throw "Publishing requires a clean Git worktree." }
-git -C $repositoryRoot merge-base --is-ancestor ([string]$manifest.source_commit) HEAD
+git -c "safe.directory=$repositoryRoot" -C $repositoryRoot merge-base --is-ancestor ([string]$manifest.source_commit) HEAD
 if ($LASTEXITCODE -ne 0) { throw "Manifest source commit is not an ancestor of the publishing checkout." }
-$actualSourceTree = [string](git -C $repositoryRoot rev-parse ("{0}^{{tree}}" -f [string]$manifest.source_commit))
+$actualSourceTree = [string](git -c "safe.directory=$repositoryRoot" -C $repositoryRoot rev-parse ("{0}^{{tree}}" -f [string]$manifest.source_commit))
 if ($LASTEXITCODE -ne 0 -or $actualSourceTree.Trim() -cne [string]$manifest.source_tree) {
     throw "Manifest source tree does not match its source commit."
 }
@@ -619,7 +619,7 @@ try {
         version = [string]$manifest.version
         source_commit = [string]$manifest.source_commit
         source_tree = [string]$manifest.source_tree
-        publisher_commit = [string](git -C $repositoryRoot rev-parse HEAD)
+        publisher_commit = [string](git -c "safe.directory=$repositoryRoot" -C $repositoryRoot rev-parse HEAD)
         manifest_sha256 = $manifestSha256
         operation_nonce = $nonce
         started_utc = $startedUtc
@@ -644,7 +644,7 @@ catch {
         version = [string]$manifest.version
         source_commit = [string]$manifest.source_commit
         source_tree = [string]$manifest.source_tree
-        publisher_commit = [string](git -C $repositoryRoot rev-parse HEAD)
+        publisher_commit = [string](git -c "safe.directory=$repositoryRoot" -C $repositoryRoot rev-parse HEAD)
         manifest_sha256 = $manifestSha256
         operation_nonce = $nonce
         started_utc = $startedUtc

@@ -15,6 +15,7 @@ ecosystem_cleanup:
   prepared_source_verification: All 14 tooling/HTTP tests passed after the documentation changes. Actual Edge checked home and updates at 1440 and 390 pixels; prepared labels were correct, no horizontal overflow or page errors occurred, and diagram text stayed within its SVG bounds. The owned browser profile was removed.
   canonical_byte_lesson: Windows autocrlf expanded public checkout bytes despite LF Git objects. Explicit public-path LF attributes and canonical LF files now keep preview/upload bytes identical to committed digests. The new direct-source publisher refuses drift instead of relying on a copied Git-export stage.
   metadata_workflow: Commit reviewed public content first; write checksum stdout only to canonical docs/file-checksums.sha256 and commit it; then write manifest stdout only to canonical deploy/site-deployment-manifest.v1.json from that checksum-inclusive commit. Validate all canonical public bytes before transport. Never recreate deploy/staging.
+  prepared_metadata: Source cf1cc5c807c2e71a72db9083765df8521e9dc020 includes the 1.1.1 content and checksum closure. Current manifest SHA-256 bb8ea29f3b1aa4d72db384ec6b4b7b0aeb82434e40dc2ba93005041968a39f13 binds all 27 files; canonical byte validation passed. No transport or new publication receipt.
   remaining: Complete publication custody review and the wider ecosystem goal; physically retire the policy-blocked stage, establish a qualified starter and prove live server seeding. No new publication or live-model claim.
 
 last_verified_publication:
